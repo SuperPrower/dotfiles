@@ -1,0 +1,161 @@
+[colors]
+background = ${xrdb:background}
+background-alt = #1D1F21
+foreground = ${xrdb:foreground}
+foreground-alt = #548587
+fg-1 = #ffaf5f
+fg-2 = #ffd494
+primary = #ffb52a
+secondary = #e60053
+underline = #b04f41
+alert = #bd2c40
+
+[bar/simple]
+width = 45%
+height = 32
+offset-x = 55%
+offset-y = 0
+bottom = true
+fixed-center = false
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3 
+line-color = #f00
+
+border-size = 0
+border-color = #000000
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = xos4terminus:size=10;2
+font-1 = FontAwesome:size=12;2
+font-2 = xos4terminus:size=18:weight=bold;2
+
+modules-left = 
+modules-center = 
+modules-right = keyboard wireless wired xbacklight volume battery date
+
+tray-position = right 
+tray-detached = false 
+tray-padding = 2
+
+[module/wired]
+type = internal/network
+interface = enp2s0
+format-connected = <label-connected>
+format-connected-underline = ${colors.underline}
+format-disconnected = <label-disconnected>
+label-connected =  %local_ip%
+label-disconnected = 
+
+[module/wireless]
+type = internal/network
+interface = wlp1s0
+format-connected = <label-connected>
+format-connected-underline = ${colors.underline}
+format-disconnected = <label-disconnected>
+label-connected =  %essid%
+label-disconnected = 
+
+[module/battery]
+type = internal/battery
+
+; This is useful in case the battery never reports 100% charge
+full-at = 99
+
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT0
+adapter = AC
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+
+label-charging = %percentage%%
+label-discharging = %percentage%%
+label-full = %percentage%%
+format-discharging-underline = ${colors.underline}
+format-full-underline = ${colors.underline}
+; Only applies if <ramp-capacity> is used
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+; Only applies if <animation-charging> is used
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+; Framerate in milliseconds
+animation-charging-framerate = 500
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = %B %d, 
+date-alt = " %d/%m (%a)"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+label = %date% %time%
+
+label-underline = ${colors.underline}
+
+[module/volume]
+type = internal/volume
+
+format-volume = <ramp-volume> <label-volume>
+format-volume-underline = ${colors.underline}
+
+; label-volume-foreground = ${root.foreground}
+; format-muted-foreground = ${colors.foreground-alt}
+
+label-volume = %percentage%%
+label-muted =  %percentage%%
+
+ramp-volume-3 = 
+ramp-volume-2 = 
+ramp-volume-1 = 
+ramp-volume-0 = 
+
+[module/xbacklight]
+type = internal/xbacklight
+enable-scroll = false
+format = <label>
+
+label =  %percentage%%
+label-underline = ${colors.underline}
+[module/keyboard]
+type = internal/xkeyboard
+
+; List of indicators to ignore
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+blacklist-2 = caps lock
+label-layout = %layout%
+label-layout-font = 3
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+; vim:ft=dosini
