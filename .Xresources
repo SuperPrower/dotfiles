@@ -7,14 +7,15 @@ URxvt*letterSpace: 	0
 
 ! urxvt*font: 		xft:monospace:size=12
 
-! URxvt*font:			-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-*-u
-! URxvt*boldFont:		-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-*-u
+! URxvt*font:		-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-*-u
+! URxvt*boldFont:	-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-*-u
 
-URxvt*font:			-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1
-URxvt*boldFont:		-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1
+URxvt*font:			-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1,xft:xos4\ Terminess\ Powerline:pixelsize=12
+URxvt*boldFont:		-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1,xft:xos4\ Terminess\ Powerline:pixelsize=12
 
 URxvt.iso14755:		false
-URxvt*utf8:			true 
+URxvt*utf8:			true
+
 ! =================
 ! Xft configuration
 ! =================
@@ -24,28 +25,22 @@ Xft.antialias:     	true
 Xft.rgba:			subpixel
 Xft.hinting:       	true
 Xft.hintstyle:		hintslight
-! Xft.lcdfilter:		lcddefault
+! Xft.lcdfilter:	lcddefault
 
 ! ============
 ! color scheme
 ! ============
 
-#include "dotfiles/base16-tomorrow-night-256.Xresources"
-! #include "dotfiles/red-thread.Xresources"
+#include ".themes/base16-tomorrow-night-256.Xresources"
 
-! ------------------------------------------------------------------------------
-! ROFI Color theme
-! ------------------------------------------------------------------------------
-! Use extended color scheme
-rofi.color-enabled:                  true
-! Color scheme for normal row
-rofi.color-normal:                   argb:00000000,  #D8DEE9 , argb:00000000,  #FAC863 ,  #1B2B34
-! Color scheme for urgent row
-rofi.color-urgent:                   argb:00000000,  #F99157 , argb:00000000,  #F99157 ,  #1B2B34
-! Color scheme for active row
-rofi.color-active:                   argb:00000000,  #6699CC , argb:00000000,  #6699CC ,  #1B2B34
-! Color scheme window
-rofi.color-window:                   argb:ee222222,  #FAC863 ,  #FAC863
-! Separator style (none, dash, solid)
-rofi.separator-style:                solid
-rofi.font:							xos4terminus medium 12
+! =================
+! rofi color scheme
+! =================
+
+rofi.color-enabled:		true
+rofi.separator-style: 	solid
+rofi.color-normal:		argb:00000000, #D8DEE9, argb:00000000,  #FAC863,  #1B2B34
+rofi.color-urgent:		argb:00000000, #F99157, argb:00000000,  #F99157,  #1B2B34
+rofi.color-active:		argb:00000000, #6699CC, argb:00000000,  #6699CC,  #1B2B34
+rofi.color-window:		argb:ee222222, #FAC863, #FAC863
+rofi.font:				xos4terminus medium 12

@@ -182,11 +182,6 @@ cpu_speed="on"
 # Values:  'logical', 'physical', 'off'
 # Flag:    --cpu_cores
 # Support: 'physical' doesn't work on BSD.
-#
-# Example:
-# logical:  'Intel i7-6500U (4) @ 3.1GHz' (All virtual cores)
-# physical: 'Intel i7-6500U (2) @ 3.1GHz' (All physical cores)
-# off:      'Intel i7-6500U @ 3.1GHz'
 cpu_cores="logical"
 
 # GPU
@@ -197,10 +192,6 @@ cpu_cores="logical"
 # Default: 'on'
 # Values:  'on', 'off'
 # Flag:    --gpu_brand
-#
-# Example:
-# on:  'AMD HD 7950'
-# off: 'HD 7950'
 gpu_brand="on"
 
 # Which GPU to display
@@ -209,17 +200,6 @@ gpu_brand="on"
 # Values:  'all', 'dedicated', 'integrated'
 # Flag:    --gpu_type
 # Supports: Linux
-#
-# Example:
-# all:
-#   GPU1: AMD HD 7950
-#   GPU2: Intel Integrated Graphics
-#
-# dedicated:
-#   GPU1: AMD HD 7950
-#
-# integrated:
-#   GPU1: Intel Integrated Graphics
 gpu_type="all"
 
 
@@ -231,10 +211,6 @@ gpu_type="all"
 # Values:  'on', 'off'
 # Flag:    --refresh_rate
 # Supports: Doesn't work on Windows.
-#
-# Example:
-# on:  '1920x1080 @ 60Hz'
-# off: '1920x1080'
 refresh_rate="off"
 
 

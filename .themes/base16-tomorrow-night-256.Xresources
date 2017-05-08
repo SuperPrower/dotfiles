@@ -1,5 +1,6 @@
 ! Base16 Tomorrow Night
 ! Scheme: Chris Kempson (http://chriskempson.com)
+! Slightly modified to fit OpenBox colors
 
 #define base00 #1d1f21
 #define base01 #282a2e
@@ -10,22 +11,12 @@
 #define base06 #e0e0e0
 #define base07 #ffffff
 
-! #define base08 #cc6666
-#define base08 #b04f41
-
+#define base08 #cc6666
 #define base09 #de935f
-
-! #define base0A #f0c674
-#define base0A #ca8d67
-
-! #define base0B #b5bd68
-#define base0B #ABC176
-
+#define base0A #f0c674
+#define base0B #b5bd68
 #define base0C #8abeb7
-
 #define base0D #81a2be
-! #define base0D #4E5B99
-
 #define base0E #b294bb
 #define base0F #a3685a
 

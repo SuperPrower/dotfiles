@@ -61,7 +61,7 @@ format-connected = <label-connected>
 format-connected-underline = ${colors.underline}
 format-disconnected = <label-disconnected>
 label-connected =  %essid%
-label-disconnected = 
+label-disconnected =  
 
 [module/battery]
 type = internal/battery

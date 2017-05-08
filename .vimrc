@@ -4,6 +4,9 @@ set autoindent
 set noexpandtab
 set tabstop=4
 set shiftwidth=4
+set linebreak
+set laststatus=2
+set t_Co=256
 
 " Make vim iMproved
 set nocompatible
@@ -11,22 +14,20 @@ set nocompatible
 " Plugins
 call plug#begin('~/.vim/plugged')
 
-Plug 'vim-scripts/c.vim'
-" Plug 'valloric/youcompleteme'
-Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-repeat'
-Plug 'othree/html5.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
-" Needed for Airline
-set laststatus=2
-set t_Co=256
+" Vim  Airline Settings
+let g:airline_powerline_fonts = 1
+let g:airline_theme="base16_default"
+
+" Colors
+colorscheme base16-tomorrow-night
 
 " Copy selection to + register (a-la Ctrl-C)
-vnoremap y :yank +<CR>
+vnoremap y "+y
 
-" Paste from system clipboard after cursor
+" Paste from + clipboard after cursor (a-la Ctrl-V)
 nnoremap p "+p
