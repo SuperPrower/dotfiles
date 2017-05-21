@@ -7,7 +7,7 @@ Panels: Tint2 + Polybar
 
 Launcher: Rofi with blor.theme (check rofi website)
 
-Lockscreen: i3lock
+Lockscreen: i3lock-color
 
 Terminal/Panels font: Terminus
 
@@ -17,7 +17,7 @@ Vim Colors: base16 Tomorrow Night, slightly adjusted to get rid of awful Visual 
 
 ![screenshot](screenshot.png)
 
-Wallpaper: Got one from wonderful [collection of /u/JulianLT](http://imgur.com/gallery/jrGCk) 
+Wallpaper: Got one from wonderful [collection of /u/JulianLT](http://imgur.com/gallery/jrGCk)
 
 ![clean](screenshot_clean.png)
 

@@ -302,20 +302,20 @@
     </keybind>
 	<keybind key="W-l">
 		<action name="Execute">
-			<command>/media/data/projects/bash/lock/lockscreen.sh</command>
+			<command>/home/superprower/lock/lockscreen.sh</command>
 		</action>
 	</keybind>
     <!-- Keybinding for Media Buttons -->
 	<!-- Do I need this?... -->
     <keybind key="XF86AudioRaiseVolume">
 	<action name="Execute">
-	    <command>pactl set-sink-volume 0 +5%</command>
+	    <command>pactl set-sink-volume @DEFAULT_SINK@ +5%</command>
 	</action>
     </keybind>
 
     <keybind key="XF86AudioLowerVolume">
 	<action name="Execute">
-		<command>pactl set-sink-volume 0 -5%</command>
+		<command>pactl set-sink-volume @DEFAULT_SINK@ -5%</command>
 	</action>
     </keybind>
    

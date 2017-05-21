@@ -10,8 +10,13 @@ URxvt*letterSpace: 	0
 ! URxvt*font:		-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-*-u
 ! URxvt*boldFont:	-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-*-u
 
-URxvt*font:			-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1,xft:xos4\ Terminess\ Powerline:pixelsize=12
-URxvt*boldFont:		-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1,xft:xos4\ Terminess\ Powerline:pixelsize=12
+URxvt*font:			-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1, \
+					xft:xos4 Terminess Powerline:pixelsize=12, \
+					xft:DejaVu Sans:style=Book:size=8
+
+URxvt*boldFont:		1-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1, \
+					xft:xos4 Terminess Powerline:pixelsize=12, \
+					xft:DejaVu Sans:style=Book:size=8
 
 URxvt.iso14755:		false
 URxvt*utf8:			true
