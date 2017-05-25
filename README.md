@@ -1,9 +1,9 @@
-This is my dotfiles.
+### This is my dotfiles.
 I mostly borrowed thing from other places and made them like I like.
 
-WM: OpenBox, with slightly adjusted Leaves theme (taken from [/u/Eti_f's](https://github.com/eti0/dots/tree/master/.themes/leaves/openbox-3), big thanks to him!)
+WM: i3 (previously OpenBox with slightly adjusted Leaves theme (taken from [/u/Eti_f's](https://github.com/eti0/dots/tree/master/.themes/leaves/openbox-3), big thanks to him!)), with colors taken from OpenBox theme
 
-Panels: Tint2 + Polybar
+Panels: Polybar (also tint2 previously)
 
 Launcher: Rofi with blor.theme (check rofi website)
 
@@ -14,6 +14,8 @@ Terminal/Panels font: Terminus
 Terminal Colors: base16 Tomorrow Night
 
 Vim Colors: base16 Tomorrow Night, slightly adjusted to get rid of awful Visual Selection colors
+
+### Old screenshots:
 
 ![screenshot](screenshot.png)
 

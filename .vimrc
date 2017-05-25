@@ -20,7 +20,6 @@ set mouse=n
 call plug#begin('~/.vim/plugged')
 
 Plug 'vim-scripts/c.vim'
-Plug 'vim-scripts/Conque-GDB'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
