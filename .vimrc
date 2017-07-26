@@ -19,7 +19,6 @@ set mouse=n
 " Plugins
 call plug#begin('~/.vim/plugged')
 
-Plug 'vim-scripts/c.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -29,7 +28,7 @@ call plug#end()
 let g:airline_powerline_fonts = 1
 let g:airline_theme="base16_default"
 if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
+	let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
 
@@ -44,3 +43,9 @@ vnoremap y "+y
 
 " Paste from + clipboard after cursor (a-la Ctrl-V)
 nnoremap p "+p
+
+fun! TrimWhitespace()
+	let l:save = winsaveview()
+	%s/\s\+$//e
+	call winrestview(l:save)
+endfun

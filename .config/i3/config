@@ -74,6 +74,7 @@ set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
+set $ws8 "8"
 
 # Assign workspaces to screens
 workspace $ws1 output eDP1
@@ -82,7 +83,8 @@ workspace $ws3 output eDP1
 workspace $ws4 output eDP1
 workspace $ws5 output eDP1
 workspace $ws6 output eDP1
-workspace $ws7 output HDMI1
+workspace $ws7 output eDP1
+workspace $ws8 output HDMI1
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -101,16 +103,23 @@ bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
 
 # Assign things to workspaces
 assign [class="Google-chrome"]  $ws1
 assign [class="discord"] 		$ws2
 assign [class="Telegram"]		$ws2
-assign [class="Steam"]			$ws5
+assign [class="Steam"]			$ws6
+assign [class="Opera"]			$ws7
 
 # Force some windows to float
 for_window [class="Arandr" instance="arandr"] floating enable
 for_window [class="Pavucontrol"] floating enable
+for_window [class="qemu-system-i386"] floating enable
+# for_window [class="Steam"] floating enable
+for_window [class="mainwindow.py" title="PlayOnLinux"] floating enable
+for_window [class="thunar"] floating enable
+# for_window [class="Vlc"] floating enable
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -127,16 +136,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym j resize shrink width 10 px or 3 ppt
+        bindsym k resize grow height 10 px or 3 ppt
+        bindsym l resize shrink height 10 px or 3 ppt
+        bindsym semicolon resize grow width 10 px or 3 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 10 px or 3 ppt
+        bindsym Down resize grow height 10 px or 3 ppt
+        bindsym Up resize shrink height 10 px or 3 ppt
+        bindsym Right resize grow width 10 px or 3 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -175,8 +184,8 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 # wallpaper
 exec --no-startup-id feh --bg-fill /media/data/data/Images/Wallpapers/landscape.jpg
