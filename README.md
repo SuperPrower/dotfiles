@@ -19,11 +19,11 @@ Vim Colors: base16 Tomorrow Night, slightly adjusted to get rid of awful highlig
 
 ### Screenshots:
 
-![screenshot](screenshot.png)
+![screenshot](https://raw.githubusercontent.com/SuperPrower/dotfiles/master/screenshot.png)
 
 Wallpaper: Got one from wonderful [collection of /u/JulianLT](http://imgur.com/gallery/jrGCk)
 
-![clean](screenshot_clean.png)
+![clean](https://raw.githubusercontent.com/SuperPrower/dotfiles/master/screenshot_clean.png)
 
 I really got tired of flat cold colors of Arc-Dark back in Xubuntu, so I decided to went with something warm and colorful. This is what I came up with.
 
