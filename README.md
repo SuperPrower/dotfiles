@@ -2,19 +2,12 @@
 
 ### About it:
 
-WM: i3-gaps
-
-Panels: Polybar
-
-Launcher: Rofi with slightly modified blor.theme (check rofi website)
-
-Lockscreen: i3lock-color
-
-Terminal/Panels font: Terminus
-
-Terminal Colors: gruvbox
-
-Vim Colors: gruvbox, slightly adjusted to get rid of awful swamp green 
+* WM: i3-gaps
+* Panel: Polybar
+* Launcher: Rofi with slightly modified blor.theme (check rofi website)
+* Lockscreen: i3lock-color
+* Terminal/Panel font: Terminus
+* Terminal/Vim Colors: gruvbox
 
 ### Screenshots:
 
