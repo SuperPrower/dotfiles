@@ -7,7 +7,8 @@ fg-1 = #ffaf5f
 fg-2 = #ffd494
 primary = #ffb52a
 secondary = #e60053
-underline = #b04f41
+; underline = #b04f41
+underline = ${xrdb:color2}
 alert = #bd2c40
 
 [bar/simple]
@@ -18,7 +19,7 @@ height = 32
 ; offset-x = 55%
 offset-y = 0
 bottom = true
-fixed-center = false
+fixed-center = true 
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -26,8 +27,9 @@ foreground = ${colors.foreground}
 line-size = 3
 line-color = #f00
 
-border-size = 0
-border-color = #000000
+; TODO: Fix black bg
+; border-size = 5
+; border-color = #00000000
 
 padding-left = 0
 padding-right = 0
@@ -44,7 +46,7 @@ modules-center =
 modules-right = keyboard wireless wired xbacklight volume battery date
 
 tray-position = right
-tray-detached = false
+tray-detached = false 
 tray-padding = 0
 
 [module/i3]

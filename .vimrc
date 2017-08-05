@@ -1,42 +1,53 @@
-set exrc
-set secure
+" Behaviour
+set nocompatible 				" make vim iMproved
+
+set mouse=a 					" allow mouse in all modes
+set backspace=indent,eol,start 	" allow backspace to do everything:
+
+set wildmenu					
+set wildmode=longest,list
+
+set undofile 					" persistent history
+set undodir=~/.vim/undo			" undo history location
+set directory=~/.vim/swap		" swap files location
+set backupdir=~/.vim/backup		" backup files location
+
+set encoding=utf8
+
+" Formatting
 set autoindent
 set noexpandtab
 set tabstop=4
 set shiftwidth=4
 set linebreak
 
+" Interface
 set laststatus=2
 set ttimeoutlen=10
 set t_Co=256
 
-" Make vim iMproved
-set nocompatible
-
-" Allow mouse in normal mode
-set mouse=n
-
 " Plugins
 call plug#begin('~/.vim/plugged')
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
-" Vim  Airline Settings
+" Vim Airline Settings
 let g:airline_powerline_fonts = 1
 let g:airline_theme="base16_default"
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
-let g:airline_symbols.space = "\ua0"
 
 " Get rid of default mode indicator
 set noshowmode
 
 " Colors
-colorscheme base16-tomorrow-night
+set background=dark    			" Setting dark mode
+let g:gruvbox_contrast_dark='hard'
+colorscheme gruvbox_edited
 
 " Copy selection to + register (a-la Ctrl-C)
 vnoremap y "+y

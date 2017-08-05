@@ -155,8 +155,12 @@ mode "resize" {
 # bindsym $mod+r mode "resize"
 
 # colors
-set $active 			#B04F41
-set $inactive 			#CA8D67
+# red color scheme
+#set $active 			#B04F41
+#set $inactive 			#CA8D67
+
+set $active  			#b5bd68
+set $inactive 			#ca8d67
 
 # class					border	  backgr.   	text	indicat child_border
 client.focused          $active   $active   	#ffffff #2e9ef4 $active
@@ -187,14 +191,19 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
-# wallpaper
-exec --no-startup-id feh --bg-fill /media/data/data/Images/Wallpapers/landscape.jpg
+bindsym Print exec xfce4-screenshooter
 
 # autostart
+exec --no-startup-id nm-applet
+exec --no-startup-id thunar -daemon
+exec --no-startup-id xfce4-clipman
+
+# this will restart polybar on i3 restart
+exec_always --no-startup-id "killall polybar;polybar -r simple"
+
 exec google-chrome-stable
 exec --no-startup-id /media/data/applications/Telegram/Telegram
 exec --no-startup-id /media/data/applications/Discord/Discord
-exec --no-startup-id nm-applet
-exec --no-startup-id thunar -daemon
 
-exec_always --no-startup-id "killall polybar;polybar -r simple"
+# wallpaper
+exec --no-startup-id feh --bg-fill ~/wallpapers/forest.jpg
