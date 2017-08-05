@@ -4,7 +4,7 @@ set nocompatible 				" make vim iMproved
 set mouse=a 					" allow mouse in all modes
 set backspace=indent,eol,start 	" allow backspace to do everything:
 
-set wildmenu					
+set wildmenu
 set wildmode=longest,list
 
 set undofile 					" persistent history
