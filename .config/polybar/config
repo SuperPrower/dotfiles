@@ -1,113 +1,93 @@
 [colors]
-background = ${xrdb:background}
-background-alt = #1D1F21
-foreground = ${xrdb:foreground}
-foreground-alt = #548587
-fg-1 = #ffaf5f
-fg-2 = #ffd494
-primary = #ffb52a
-secondary = #e60053
-; underline = #b04f41
-underline = ${xrdb:color2}
-alert = #bd2c40
+background 	= ${xrdb:background}
+background-alt 	= #1D1F21
+foreground 	= ${xrdb:foreground}
+foreground-alt 	= #548587
+fg-1 		= #ffaf5f
+fg-2 		= #ffd494
+primary 	= #ffb52a
+secondary 	= #e60053
+; underline 	= #b04f41
+underline 	= ${xrdb:color2}
+alert 		= #bd2c40
 
 [bar/simple]
-monitor = eDP1
+monitor 	= eDP1
+dpi 		= 120
 
-; width = 45%
-height = 32
-; offset-x = 55%
-offset-y = 0
-bottom = true
-fixed-center = true 
+; width 	= 45%
+height 		= 42
+; offset-x 	= 55%
+offset-y 	= 0
 
-background = ${colors.background}
-foreground = ${colors.foreground}
+bottom 		= true
+fixed-center 	= true
 
-line-size = 3
-line-color = #f00
+background 	= ${colors.background}
+foreground 	= ${colors.foreground}
 
-; TODO: Fix black bg
-; border-size = 5
-; border-color = #00000000
+line-size 	= 3
+line-color 	= #f00
 
-padding-left = 0
-padding-right = 0
+; Need compositor for transparency.
+; border-size 	= 6
+; border-top-size	= 3
+; border-color 	= #00000000
 
-module-margin = 1
+padding-left 	= 0
+padding-right 	= 0
 
-font-0 = xos4terminus:size=10;2
-font-1 = FontAwesome:size=10;2
-font-2 = xos4terminus:size=18:weight=bold;2
-font-3 = "Material Design Icons:size=13;2"
+module-margin 	= 1
 
-modules-left = i3
-modules-center =
-modules-right = keyboard wireless wired xbacklight volume battery date
+; Font settings
+font-0 		= xos4terminus:size=14;2
+font-1 		= FontAwesome:size=10;2
+font-2 		= xos4terminus:size=24:weight=bold;2
+font-3 		= "Material Design Icons:size=13;2"
 
-tray-position = right
-tray-detached = false 
-tray-padding = 0
+modules-left 	= i3
+modules-center 	=
+modules-right 	= keyboard wireless wired xbacklight volume battery date
+
+; Tray settings
+tray-position 	= right
+tray-detached 	= false
+tray-padding 	= 0
+tray-maxsize 	= 16
 
 [module/i3]
-type = internal/i3
+type 		= internal/i3
 
-pin-workspaces = true
-index-sort = true
-enable-click = true
-enable-scroll = false
-wrapping-scroll = false
-reverse-scroll = false
+pin-workspaces 	= true
+index-sort 	= true
+enable-click 	= true
+enable-scroll 	= false
+wrapping-scroll	= false
+reverse-scroll 	= false
 
-fuzzy-match = true
+fuzzy-match 	= true
+format 		= <label-mode><label-state>
 
-; Available tags:
-;   <label-state> (default) - gets replaced with <label-(focused|unfocused|visible|urgent)>
-;   <label-mode> (default)
-format = <label-mode><label-state>
+label-mode-padding 	= 2
+; label-mode-background	= ${colors.underline}
+label-mode-underline 	= ${colors.underline}
 
-label-mode-padding = 2
-; label-mode-background = ${colors.underline} 
-label-mode-underline = ${colors.underline}
+label-focused 			= %icon%
+label-focused-foreground	= #ffffff
+label-focused-underline 	= ${colors.underline}
+label-focused-padding 		= 2
 
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-;   %output%
-; Default: %icon%  %name%
-label-focused = %icon%
-label-focused-foreground = #ffffff
-; label-focused-background = #3f3f3f
-label-focused-underline = ${colors.underline}
-label-focused-padding = 2
+label-unfocused 		= %icon%
+label-unfocused-padding 	= 2
 
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
-label-unfocused = %icon%
-label-unfocused-padding = 2
+label-visible 		= %icon%
+label-visible-underline	= #555555
+label-visible-padding 	= 2
 
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
-label-visible = %icon%
-label-visible-underline = #555555
-label-visible-padding = 2
-
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
-label-urgent = %icon%
-label-urgent-foreground = #000000
-label-urgent-background = ${colors.underline} 
-label-urgent-padding = 2
+label-urgent 		= %icon%
+label-urgent-foreground	= #000000
+label-urgent-background = ${colors.underline}
+label-urgent-padding 	= 2
 
 ws-icon-0 = 1;
 ws-icon-1 = 2;
@@ -118,22 +98,24 @@ ws-icon-5 = 6;
 ws-icon-6 = 7;
 
 [module/wired]
-type = internal/network
-interface = enp2s0
-format-connected = <label-connected>
-format-connected-underline = ${colors.underline}
-format-disconnected = <label-disconnected>
-label-connected =  %local_ip%
-label-disconnected = 
+type 				= internal/network
+interface 			= enp2s0
+
+format-connected 		= <label-connected>
+format-connected-underline 	= ${colors.underline}
+format-disconnected 		= <label-disconnected>
+
+label-connected 		=  %local_ip%
+label-disconnected 		= 
 
 [module/wireless]
-type = internal/network
-interface = wlp1s0
-format-connected = <label-connected>
-format-connected-underline = ${colors.underline}
-format-disconnected = <label-disconnected>
-label-connected =  %essid%
-label-disconnected = 
+type 				= internal/network
+interface 			= wlp1s0
+format-connected 		= <label-connected>
+format-connected-underline 	= ${colors.underline}
+format-disconnected 		= <label-disconnected>
+label-connected 		=  %essid%
+label-disconnected 		= 
 
 [module/battery]
 type = internal/battery

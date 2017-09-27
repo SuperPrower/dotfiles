@@ -3,32 +3,54 @@
 ! ===================
 
 URxvt*scrollBar:	false
-URxvt*letterSpace: 	0
 
-! urxvt*font: 		xft:monospace:size=12
+#define FONT_DEJAVU
+#ifdef FONT_TERMINUS
+	URxvt*letterSpace: 	0
 
-! URxvt*font:		-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-*-u
-! URxvt*boldFont:	-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-*-u
+	URxvt*font:		xft:xos4 Terminus:pixelsize=18, \
+				xft:xos4 Terminess Powerline:pixelsize=18
 
-URxvt*font:			-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1, \
-					xft:xos4 Terminess Powerline:pixelsize=12, \
-					xft:DejaVu Sans:style=Book:size=8
+	URxvt*boldFont:	xtf:xos4 Terminus:pixelsize=18:weight=bold, \
+				xft:xos4 Terminess Powerline:pixelsize=18
+#endif
+#ifdef FONT_DEJAVU
+#define FONT_SIZE 9
+	URxvt*letterSpace:	-1
+	URxvt*font: 		xft:DejaVu Sans Mono:style=Book:size=FONT_SIZE, \
+				xft:DejaVu Sans Mono for Powerline:style=Book:size=FONT_SIZE
 
-URxvt*boldFont:		1-xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1, \
-					xft:xos4 Terminess Powerline:pixelsize=12, \
-					xft:DejaVu Sans:style=Book:size=8
+	URxvt*boldFont:		xft:DejaVu Sans Mono:style=Bold:size=FONT_SIZE, \
+				xft:DejaVu Sans Mono for Powerline:style=Bold:size=FONT_SIZE
+#endif
 
 URxvt.iso14755:		false
-URxvt*utf8:			true
+URxvt*utf8:		true
+
+! ================
+! urxvt plugins
+! ================
+URxvt.perl-ext-common: 	keyboard-select,font-size
+URxvt.keysym.M-s:	perl:keyboard-select:activate
+
+! `font-size` plugin
+URxvt.keysym.C-minus: 	perl:font-size:decrease
+URxvt.keysym.C-equal: 	perl:font-size:increase
+! The default font increase step size is 1. This is for portability across all
+! fonts (some fonts do not support particular font sizes). Because changing font
+! size only really makes sense for anti-aliased fonts (Terminus is bitmapped),
+! and because anti-aliased fonts support any size, it makes sense to just use a
+! size step of 4 for faster transitions between font size changes.
+URxvt.font-size.step: 	1
 
 ! =================
 ! Xft configuration
 ! =================
 
-Xft.dpi:          	96
+Xft.dpi:          	120
 Xft.antialias:     	true
-Xft.rgba:			subpixel
-Xft.hinting:       	true
+Xft.rgba:		subpixel
+Xft.hinting:       	false
 Xft.hintstyle:		hintslight
 ! Xft.lcdfilter:	lcddefault
 
@@ -54,10 +76,10 @@ Xft.hintstyle:		hintslight
 	#define m_color #B5BD68
 #endif
 
-rofi.color-enabled:		true
+rofi.color-enabled:	true
 rofi.separator-style: 	solid
-rofi.color-normal:		argb:00000000, #D8DEE9, argb:00000000,  m_color,  hl_text
-rofi.color-urgent:		argb:00000000, #F99157, argb:00000000,  #F99157,  hl_text
-rofi.color-active:		argb:00000000, #6699CC, argb:00000000,  #6699CC,  hl_text
-rofi.color-window:		argb:ee222222, m_color, m_color
-rofi.font:				xos4terminus medium 12
+rofi.color-normal:	argb:00000000, #D8DEE9, argb:00000000, m_color, hl_text
+rofi.color-urgent:	argb:00000000, #F99157, argb:00000000, #F99157, hl_text
+rofi.color-active:	argb:00000000, #6699CC, argb:00000000, #6699CC, hl_text
+rofi.color-window:	argb:ee222222, m_color, m_color
+rofi.font:		"DejaVu Sans Mono" Book 14

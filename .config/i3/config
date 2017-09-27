@@ -17,10 +17,10 @@ bindsym $mod+Shift+q kill
 bindsym $mod+r exec rofi -show run
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -29,10 +29,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -40,8 +40,8 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
-bindsym $mod+h split h
+# split in portrait (horizontal) orientation
+bindsym $mod+p split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -106,20 +106,20 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 
 # Assign things to workspaces
-assign [class="Google-chrome"]  $ws1
+assign [class="Google-chrome"]  	$ws1
 assign [class="discord"] 		$ws2
 assign [class="Telegram"]		$ws2
 assign [class="Steam"]			$ws6
 assign [class="Opera"]			$ws7
 
 # Force some windows to float
-for_window [class="Arandr" instance="arandr"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="qemu-system-i386"] floating enable
-# for_window [class="Steam"] floating enable
-for_window [class="mainwindow.py" title="PlayOnLinux"] floating enable
-for_window [class="thunar"] floating enable
-# for_window [class="Vlc"] floating enable
+for_window [class="Arandr" instance="arandr"] 	floating enable
+for_window [class="Pavucontrol"] 		floating enable
+for_window [class="qemu-system-i386"] 		floating enable
+for_window [title="PlayOnLinux"] 		floating enable
+for_window [class="thunar"] 			floating enable
+# for_window [class="Steam"] 			floating enable
+# for_window [class="Vlc"] 			floating enable
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -136,16 +136,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 3 ppt
-        bindsym k resize grow height 10 px or 3 ppt
-        bindsym l resize shrink height 10 px or 3 ppt
-        bindsym semicolon resize grow width 10 px or 3 ppt
+        bindsym h resize shrink width 5 px or 3 ppt
+        bindsym j resize grow height 5 px or 3 ppt
+        bindsym k resize shrink height 5 px or 3 ppt
+        bindsym l resize grow width 5 px or 3 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 3 ppt
-        bindsym Down resize grow height 10 px or 3 ppt
-        bindsym Up resize shrink height 10 px or 3 ppt
-        bindsym Right resize grow width 10 px or 3 ppt
+        bindsym Left resize shrink width 5 px or 2 ppt
+        bindsym Down resize grow height 5 px or 2 ppt
+        bindsym Up resize shrink height 5 px or 2 ppt
+        bindsym Right resize grow width 5 px or 2 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -162,12 +162,12 @@ mode "resize" {
 set $active  			#b5bd68
 set $inactive 			#ca8d67
 
-# class					border	  backgr.   	text	indicat child_border
+# class			border	  backgr.   	text	indicat child_border
 client.focused          $active   $active   	#ffffff #2e9ef4 $active
 client.focused_inactive $inactive $inactive 	#ffffff #484e50 $inactive
 client.unfocused        $inactive $inactive   	#888888 #292d2e $inactive
 client.urgent           $active   $active    	#ffffff #900000 $active
-client.placeholder      $inactive $placeholder  #ffffff #000000 $inactive
+client.placeholder      $inactive $inactive	#ffffff #000000 $inactive
 
 client.background       #ffffff
 
@@ -176,7 +176,7 @@ focus_follows_mouse no
 bindsym $mod+Control+l exec --no-startup-id /home/superprower/lock/lockscreen.sh
 
 # i3gaps config
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 0
 gaps inner 5
 
 smart_borders on
@@ -188,7 +188,7 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 bindsym Print exec xfce4-screenshooter
@@ -198,12 +198,14 @@ exec --no-startup-id nm-applet
 exec --no-startup-id thunar -daemon
 exec --no-startup-id xfce4-clipman
 
+exec --no-startup-id libinput-gestures-setup start
+
 # this will restart polybar on i3 restart
 exec_always --no-startup-id "killall polybar;polybar -r simple"
 
 exec google-chrome-stable
 exec --no-startup-id /media/data/applications/Telegram/Telegram
-exec --no-startup-id /media/data/applications/Discord/Discord
+exec discord
 
 # wallpaper
 exec --no-startup-id feh --bg-fill ~/wallpapers/forest.jpg
