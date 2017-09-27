@@ -159,15 +159,21 @@ mode "resize" {
 #set $active 			#B04F41
 #set $inactive 			#CA8D67
 
-set $active  			#b5bd68
-set $inactive 			#ca8d67
+# green color scheme
+#set $active  			#b5bd68
+#set $inactive 			#ca8d67
 
-# class			border	  backgr.   	text	indicat child_border
-client.focused          $active   $active   	#ffffff #2e9ef4 $active
-client.focused_inactive $inactive $inactive 	#ffffff #484e50 $inactive
-client.unfocused        $inactive $inactive   	#888888 #292d2e $inactive
-client.urgent           $active   $active    	#ffffff #900000 $active
-client.placeholder      $inactive $inactive	#ffffff #000000 $inactive
+set $active			#2e2e2e
+set $inactive 			#282828
+set $indicator			#458588
+
+# class			border	  backgr.   	text		indicat 	child_border
+# ------------------------------------------------------------------------------------------
+client.focused          $active   $active   	#ffffff 	$indicator 	$active
+client.focused_inactive $inactive $inactive 	#ffffff 	$inactive  	$inactive
+client.unfocused        $inactive $inactive   	#888888 	#incactive 	$inactive
+client.urgent           $active   $active    	#ffffff 	#900000 	$active
+client.placeholder      $inactive $inactive	#ffffff 	#000000 	$inactive
 
 client.background       #ffffff
 
@@ -176,7 +182,7 @@ focus_follows_mouse no
 bindsym $mod+Control+l exec --no-startup-id /home/superprower/lock/lockscreen.sh
 
 # i3gaps config
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 1
 gaps inner 5
 
 smart_borders on
