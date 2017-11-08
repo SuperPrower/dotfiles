@@ -89,13 +89,25 @@ label-urgent-foreground	= #000000
 label-urgent-background = ${colors.underline}
 label-urgent-padding 	= 2
 
+" chrome
 ws-icon-0 = 1;
+" telegram
 ws-icon-1 = 2;
+" terminal
 ws-icon-2 = 3;
-ws-icon-3 = 4;
+" book
+ws-icon-3 = 4;
+" cog
 ws-icon-4 = 5;
+" steam
 ws-icon-5 = 6;
+" opera
 ws-icon-6 = 7;
+
+" old icons - terminal, web, cogs
+; ws-icon-2 = 3;
+; ws-icon-3 = 4;
+; ws-icon-4 = 5;
 
 [module/wired]
 type 				= internal/network
@@ -128,12 +140,16 @@ full-at = 99
 battery = BAT0
 adapter = AC
 
+poll-interval = 15
+
+time-format = %H:%M
+
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
 format-full = <label-full>
 
 label-charging = %percentage%%
-label-discharging = %percentage%%
+label-discharging = %percentage%%, %time%
 label-full =  %percentage%%
 
 format-discharging-underline = ${colors.underline}

@@ -39,7 +39,12 @@ call plug#begin('~/.vim/plugged')
 
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
+
+	" Plug 'scrooloose/nerdtree'
+	" Plug 'Xuyuanp/nerdtree-git-plugin'
+
 	Plug 'JamshedVesuna/vim-markdown-preview'
+
 	Plug 'valloric/youcompleteme'
 	Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 

@@ -13,10 +13,10 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
+# start rofi as command launcher
 bindsym $mod+r exec rofi -show run
 
-# change focus
+# change focus - vim like
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -28,7 +28,7 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# move focused window
+# move focused window - vim like
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
@@ -64,7 +64,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+d focus child
 
 # Workspaces
 set $ws1 "1"
@@ -116,8 +116,9 @@ assign [class="Opera"]			$ws7
 for_window [class="Arandr" instance="arandr"] 	floating enable
 for_window [class="Pavucontrol"] 		floating enable
 for_window [class="qemu-system-i386"] 		floating enable
-for_window [title="PlayOnLinux"] 		floating enable
-for_window [class="thunar"] 			floating enable
+for_window [class="EFTNC"]			floating enable
+# for_window [title="PlayOnLinux"] 		floating enable
+# for_window [class="thunar"] 			floating enable
 # for_window [class="Steam"] 			floating enable
 # for_window [class="Vlc"] 			floating enable
 
@@ -177,7 +178,7 @@ client.placeholder      $inactive $inactive	#ffffff 	#000000 	$inactive
 
 client.background       #ffffff
 
-# My settings
+# do not follow
 focus_follows_mouse no
 bindsym $mod+Control+l exec --no-startup-id /home/superprower/lock/lockscreen.sh
 
@@ -189,15 +190,16 @@ smart_borders on
 smart_gaps on
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
+bindsym XF86AudioRaiseVolume	exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume 	exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute 		exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+bindsym XF86MonBrightnessUp 	exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown 	exec --no-startup-id xbacklight -dec 10
 
-bindsym Print exec xfce4-screenshooter
+bindsym XF86Search		exec rofi -show drun
+bindsym Print 			exec xfce4-screenshooter
 
 # autostart
 exec --no-startup-id nm-applet
@@ -209,9 +211,9 @@ exec --no-startup-id libinput-gestures-setup start
 # this will restart polybar on i3 restart
 exec_always --no-startup-id "killall polybar;polybar -r simple"
 
-exec google-chrome-stable
+exec --no-startup-id google-chrome-stable
 exec --no-startup-id /media/data/applications/Telegram/Telegram
-exec discord
+# exec --no-startup-id discord -- takes too much power
 
 # wallpaper
 exec --no-startup-id feh --bg-fill ~/wallpapers/forest.jpg
