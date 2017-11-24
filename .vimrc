@@ -37,11 +37,13 @@ augroup END
 " Plugins
 call plug#begin('~/.vim/plugged')
 
+	Plug 'kana/vim-submode'
+
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 
-	" Plug 'scrooloose/nerdtree'
-	" Plug 'Xuyuanp/nerdtree-git-plugin'
+	Plug 'scrooloose/nerdtree'
+	Plug 'Xuyuanp/nerdtree-git-plugin'
 
 	Plug 'JamshedVesuna/vim-markdown-preview'
 
@@ -49,6 +51,24 @@ call plug#begin('~/.vim/plugged')
 	Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
 call plug#end()
+
+" Vim Submodes
+call submode#enter_with('splits', 'n', '', '<C-w>')
+call submode#leave_with('splits', 'n', '', '<Esc>')
+
+call submode#map('splits', 'n', '', 'h', '<C-w>h')
+call submode#map('splits', 'n', '', 'j', '<C-w>j')
+call submode#map('splits', 'n', '', 'k', '<C-w>k')
+call submode#map('splits', 'n', '', 'l', '<C-w>l')
+
+call submode#map('splits', 'n', '', ',', '<C-w><')
+call submode#map('splits', 'n', '', '.', '<C-w>>')
+
+call submode#map('splits', 'n', '', '=', '<C-w>+')
+call submode#map('splits', 'n', '', '-', '<C-w>-')
+
+let g:submode_timeout = 0
+let g:submode_always_show_submode = 1
 
 " Vim Airline Settings
 let g:airline_powerline_fonts=1
@@ -77,6 +97,7 @@ let g:ycm_server_python_interpreter='/usr/bin/python'
 set completeopt-=preview 		" Disable preview window
 
 " Colors
+let base16colorspace=256
 set background=dark    			" Setting dark mode
 let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox_edited
