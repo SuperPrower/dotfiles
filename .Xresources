@@ -1,10 +1,16 @@
+! =============
+! quick options
+! =============
+#define FONT_DEJAVU
+#define ROFI_COLOR_GREEN
+
 ! ===================
 ! urxvt configuration
 ! ===================
 
 URxvt*scrollBar:	false
 
-#define FONT_DEJAVU
+
 #ifdef FONT_TERMINUS
 	URxvt*letterSpace: 	0
 
@@ -13,9 +19,9 @@ URxvt*scrollBar:	false
 
 	URxvt*boldFont:	xtf:xos4 Terminus:pixelsize=18:weight=bold, \
 				xft:xos4 Terminess Powerline:pixelsize=18
-#endif
-#ifdef FONT_DEJAVU
-#define FONT_SIZE 9
+#elif defined(FONT_DEJAVU)
+	#define FONT_SIZE 9
+
 	URxvt*letterSpace:	-1
 	URxvt*font: 		xft:DejaVu Sans Mono:style=Book:size=FONT_SIZE, \
 				xft:DejaVu Sans Mono for Powerline:style=Book:size=FONT_SIZE
@@ -65,13 +71,10 @@ Xft.hintstyle:		hintslight
 ! rofi color scheme
 ! =================
 
-#define color_scheme_green
-
-#ifdef color_scheme_red
+#if defined(ROFI_COLOR_RED)
 	#define hl_text #1B2B34
 	#define m_color #FAC863
-#endif
-#ifdef color_scheme_green
+#elif defined(ROFI_COLOR_GREEN)
 	#define hl_text #1B2B34
 	#define m_color #B5BD68
 #endif

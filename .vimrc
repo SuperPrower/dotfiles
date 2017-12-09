@@ -34,13 +34,17 @@ augroup project
 	autocmd BufRead,BufNewFile *.h,*.c set filetype=c
 augroup END
 
+" =======
 " Plugins
+" =======
 call plug#begin('~/.vim/plugged')
 
 	Plug 'kana/vim-submode'
 
 	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
+
+	Plug 'xolox/vim-misc'
+	Plug 'xolox/vim-colorscheme-switcher'
 
 	Plug 'scrooloose/nerdtree'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -52,7 +56,9 @@ call plug#begin('~/.vim/plugged')
 
 call plug#end()
 
+" ============
 " Vim Submodes
+" ============
 call submode#enter_with('splits', 'n', '', '<C-w>')
 call submode#leave_with('splits', 'n', '', '<Esc>')
 
@@ -70,9 +76,13 @@ call submode#map('splits', 'n', '', '-', '<C-w>-')
 let g:submode_timeout = 0
 let g:submode_always_show_submode = 1
 
+" ====================
 " Vim Airline Settings
+" ====================
 let g:airline_powerline_fonts=1
-let g:airline_theme="base16_default"
+let g:airline_theme="base16"
+
+" Custom Symbols
 if !exists('g:airline_symbols')
 	let g:airline_symbols={}
 endif
@@ -80,28 +90,40 @@ endif
 let g:airline_symbols.linenr=''
 let g:airline_symbols.maxlinenr=''
 let g:airline_symbols.whitespace=''
+" Custom right-most part
 call airline#parts#define_raw('line', (g:airline_symbols.linenr).' %#__accent_bold#%l/%L%#__restore__#')
 let g:airline_section_z=airline#section#create(['line',':%v'])
 
 set noshowmode 				" Get rid of default mode indicator
 
+" =========================
 " Markdown Preview Settings
+" =========================
 let vim_markdown_preview_toggle=0
 let vim_markdown_preview_github=1
 let vim_markdown_preview_use_xdg_open=1
 
+" ======================
 " YouCompleteMe Settings
+" ======================
 let g:ycm_global_ycm_extra_conf= '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf=0
 let g:ycm_server_python_interpreter='/usr/bin/python'
 set completeopt-=preview 		" Disable preview window
 
-" Colors
-let base16colorspace=256
-set background=dark    			" Setting dark mode
-let g:gruvbox_contrast_dark='hard'
-colorscheme gruvbox_edited
+" ===========
+" Colorscheme
+" ===========
+" Setting dark mode
+set background=dark
 
+" let g:gruvbox_contrast_dark='hard'
+" colorscheme gruvbox_edited
+colorscheme hybrid_modified
+
+" =================================
+" Trailing whitespace trim function
+" =================================
 fun! TrimWhitespace()
 	let l:save = winsaveview()
 	%s/\s\+$//e
