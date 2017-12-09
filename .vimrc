@@ -80,7 +80,7 @@ let g:submode_always_show_submode = 1
 " Vim Airline Settings
 " ====================
 let g:airline_powerline_fonts=1
-let g:airline_theme="base16"
+let g:airline_theme="base16_default"
 
 " Custom Symbols
 if !exists('g:airline_symbols')
@@ -117,9 +117,10 @@ set completeopt-=preview 		" Disable preview window
 " Setting dark mode
 set background=dark
 
-" let g:gruvbox_contrast_dark='hard'
-" colorscheme gruvbox_edited
-colorscheme hybrid_modified
+" colorscheme hybrid_modified
+
+let g:gruvbox_contrast_dark='hard'
+colorscheme gruvbox_edited
 
 " =================================
 " Trailing whitespace trim function
