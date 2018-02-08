@@ -54,6 +54,8 @@ call plug#begin('~/.vim/plugged')
 	Plug 'valloric/youcompleteme'
 	Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
+	Plug 'lervag/vimtex'
+
 call plug#end()
 
 " ============
@@ -61,20 +63,33 @@ call plug#end()
 " ============
 call submode#enter_with('splits', 'n', '', '<C-w>')
 call submode#leave_with('splits', 'n', '', '<Esc>')
-
+" navigate splits
 call submode#map('splits', 'n', '', 'h', '<C-w>h')
 call submode#map('splits', 'n', '', 'j', '<C-w>j')
 call submode#map('splits', 'n', '', 'k', '<C-w>k')
 call submode#map('splits', 'n', '', 'l', '<C-w>l')
-
+" move splits to the edges of the screen
+call submode#map('splits', 'n', '', 'H', '<C-w>H')
+call submode#map('splits', 'n', '', 'J', '<C-w>J')
+call submode#map('splits', 'n', '', 'K', '<C-w>K')
+call submode#map('splits', 'n', '', 'L', '<C-w>L')
+" grow split wider/thinner
 call submode#map('splits', 'n', '', ',', '<C-w><')
 call submode#map('splits', 'n', '', '.', '<C-w>>')
-
+" grop split up/down
 call submode#map('splits', 'n', '', '=', '<C-w>+')
 call submode#map('splits', 'n', '', '-', '<C-w>-')
+" rotate splits
+call submode#map('splits', 'n', '', 'r', '<C-w>r')
+call submode#map('splits', 'n', '', 'R', '<C-w>R')
 
 let g:submode_timeout = 0
 let g:submode_always_show_submode = 1
+
+" ============
+" Key Bindings
+" ============
+nnoremap <F2> :NERDTreeToggle<CR>
 
 " ====================
 " Vim Airline Settings

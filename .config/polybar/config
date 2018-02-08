@@ -183,7 +183,7 @@ label = %date% %time%
 label-underline = ${colors.underline}
 
 [module/volume]
-type = internal/volume
+type = internal/alsa
 
 format-volume = <ramp-volume> <label-volume>
 format-volume-underline = ${colors.underline}

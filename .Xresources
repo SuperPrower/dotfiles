@@ -17,7 +17,7 @@ URxvt*scrollBar:	false
 	URxvt*font:		xft:xos4 Terminus:pixelsize=18, \
 				xft:xos4 Terminess Powerline:pixelsize=18
 
-	URxvt*boldFont:	xtf:xos4 Terminus:pixelsize=18:weight=bold, \
+	URxvt*boldFont:		xtf:xos4 Terminus:pixelsize=18:weight=bold, \
 				xft:xos4 Terminess Powerline:pixelsize=18
 #elif defined(FONT_DEJAVU)
 	#define FONT_SIZE 9
