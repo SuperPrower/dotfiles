@@ -27,12 +27,24 @@ set laststatus=2
 set ttimeoutlen=10
 set t_Co=256
 set colorcolumn=80
+set number
 
 " Force vim to recognize .h files as C headers
 augroup project
 	autocmd!
 	autocmd BufRead,BufNewFile *.h,*.c set filetype=c
 augroup END
+
+" LaTeX specific settings:
+augroup LaTeX_settings
+	autocmd!
+	autocmd FileType tex set colorcolumn=110
+	autocmd FileType tex set spelllang=ru,en
+	autocmd FileType tex set spell
+	autocmd FileType tex set tabstop=4
+	autocmd FileType tex set shiftwidth=4
+	autocmd FileType tex set breakindent
+augroup end
 
 " =======
 " Plugins
@@ -54,7 +66,8 @@ call plug#begin('~/.vim/plugged')
 	Plug 'valloric/youcompleteme'
 	Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
-	Plug 'lervag/vimtex'
+	Plug 'lervag/vimtex', { 'for': 'tex' }
+	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 call plug#end()
 
@@ -109,7 +122,8 @@ let g:airline_symbols.whitespace=''
 call airline#parts#define_raw('line', (g:airline_symbols.linenr).' %#__accent_bold#%l/%L%#__restore__#')
 let g:airline_section_z=airline#section#create(['line',':%v'])
 
-set noshowmode 				" Get rid of default mode indicator
+" Get rid of default mode indicator
+set noshowmode
 
 " =========================
 " Markdown Preview Settings
@@ -124,15 +138,14 @@ let vim_markdown_preview_use_xdg_open=1
 let g:ycm_global_ycm_extra_conf= '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf=0
 let g:ycm_server_python_interpreter='/usr/bin/python'
-set completeopt-=preview 		" Disable preview window
+" Disable preview window
+set completeopt-=preview
 
 " ===========
 " Colorscheme
 " ===========
 " Setting dark mode
 set background=dark
-
-" colorscheme hybrid_modified
 
 let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox_edited
