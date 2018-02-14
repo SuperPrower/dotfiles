@@ -1,10 +1,4 @@
-! -----------------------------------------------------------------------------
-! File: gruvbox-dark.xresources
-! Description: Retro groove colorscheme generalized
-! Author: morhetz <morhetz@gmail.com>
-! Source: https://github.com/morhetz/gruvbox-generalized
-! Last Modified: 6 Sep 2014
-! -----------------------------------------------------------------------------
+#define FEATURE #B5BD68
 
 ! *background: #1d2021
 *background: #1c1c1c
@@ -16,10 +10,7 @@
 *color1:  #cc241d
 *color9:  #fb4934
 ! DarkGreen + Green
-! *color2:  #98971a
-! *color10: #b8bb26
-! Less toxic Green
-*color2:  #b5bd68
+*color2:  #B5BD68
 *color10: #4D6E4E
 ! DarkYellow + Yellow
 *color3:  #d79921

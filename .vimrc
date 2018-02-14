@@ -44,6 +44,7 @@ augroup LaTeX_settings
 	autocmd FileType tex set tabstop=4
 	autocmd FileType tex set shiftwidth=4
 	autocmd FileType tex set breakindent
+	autocmd FileType tex set showbreak=..
 augroup end
 
 " =======
@@ -61,13 +62,15 @@ call plug#begin('~/.vim/plugged')
 	Plug 'scrooloose/nerdtree'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 
-	Plug 'JamshedVesuna/vim-markdown-preview'
-
 	Plug 'valloric/youcompleteme'
 	Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
+	Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
+
 	Plug 'lervag/vimtex', { 'for': 'tex' }
 	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+
+	Plug 'JamshedVesuna/vim-markdown-preview'
 
 call plug#end()
 

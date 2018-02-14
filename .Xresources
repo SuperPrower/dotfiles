@@ -2,7 +2,7 @@
 ! quick options
 ! =============
 #define FONT_DEJAVU
-#define ROFI_COLOR_GREEN
+#define COLOR_GRUVBOX
 
 ! ===================
 ! urxvt configuration
@@ -64,18 +64,21 @@ Xft.hintstyle:		hintslight
 ! color scheme
 ! ============
 
-! #include ".themes/base16-tomorrow-night-256.Xresources"
-#include ".themes/gruvbox-dark.xresources"
+#if defined(COLOR_RED)
+	#include ".themes/base16-tomorrow-night-256.Xresources"
+#elif defined(COLOR_GRUVBOX)
+	#include ".themes/gruvbox-dark.xresources"
+#endif
 
 ! =================
 ! rofi color scheme
 ! =================
 
-#if defined(ROFI_COLOR_RED)
-	#define hl_text #1B2B34
+#define hl_text #1B2B34
+
+#if defined(COLOR_RED)
 	#define m_color #FAC863
-#elif defined(ROFI_COLOR_GREEN)
-	#define hl_text #1B2B34
+#elif defined(COLOR_GRUVBOX)
 	#define m_color #B5BD68
 #endif
 

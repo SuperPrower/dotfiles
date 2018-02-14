@@ -122,7 +122,6 @@ for_window [class="Godot" instance="Godot_Engine"]	floating enable
 # for_window [title="PlayOnLinux"] 		floating enable
 # for_window [class="thunar"] 			floating enable
 # for_window [class="Steam"] 			floating enable
-# for_window [class="Vlc"] 			floating enable
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -155,7 +154,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-# bindsym $mod+r mode "resize"
+# bindsym $mod+Ctrl+r mode "resize"
 
 # colors
 # red color scheme
@@ -163,11 +162,12 @@ mode "resize" {
 #set $inactive 			#CA8D67
 
 # green color scheme
-#set $active  			#b5bd68
-#set $inactive 			#ca8d67
+# set $active  			#b5bd68
+# set $inactive			#ca8d67
 
-set $active			#2e2e2e
-set $inactive 			#282828
+# gray borders
+set $active			#3b3b3b
+set $inactive			#282828
 set $indicator			#458588
 
 # class			border	  backgr.   	text		indicat 	child_border
@@ -219,3 +219,5 @@ exec --no-startup-id /media/data/applications/Telegram/Telegram
 
 # wallpaper
 exec --no-startup-id feh --bg-fill ~/wallpapers/forest.jpg
+
+# vim:filetype=i3
