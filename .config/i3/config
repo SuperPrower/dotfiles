@@ -218,6 +218,6 @@ exec --no-startup-id /media/data/applications/Telegram/Telegram
 # exec --no-startup-id discord -- takes too much power
 
 # wallpaper
-exec --no-startup-id feh --bg-fill ~/wallpapers/forest.jpg
+exec --no-startup-id feh --bg-fill ~/wallpapers/landscapes/forest.jpg
 
 # vim:filetype=i3

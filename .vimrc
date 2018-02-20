@@ -15,18 +15,26 @@ set backupdir=~/.vim/backup		" backup files location
 
 set encoding=utf8
 
+" Disable arrow keys lol
+noremap <Up> 	:echo "hjkl"<CR>
+noremap <Down> 	:echo "hjkl"<CR>
+noremap <Left> 	:echo "hjkl"<CR>
+noremap <Right>	:echo "hjkl"<CR>
+
 " Formatting
 set autoindent
 set noexpandtab
 set tabstop=8
 set shiftwidth=8
 set linebreak
+set breakindent
+set showbreak=..
 
 " Interface
 set laststatus=2
 set ttimeoutlen=10
 set t_Co=256
-set colorcolumn=80
+set colorcolumn=110
 set number
 
 " Force vim to recognize .h files as C headers
@@ -38,13 +46,11 @@ augroup END
 " LaTeX specific settings:
 augroup LaTeX_settings
 	autocmd!
-	autocmd FileType tex set colorcolumn=110
 	autocmd FileType tex set spelllang=ru,en
 	autocmd FileType tex set spell
 	autocmd FileType tex set tabstop=4
 	autocmd FileType tex set shiftwidth=4
-	autocmd FileType tex set breakindent
-	autocmd FileType tex set showbreak=..
+	autocmd FileType tex nnoremap <F6> :VQLNInsertNote<CR>
 augroup end
 
 " =======
@@ -52,25 +58,33 @@ augroup end
 " =======
 call plug#begin('~/.vim/plugged')
 
+	" custom submodes
 	Plug 'kana/vim-submode'
 
+	" cooler statusbar
 	Plug 'vim-airline/vim-airline'
 
+	" GDB integration
+	Plug 'vim-scripts/Conque-GDB'
+
+	" colorscheme fast preview
 	Plug 'xolox/vim-misc'
 	Plug 'xolox/vim-colorscheme-switcher'
 
+	" file tree
 	Plug 'scrooloose/nerdtree'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 
+	" code completion
 	Plug 'valloric/youcompleteme'
 	Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 
+	" syntax highlighting for i3wm configuration file
 	Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
 
+	" LaTeX related plugins
 	Plug 'lervag/vimtex', { 'for': 'tex' }
 	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-
-	Plug 'JamshedVesuna/vim-markdown-preview'
 
 call plug#end()
 
@@ -161,3 +175,6 @@ fun! TrimWhitespace()
 	%s/\s\+$//e
 	call winrestview(l:save)
 endfun
+
+nnoremap <F7> :call TrimWhitespace()<CR>:w<CR>:echo "Removed trailing whitespace and saved"<CR>
+nnoremap <F10> :NERDTreeToggle<CR>

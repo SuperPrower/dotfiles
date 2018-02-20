@@ -7,7 +7,7 @@ IMAGE="$SCRIPTPATH/lock.png"
 
 if [ ! -e "$IMAGE" ]; then
 	# Get copy of wallpaper
-	WALLP=/home/superprower/wallpapers/forest.jpg
+	WALLP=/home/superprower/wallpapers/landscapes/forest.jpg
 	cp $WALLP $IMAGE
 
 	# Scale it to fit screen
