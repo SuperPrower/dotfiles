@@ -1,0 +1,1 @@
+/media/data/projects/c++/quick_note/integration/vim_quick_latex_note.vim

@@ -9,9 +9,9 @@ set wildmenu
 set wildmode=longest,list
 
 set undofile 				" persistent history
-set undodir=~/.vim/undo			" undo history location
-set directory=~/.vim/swap		" swap files location
-set backupdir=~/.vim/backup		" backup files location
+set undodir=~/.local/share/nvim/undo	" undo history location
+set directory=~/.local/share/nvim/swap	" swap files location
+set backupdir=~/.local/share/nvim/backup	" backup files location
 
 set encoding=utf8
 
@@ -56,13 +56,14 @@ augroup end
 " =======
 " Plugins
 " =======
-call plug#begin('~/.vim/plugged')
+call plug#begin("~/.local/share/nvim/plugged")
 
 	" custom submodes
 	Plug 'kana/vim-submode'
 
 	" cooler statusbar
-	Plug 'vim-airline/vim-airline'
+	Plug 'itchyny/lightline.vim'
+
 
 	" GDB integration
 	Plug 'vim-scripts/Conque-GDB'
@@ -75,9 +76,15 @@ call plug#begin('~/.vim/plugged')
 	Plug 'scrooloose/nerdtree'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 
-	" code completion
-	Plug 'valloric/youcompleteme'
-	Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+	" ============== code completion ============================
+	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	" === clang
+	" Plug 'zchee/deoplete-clang'
+	" Plug 'tweekmonster/deoplete-clang2'
+	" Plug 'Rip-Rip/clang_complete'
+	" === python 
+	Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
+	" ===========================================================
 
 	" syntax highlighting for i3wm configuration file
 	Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
@@ -119,44 +126,30 @@ let g:submode_always_show_submode = 1
 " ============
 " Key Bindings
 " ============
-nnoremap <F2> :NERDTreeToggle<CR>
+nnoremap <F7> :call TrimWhitespace()<CR>:w<CR>:echo "Removed trailing whitespace and saved"<CR>
+nnoremap <F10> :NERDTreeToggle<CR>
 
-" ====================
-" Vim Airline Settings
-" ====================
-let g:airline_powerline_fonts=1
-let g:airline_theme="base16_default"
-
-" Custom Symbols
-if !exists('g:airline_symbols')
-	let g:airline_symbols={}
-endif
-
-let g:airline_symbols.linenr=''
-let g:airline_symbols.maxlinenr=''
-let g:airline_symbols.whitespace=''
-" Custom right-most part
-call airline#parts#define_raw('line', (g:airline_symbols.linenr).' %#__accent_bold#%l/%L%#__restore__#')
-let g:airline_section_z=airline#section#create(['line',':%v'])
-
+" ======================
+" Vim LightLine Settings
+" ======================
+let g:lightline = {
+	\ 'colorscheme' : 'one',
+	\ }
 " Get rid of default mode indicator
 set noshowmode
 
 " =========================
 " Markdown Preview Settings
 " =========================
-let vim_markdown_preview_toggle=0
-let vim_markdown_preview_github=1
-let vim_markdown_preview_use_xdg_open=1
+" let vim_markdown_preview_toggle=0
+" let vim_markdown_preview_github=1
+" let vim_markdown_preview_use_xdg_open=1
 
-" ======================
-" YouCompleteMe Settings
-" ======================
-let g:ycm_global_ycm_extra_conf= '~/.vim/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf=0
-let g:ycm_server_python_interpreter='/usr/bin/python'
-" Disable preview window
-set completeopt-=preview
+" =================
+" Deoplete Settings
+" =================
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 
 " ===========
 " Colorscheme
@@ -176,5 +169,3 @@ fun! TrimWhitespace()
 	call winrestview(l:save)
 endfun
 
-nnoremap <F7> :call TrimWhitespace()<CR>:w<CR>:echo "Removed trailing whitespace and saved"<CR>
-nnoremap <F10> :NERDTreeToggle<CR>
