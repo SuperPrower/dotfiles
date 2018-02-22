@@ -35,7 +35,7 @@ set showbreak=..
 set laststatus=2
 set ttimeoutlen=10
 set t_Co=256
-set colorcolumn=110
+set colorcolumn=100
 set number
 
 " Force vim to recognize .h files as C headers
@@ -57,8 +57,8 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'ntpeters/vim-better-whitespace'
 
 	" cooler statusbar
-	Plug 'itchyny/lightline.vim'
-	Plug 'itchyny/vim-gitbranch'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
 
 	" GDB integration
 	Plug 'vim-scripts/Conque-GDB'
@@ -72,8 +72,12 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 
 	" code completion
-	Plug 'valloric/youcompleteme'
-	Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+	" Plug 'valloric/youcompleteme'
+	" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+	Plug 'roxma/nvim-completion-manager'
+	Plug 'roxma/ncm-clang'
+	Plug 'Shougo/neoinclude.vim'
+	Plug 'Shougo/neosnippet.vim'
 
 	" syntax highlighting
 	Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
@@ -128,29 +132,69 @@ set background=dark
 let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox_edited
 
-" ======================
-" Vim LightLine Settings
-" ======================
-let g:lightline = {
-	\ 'colorscheme' : 'one',
-	\ 'active': {
-      	\ 	'left':	[ ['mode', 'paste'], ['readonly', 'filename', 'modified', 'gitbranch'] ],
-      	\ },
-	\ 'component_function': {
-      	\ 	'gitbranch': 'gitbranch#name'
-      	\ },
-	\ }
+" ====================
+" Vim Airline Settings
+" ====================
+let g:airline_powerline_fonts=1
+let g:airline_theme="base16_default"
+
+" Custom Symbols
+if !exists('g:airline_symbols')
+	let g:airline_symbols={}
+endif
+
+let g:airline_symbols.linenr=''
+let g:airline_symbols.maxlinenr=''
+let g:airline_symbols.whitespace=''
+" Custom right-most part
+call airline#parts#define_raw('line', (g:airline_symbols.linenr).' %#__accent_bold#%l/%L%#__restore__#')
+let g:airline_section_z=airline#section#create(['line',':%v'])
+
 " Get rid of default mode indicator
 set noshowmode
 
 " ======================
 " YouCompleteMe Settings
 " ======================
-let g:ycm_global_ycm_extra_conf= '~/.local/share/nvim/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf=0
-let g:ycm_server_python_interpreter='/usr/bin/python'
+" let g:ycm_global_ycm_extra_conf= '~/.local/share/nvim/.ycm_extra_conf.py'
+" let g:ycm_confirm_extra_conf=0
+" let g:ycm_server_python_interpreter='/usr/bin/python'
 " Disable preview window
-set completeopt-=preview
+" set completeopt-=preview
+
+" ================================
+" nvim completion manager settings
+" ================================
+
+" supress competion messages
+set shortmess+=c
+
+let g:cm_refresh_length = [[1, 3], [7, 1], [8, 3]]
+
+" leave insert mode on Ctrl-C
+inoremap <c-c> <ESC>
+
+" use tab to select pop-up menu
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" ===================
+" neosnippet settings
+" ===================
+
+let g:neosnippet#enable_completed_snippet = 1
+let g:neosnippet#disable_runtime_snippets = {
+\   '_' : 1,
+\ }
+
+let g:neosnippet#snippets_directory = "~/.config/nvim/snippets/"
+
+" If snippet is expandable, expand it on Enter, else insert new line
+imap <expr> <CR>  (pumvisible() ?  "<Plug>(expand_or_nl)" : "\<CR>")
+imap <expr> <Plug>(expand_or_nl) (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)":"\<CR>")
+
+imap <C-j> <Plug>(neosnippet_expand_or_jump)
+smap <C-j> <Plug>(neosnippet_expand_or_jump)
 
 " =======================
 " LaTeX specific settings
@@ -163,6 +207,7 @@ augroup LaTeX_settings
 	autocmd FileType tex set spell
 	autocmd FileType tex set tabstop=4
 	autocmd FileType tex set shiftwidth=4
+	autocmd FileType tex set colorcolumn=110
 	autocmd FileType tex nnoremap <F6> :VQLNInsertNote<CR>
 augroup end
 
