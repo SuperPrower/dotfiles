@@ -19,19 +19,9 @@ snippet     class
 options     head
 abbr        class {}
     class ${1:#:name} {
-        ${2}
     public:
-        $1(${3});
-    };
-    $1::$1($3) {
-        ${0:TARGET}
-    }
+        $1(${0:TARGET});
 
-snippet     class-without-constructor
-options     head
-abbr        class {}
-    class ${1:#:name} {
-        ${2}
     };
 
 snippet     try
@@ -91,16 +81,6 @@ snippet     dynamic_cast
 abbr        dynamic_cast<>()
     dynamic_cast<${1}>(${2})${0}
 
-snippet     helloworld
-abbr        #include<iostream> int main...
-    #include <iostream>
-
-    int main(int argc, char const* argv[])
-    {
-        std::cout << "hello, world!" << std::endl;
-        return 0;
-    }
-
 snippet     cout
 options     head
-  std::cout << ${0:TARGET} << std::endl;
+    std::cout << ${0:TARGET} << std::endl;

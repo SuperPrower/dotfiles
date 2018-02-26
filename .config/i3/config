@@ -83,8 +83,7 @@ workspace $ws3 output eDP1
 workspace $ws4 output eDP1
 workspace $ws5 output eDP1
 workspace $ws6 output eDP1
-workspace $ws7 output eDP1
-workspace $ws8 output HDMI1
+workspace $ws7 output HDMI1
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -103,14 +102,13 @@ bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
 
 # Assign things to workspaces
 assign [class="Google-chrome"]  	$ws1
 assign [class="discord"] 		$ws2
 assign [class="Telegram"]		$ws2
-assign [class="Steam"]			$ws6
-assign [class="Opera"]			$ws7
+assign [class="Steam"]			$ws5
+assign [class="Opera"]			$ws6
 
 # Force some windows to float
 for_window [class="Arandr" instance="arandr"] 	floating enable

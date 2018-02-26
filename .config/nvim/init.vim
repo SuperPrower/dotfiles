@@ -8,6 +8,8 @@ set backspace=indent,eol,start 		" allow backspace to do everything
 set wildmenu
 set wildmode=longest,list
 
+filetype plugin indent on
+
 " Set persistent history and undo history/swap/backup files locations
 set undofile
 set undodir=~/.local/share/nvim/undo
@@ -75,12 +77,14 @@ call plug#begin("~/.local/share/nvim/plugged")
 	" Plug 'valloric/youcompleteme'
 	" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 	Plug 'roxma/nvim-completion-manager'
-	Plug 'roxma/ncm-clang'
-	Plug 'Shougo/neoinclude.vim'
-	Plug 'Shougo/neosnippet.vim'
+	Plug 'roxma/ncm-clang'		" clang
+	Plug 'Shougo/neoinclude.vim'	" include files
+	Plug 'Shougo/neco-vim'		" vim configuration
+	Plug 'Shougo/neosnippet.vim'	" snippets and function expansion
 
 	" syntax highlighting
 	Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
+	Plug 'tmux-plugins/vim-tmux'
 
 	" LaTeX related plugins
 	Plug 'lervag/vimtex', { 'for': 'tex' }
@@ -190,24 +194,13 @@ let g:neosnippet#disable_runtime_snippets = {
 let g:neosnippet#snippets_directory = "~/.config/nvim/snippets/"
 
 " If snippet is expandable, expand it on Enter, else insert new line
-imap <expr> <CR>  (pumvisible() ?  "<Plug>(expand_or_nl)" : "\<CR>")
-imap <expr> <Plug>(expand_or_nl) (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)":"\<CR>")
+imap <expr><CR>  (pumvisible() && neosnippet#expandable()) ? "\<Plug>(neosnippet_expand)" : "\<CR>"
 
 imap <C-j> <Plug>(neosnippet_expand_or_jump)
 smap <C-j> <Plug>(neosnippet_expand_or_jump)
 
-" =======================
+" ================================================
 " LaTeX specific settings
-" =======================
+" check ./after/ftplugin/tex.vim for more settings
+" ================================================
 let g:neotex_enabled = 1
-
-augroup LaTeX_settings
-	autocmd!
-	autocmd FileType tex set spelllang=ru,en
-	autocmd FileType tex set spell
-	autocmd FileType tex set tabstop=4
-	autocmd FileType tex set shiftwidth=4
-	autocmd FileType tex set colorcolumn=110
-	autocmd FileType tex nnoremap <F6> :VQLNInsertNote<CR>
-augroup end
-
