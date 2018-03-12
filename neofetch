@@ -1,0 +1,10 @@
+#!/bin/env bash
+# this script tries to determine if you are using terminal multiplexer, and if so, uses ascii backend instead of your regular one
+
+clear
+
+if [[ $TERM =~ .*tmux.*|.*screen.* ]]; then
+	neofetch --backend ascii $@
+else
+	neofetch $@
+fi
