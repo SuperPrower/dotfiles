@@ -8,10 +8,10 @@ fg-2 		= #ffd494
 primary 	= #ffb52a
 secondary 	= #e60053
 ; underline 	= #b04f41
-underline 	= ${xrdb:color2}
+underline 	= ${xrdb:color4}
 alert 		= #bd2c40
 
-[bar/simple]
+[bar/panel]
 monitor 	= eDP1
 dpi 		= 120
 
@@ -29,6 +29,9 @@ foreground 	= ${colors.foreground}
 line-size 	= 3
 line-color 	= #f00
 
+border-top-size = 3
+border-color = ${xrdb:color0}
+
 ; Need compositor for transparency.
 ; border-size 	= 6
 ; border-top-size	= 3
@@ -45,7 +48,7 @@ font-1 		= FontAwesome:size=10;2
 font-2 		= xos4terminus:size=24:weight=bold;2
 font-3 		= "Material Design Icons:size=13;2"
 
-modules-left 	= i3
+modules-left 	= i3 mpd
 modules-center 	=
 modules-right 	= keyboard wireless wired xbacklight volume battery date
 
@@ -89,23 +92,72 @@ label-urgent-foreground	= #000000
 label-urgent-background = ${colors.underline}
 label-urgent-padding 	= 2
 
-" chrome
+; chrome
 ws-icon-0 = 1;
-" telegram
+; telegram
 ws-icon-1 = 2;
-" terminal
+; terminal
 ws-icon-2 = 3;
-" book
+; book
 ws-icon-3 = 4;
-" steam
+; steam
 ws-icon-4 = 5;
-" opera
+; opera
 ws-icon-5 = 6;
+; for duplicated screens
+ws-icon-6 = 7;
 
-" old icons - terminal, web, cogs
+; old icons - terminal, web, cogs
 ; ws-icon-2 = 3;
 ; ws-icon-3 = 4;
 ; ws-icon-4 = 5;
+
+[module/mpd]
+type = internal/mpd
+
+host = 127.0.0.1
+port = 6600
+password =
+
+interval = 2
+
+label-song-maxlen = 64
+
+format-online = <icon-prev> <toggle> <icon-next> <icon-repeat> <bar-progress> <label-song>
+; format-online = <icon-prev> <toggle> <icon-next> <icon-repeat> <icon-random> <bar-progress> <label-song>
+; format-playing-underline = ${colors.underline}
+
+label-offline =  mpd is offline
+label-song = %artist:0:28:...% - %title:0:32:..%
+
+icon-play = 
+icon-pause = 
+
+icon-next = 
+icon-prev = 
+
+icon-random = 
+icon-repeat = 
+
+; Used to display the state of random/repeat/repeatone
+; Only applies if <icon-[random|repeat|repeatone]> is used
+toggle-on-foreground = #ff
+toggle-off-foreground = #55
+
+; Only applies if <bar-progress> is used
+bar-progress-width = 15
+bar-progress-indicator = |
+bar-progress-fill = ─
+bar-progress-empty = ─
+
+[module/keyboard]
+type = internal/xkeyboard
+; List of indicators to ignore
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+blacklist-2 = caps lock
+label-layout = %layout%
+label-layout-font = 3
 
 [module/wired]
 type 				= internal/network
@@ -120,7 +172,7 @@ label-disconnected 		= 
 
 [module/wireless]
 type 				= internal/network
-interface 			= wlp1s0
+interface 	 		= wlp1s0
 format-connected 		= <label-connected>
 format-connected-underline 	= ${colors.underline}
 format-disconnected 		= <label-disconnected>
@@ -181,7 +233,8 @@ label = %date% %time%
 label-underline = ${colors.underline}
 
 [module/volume]
-type = internal/alsa
+; type = internal/alsa
+type = internal/pulseaudio
 
 format-volume = <ramp-volume> <label-volume>
 format-volume-underline = ${colors.underline}
@@ -203,15 +256,6 @@ format = <label>
 
 label =  %percentage%%
 label-underline = ${colors.underline}
-
-[module/keyboard]
-type = internal/xkeyboard
-; List of indicators to ignore
-blacklist-0 = num lock
-blacklist-1 = scroll lock
-blacklist-2 = caps lock
-label-layout = %layout%
-label-layout-font = 3
 
 [settings]
 screenchange-reload = true

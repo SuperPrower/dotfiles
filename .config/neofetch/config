@@ -15,10 +15,9 @@ print_info() {
 	info "Kernel" kernel
 	# info "Uptime" uptime
 
-	# Not working :c
 	info "Install Date" install_date
 
-	# info "Packages" packages
+	info "Packages" packages
 	info "Shell" shell
 	info "Resolution" resolution
 	info "DE" de
@@ -35,7 +34,7 @@ print_info() {
 	info "Memory" memory
 	# info "CPU Usage" cpu_usage
 	# info "Disk" disk
-	#  info "Battery" battery
+	# info "Battery" battery
 
 	# info "Locale" locale # This only works on glibc systems.
 
@@ -57,7 +56,7 @@ print_info() {
 # Example:
 # on:  '4.8.9-1-ARCH'
 # off: 'Linux 4.8.9-1-ARCH'
-kernel_shorthand="on"
+kernel_shorthand="off"
 
 
 # Distro
@@ -147,7 +146,7 @@ speed_type="bios_limit"
 # Example:
 # on:	 'i7-6500U (4) @ 3.1GHz'
 # off:	 'i7-6500U (4) @ 3.100GHz'
-speed_shorthand="off"
+speed_shorthand="on"
 
 # Shorten the output of the CPU function
 #
@@ -271,7 +270,7 @@ gtk3="on"
 # disk_show=('/'):
 #	   'Disk (/): 74G / 118G (66%)'
 #
-disk_show=('/', '/media/data/')
+# disk_show=('/', '/media/data/')
 
 # Disk subtitle.
 # What to append to the Disk subtitle.
@@ -291,7 +290,7 @@ disk_show=('/', '/media/data/')
 # dir:	  'Disk (/): 74G / 118G (66%)'
 #		  'Disk (Local Disk): 74G / 118G (66%)'
 #		  'Disk (Videos): 74G / 118G (66%)'
-disk_subtitle="mount"
+disk_subtitle="name"
 
 
 # Text Colors
@@ -342,7 +341,7 @@ underline_char="-"
 # Default:	'0', '7'
 # Values:	'num'
 # Flag:		--block_range
-block_range=(0 7)
+block_range=(0 15)
 
 # Toggle color blocks
 #
@@ -436,7 +435,8 @@ image_backend="w3m"
 # Flag:		--source
 #
 # NOTE: 'auto' will pick the best image source for whatever image backend is used.
-image_source="/media/data/data/Images/NeneCPP/wall.png"
+image_source="/media/data/data/Images/Doggo.jpg"
+# image_source="ascii"
 
 # Image Options
 
@@ -473,14 +473,14 @@ crop_offset="center"
 # Values:  'auto', '00px', '00%', 'none'
 # Flags:   --image_size
 #		   --size
-image_size="auto"
+image_size="350px"
 
 # Ggap between image and text
 #
 # Default: '3'
 # Values:  'num', '-num'
 # Flag:    --gap
-gap=2
+gap=3
 
 # Image offsets
 # Only works with the w3m backend.

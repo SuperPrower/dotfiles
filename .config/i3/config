@@ -83,6 +83,7 @@ workspace $ws3 output eDP1
 workspace $ws4 output eDP1
 workspace $ws5 output eDP1
 workspace $ws6 output eDP1
+workspace $ws7 output eDP1
 workspace $ws7 output HDMI1
 
 # switch to workspace
@@ -209,13 +210,13 @@ exec --no-startup-id xfce4-clipman
 exec --no-startup-id libinput-gestures-setup start
 
 # this will restart polybar on i3 restart
-exec_always --no-startup-id "killall polybar;polybar -r simple"
+exec_always --no-startup-id "killall polybar;polybar -r panel"
 
 exec --no-startup-id google-chrome-stable
 exec --no-startup-id /media/data/applications/Telegram/Telegram
 # exec --no-startup-id discord -- takes too much power
 
 # wallpaper
-exec --no-startup-id feh --bg-fill ~/wallpapers/landscapes/forest.jpg
+exec --no-startup-id feh --bg-fill ~/wallpapers/landscapes/calm.jpg
 
 # vim:filetype=i3

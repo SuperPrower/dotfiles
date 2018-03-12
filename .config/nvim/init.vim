@@ -25,7 +25,7 @@ noremap <Left> 	:echo "hjkl"<CR>
 noremap <Right>	:echo "hjkl"<CR>
 
 " Formatting
-set autoindent
+" set autoindent
 set noexpandtab
 set tabstop=8
 set shiftwidth=8
@@ -35,10 +35,12 @@ set showbreak=..
 
 " Interface
 set laststatus=2
-set ttimeoutlen=10
+" set ttimeoutlen=10
 set t_Co=256
 set colorcolumn=100
 set number
+
+set nofoldenable
 
 " Force vim to recognize .h files as C headers
 augroup project
@@ -66,8 +68,11 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'vim-scripts/Conque-GDB'
 
 	" colorscheme fast preview
-	Plug 'xolox/vim-misc'
-	Plug 'xolox/vim-colorscheme-switcher'
+	" Plug 'xolox/vim-misc'
+	" Plug 'xolox/vim-colorscheme-switcher'
+
+	Plug 'arcticicestudio/nord-vim'
+	" Plug 'chriskempson/base16-vim'
 
 	" file tree
 	Plug 'scrooloose/nerdtree'
@@ -87,9 +92,9 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'tmux-plugins/vim-tmux'
 
 	" LaTeX related plugins
-	Plug 'lervag/vimtex', { 'for': 'tex' }
+	" Plug 'lervag/vimtex', { 'for': 'tex' }
+	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 	Plug 'donRaphaco/neotex', { 'for': 'tex' }
-	" Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 call plug#end()
 
@@ -131,16 +136,27 @@ nnoremap <F10> :NERDTreeToggle<CR>
 " Colorscheme
 " ===========
 " Setting dark mode
-set background=dark
+" set background=dark
 
-let g:gruvbox_contrast_dark='hard'
-colorscheme gruvbox_edited
+" let g:gruvbox_contrast_dark='hard'
+" colorscheme base16-tomorrow-night
+
+" Nord theme
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
+
+set termguicolors
+let g:nord_comment_brightness = 15
+
+let g:nord_uniform_diff_background = 1
+
+colorscheme nord
 
 " ====================
 " Vim Airline Settings
 " ====================
 let g:airline_powerline_fonts=1
-let g:airline_theme="base16_default"
+let g:airline_theme="nord"
 
 " Custom Symbols
 if !exists('g:airline_symbols')
@@ -157,15 +173,6 @@ let g:airline_section_z=airline#section#create(['line',':%v'])
 " Get rid of default mode indicator
 set noshowmode
 
-" ======================
-" YouCompleteMe Settings
-" ======================
-" let g:ycm_global_ycm_extra_conf= '~/.local/share/nvim/.ycm_extra_conf.py'
-" let g:ycm_confirm_extra_conf=0
-" let g:ycm_server_python_interpreter='/usr/bin/python'
-" Disable preview window
-" set completeopt-=preview
-
 " ================================
 " nvim completion manager settings
 " ================================
@@ -173,7 +180,7 @@ set noshowmode
 " supress competion messages
 set shortmess+=c
 
-let g:cm_refresh_length = [[1, 3], [7, 1], [8, 3]]
+let g:cm_refresh_length = [[1, 3], [7, 2], [8, 3]]
 
 " leave insert mode on Ctrl-C
 inoremap <c-c> <ESC>
