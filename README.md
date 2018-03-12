@@ -1,13 +1,15 @@
-### This is my dotfiles.
+## .dotfiles
 
-### About it:
+### About configuration:
 
 * WM: i3-gaps
 * Panel: Polybar
 * Launcher: Rofi with slightly modified blor.theme (check rofi website)
 * Lockscreen: i3lock-color
-* Terminal/Panel font: DejaVu Sans Mono (previously Terminus, but it's too small for my DPI)
-* Terminal/Vim Colors: Nord (previously gruvbox, previously base16-tomorrow-night)
+* Terminal Emulator: xfce4-terminal
+* Terminal font: DejaVu Sans Mono (previously Terminus, but it's too small for my DPI)
+* Panel fonts: Terminus, Font Awesome 4, Material Design Icons
+* Terminal/NeoVim Colors: Nord (previously gruvbox, previously base16-tomorrow-night)
 
 ### Screenshots:
 
