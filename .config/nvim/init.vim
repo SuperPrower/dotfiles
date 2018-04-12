@@ -36,7 +36,7 @@ set showbreak=..
 " Interface
 set laststatus=2
 " set ttimeoutlen=10
-set t_Co=256
+" set t_Co=16
 set colorcolumn=100
 set number
 
@@ -72,7 +72,7 @@ call plug#begin("~/.local/share/nvim/plugged")
 	" Plug 'xolox/vim-colorscheme-switcher'
 
 	Plug 'arcticicestudio/nord-vim'
-	" Plug 'chriskempson/base16-vim'
+	Plug 'chriskempson/base16-vim'
 
 	" file tree
 	Plug 'scrooloose/nerdtree'
@@ -89,6 +89,7 @@ call plug#begin("~/.local/share/nvim/plugged")
 
 	" syntax highlighting
 	Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
+	Plug 'kovetskiy/sxhkd-vim'
 	Plug 'tmux-plugins/vim-tmux'
 
 	" LaTeX related plugins
@@ -136,27 +137,36 @@ nnoremap <F10> :NERDTreeToggle<CR>
 " Colorscheme
 " ===========
 " Setting dark mode
-" set background=dark
+set background=dark
 
 " let g:gruvbox_contrast_dark='hard'
-" colorscheme base16-tomorrow-night
+" colorscheme gruvbox_edited
 
 " Nord theme
-let g:nord_italic = 1
-let g:nord_italic_comments = 1
+" let g:nord_italic = 1
+" let g:nord_italic_comments = 1
+"
+" set termguicolors
+" let g:nord_comment_brightness = 15
+"
+" let g:nord_uniform_diff_background = 1
+"
+" colorscheme nord
 
+" Base16 Theme
 set termguicolors
-let g:nord_comment_brightness = 15
+colorscheme base16-tomorrow-night
 
-let g:nord_uniform_diff_background = 1
-
-colorscheme nord
+" ==================
+" ConqueGDB Settings
+" ==================
+" TODO: https://code.google.com/archive/p/conque/wikis/Usage.wiki
 
 " ====================
 " Vim Airline Settings
 " ====================
 let g:airline_powerline_fonts=1
-let g:airline_theme="nord"
+let g:airline_theme="base16_twilight"
 
 " Custom Symbols
 if !exists('g:airline_symbols')

@@ -1,39 +1,3 @@
-! =========================
-! (old) urxvt configuration
-! ==========================
-
-URxvt*scrollBar:	false
-
-#define FONT_SIZE 9
-
-! URxvt*letterSpace:	0
-URxvt*font: 		xft:DejaVu Sans Mono:style=Book:size=FONT_SIZE, \
-			xft:DejaVu Sans Mono for Powerline:style=Book:size=FONT_SIZE, \
-			-*-fontawesome-*-*-*-*-*-*-*-*-*-*-*-*
-
-URxvt*boldFont:		xft:DejaVu Sans Mono:style=Bold:size=FONT_SIZE, \
-			xft:DejaVu Sans Mono for Powerline:style=Bold:size=FONT_SIZE, \
-			-*-fontawesome-*-*-*-*-*-*-*-*-*-*-*-*
-
-URxvt.iso14755:		false
-URxvt*utf8:		true
-
-! ================
-! urxvt plugins
-! ================
-URxvt.perl-ext-common: 	keyboard-select,font-size
-URxvt.keysym.M-s:	perl:keyboard-select:activate
-
-! `font-size` plugin
-URxvt.keysym.C-minus: 	perl:font-size:decrease
-URxvt.keysym.C-equal: 	perl:font-size:increase
-! The default font increase step size is 1. This is for portability across all
-! fonts (some fonts do not support particular font sizes). Because changing font
-! size only really makes sense for anti-aliased fonts (Terminus is bitmapped),urxvt: unable to calculate font width
-! and because anti-aliased fonts support any size, it makes sense to just use a
-! size step of 4 for faster transitions between font size changes.
-URxvt.font-size.step: 	1
-
 ! =================
 ! Xft configuration
 ! =================
@@ -49,20 +13,20 @@ Xft.hintstyle:		hintslight
 ! color scheme
 ! ============
 
-! #include ".themes/base16/base16-tomorrow-night.Xresources"
-#include ".themes/nord"
+#include ".themes/base16/base16-tomorrow-night.Xresources"
+! #include ".themes/nord"
 
 ! =================
 ! rofi color scheme
 ! =================
 
 #define hl_text #1B2B34
-#define m_color nord9
+#define m_color base0E
 
 rofi.color-enabled:	true
 rofi.separator-style: 	solid
 rofi.color-normal:	argb:00000000, #D8DEE9, argb:00000000, m_color, hl_text
 rofi.color-urgent:	argb:00000000, #F99157, argb:00000000, #F99157, hl_text
 rofi.color-active:	argb:00000000, #6699CC, argb:00000000, #6699CC, hl_text
-rofi.color-window:	nord0, m_color, m_color
+rofi.color-window:	base00, m_color, m_color
 rofi.font:		"DejaVu Sans Mono" Book 14

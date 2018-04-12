@@ -115,8 +115,10 @@ assign [class="Opera"]			$ws6
 for_window [class="Arandr" instance="arandr"] 	floating enable
 for_window [class="Pavucontrol"] 		floating enable
 for_window [class="qemu-system-i386"] 		floating enable
+
 for_window [class="EFTNC"]			floating enable
 for_window [class="GGJ_2018"]			floating enable
+
 for_window [class="Godot" instance="Godot_Engine"]	floating enable
 # for_window [title="PlayOnLinux"] 		floating enable
 # for_window [class="thunar"] 			floating enable
@@ -165,15 +167,21 @@ mode "resize" {
 # set $inactive			#ca8d67
 
 # gray borders
-set $active			#3b3b3b
-set $inactive			#282828
-set $indicator			#458588
+# set $active			#3b3b3b
+# set $inactive			#282828
+# set $indicator		#458588
+
+# magenta borders
+set_from_resource $active color5
+set_from_resource $inactive color4
+set_from_resource $indicator color8
+set_from_resource $bg color0
 
 # class			border	  backgr.   	text		indicat 	child_border
 # ------------------------------------------------------------------------------------------
-client.focused          $active   $active   	#ffffff 	$indicator 	$active
-client.focused_inactive $inactive $inactive 	#ffffff 	$inactive  	$inactive
-client.unfocused        $inactive $inactive   	#888888 	#incactive 	$inactive
+client.focused          $active   $bg   	#ffffff 	$indicator 	$active
+client.focused_inactive $inactive $bg 		#ffffff 	$inactive  	$inactive
+client.unfocused        $inactive $bg		#888888 	#incactive 	$inactive
 client.urgent           $active   $active    	#ffffff 	#900000 	$active
 client.placeholder      $inactive $inactive	#ffffff 	#000000 	$inactive
 
@@ -181,14 +189,16 @@ client.background       #ffffff
 
 # do not follow
 focus_follows_mouse no
-bindsym $mod+Control+l exec --no-startup-id /home/superprower/lock/lockscreen.sh
 
 # i3gaps config
 for_window [class="^.*"] border pixel 1
-gaps inner 5
+# gaps inner 5
 
 smart_borders on
 smart_gaps on
+
+# lockscreen
+bindsym $mod+Control+l exec --no-startup-id /home/superprower/lock/lockscreen.sh
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume	exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -217,6 +227,6 @@ exec --no-startup-id /media/data/applications/Telegram/Telegram
 # exec --no-startup-id discord -- takes too much power
 
 # wallpaper
-exec --no-startup-id feh --bg-fill ~/wallpapers/landscapes/calm.jpg
+exec_always --no-startup-id feh --bg-fill ~/wallpapers/city.jpg
 
 # vim:filetype=i3
