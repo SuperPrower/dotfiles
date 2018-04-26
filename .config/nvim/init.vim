@@ -24,6 +24,10 @@ noremap <Down> 	:echo "hjkl"<CR>
 noremap <Left> 	:echo "hjkl"<CR>
 noremap <Right>	:echo "hjkl"<CR>
 
+" use tab to select pop-up menu - ncm/deoplete
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 " Formatting
 " set autoindent
 set noexpandtab
@@ -78,18 +82,29 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'scrooloose/nerdtree'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 
-	" code completion
+	" ===============
+	" Code completion
+	" ===============
+	" YouCompleteMe doesn't use all features of NeoVim
+	"
 	" Plug 'valloric/youcompleteme'
 	" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-	Plug 'roxma/nvim-completion-manager'
-	Plug 'roxma/ncm-clang'		" clang
+	"
+	" NCM is now deprecated :c I will attempt to move to deoplete.
+	"
+	" Plug 'roxma/nvim-completion-manager'
+	" Plug 'roxma/ncm-clang'
+
+	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
 	Plug 'Shougo/neoinclude.vim'	" include files
 	Plug 'Shougo/neco-vim'		" vim configuration
 	Plug 'Shougo/neosnippet.vim'	" snippets and function expansion
+	Plug 'zchee/deoplete-clang'	" clang
+	Plug 'wellle/tmux-complete.vim' " Completion from nearby Tmux panes
 
 	" syntax highlighting
 	Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
-	Plug 'kovetskiy/sxhkd-vim'
 	Plug 'tmux-plugins/vim-tmux'
 
 	" LaTeX related plugins
@@ -188,16 +203,27 @@ set noshowmode
 " ================================
 
 " supress competion messages
-set shortmess+=c
+" set shortmess+=c
 
-let g:cm_refresh_length = [[1, 3], [7, 2], [8, 3]]
+" let g:cm_refresh_length = [[1, 3], [7, 2], [8, 3]]
 
 " leave insert mode on Ctrl-C
-inoremap <c-c> <ESC>
+" inoremap <c-c> <ESC>
 
-" use tab to select pop-up menu
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" =================
+" deoplete settings
+" =================
+
+" deoplete options
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+
+" deoplete-clang
+let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
+let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
+
+" tmux-complete
+let g:tmuxcomplete#trigger = ''
 
 " ===================
 " neosnippet settings
@@ -213,8 +239,8 @@ let g:neosnippet#snippets_directory = "~/.config/nvim/snippets/"
 " If snippet is expandable, expand it on Enter, else insert new line
 imap <expr><CR>  (pumvisible() && neosnippet#expandable()) ? "\<Plug>(neosnippet_expand)" : "\<CR>"
 
-imap <C-j> <Plug>(neosnippet_expand_or_jump)
-smap <C-j> <Plug>(neosnippet_expand_or_jump)
+imap <expr><C-j> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-j>"
+smap <expr><C-j> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-j>"
 
 " ================================================
 " LaTeX specific settings
