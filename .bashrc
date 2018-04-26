@@ -5,7 +5,13 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-PS1='[\u@\h \W]\$ '
+# PS1='[\u@\h \W]\$ '
+
+get_git_branch() {
+     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+PS1="\[$(tput sgr0)\]┌─[\[\033[38;5;4m\]\u@\h\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;5m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]\[$(tput sgr0)\]]\$(get_git_branch)\n└─\\$ "
 
 # ==============
 # Useful aliases
