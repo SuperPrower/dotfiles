@@ -15,9 +15,10 @@ print_info() {
 	info "Kernel" kernel
 	# info "Uptime" uptime
 
+	# Not working :c
 	info "Install Date" install_date
 
-	info "Packages" packages
+	# info "Packages" packages
 	info "Shell" shell
 	info "Resolution" resolution
 	info "DE" de
@@ -34,7 +35,7 @@ print_info() {
 	info "Memory" memory
 	# info "CPU Usage" cpu_usage
 	# info "Disk" disk
-	# info "Battery" battery
+	#  info "Battery" battery
 
 	# info "Locale" locale # This only works on glibc systems.
 
@@ -56,7 +57,7 @@ print_info() {
 # Example:
 # on:  '4.8.9-1-ARCH'
 # off: 'Linux 4.8.9-1-ARCH'
-kernel_shorthand="off"
+kernel_shorthand="on"
 
 
 # Distro
@@ -146,7 +147,7 @@ speed_type="bios_limit"
 # Example:
 # on:	 'i7-6500U (4) @ 3.1GHz'
 # off:	 'i7-6500U (4) @ 3.100GHz'
-speed_shorthand="on"
+speed_shorthand="off"
 
 # Shorten the output of the CPU function
 #
@@ -270,7 +271,7 @@ gtk3="on"
 # disk_show=('/'):
 #	   'Disk (/): 74G / 118G (66%)'
 #
-# disk_show=('/', '/media/data/')
+disk_show=('/', '/media/data/')
 
 # Disk subtitle.
 # What to append to the Disk subtitle.
@@ -290,7 +291,7 @@ gtk3="on"
 # dir:	  'Disk (/): 74G / 118G (66%)'
 #		  'Disk (Local Disk): 74G / 118G (66%)'
 #		  'Disk (Videos): 74G / 118G (66%)'
-disk_subtitle="name"
+disk_subtitle="mount"
 
 
 # Text Colors
@@ -341,7 +342,7 @@ underline_char="-"
 # Default:	'0', '7'
 # Values:	'num'
 # Flag:		--block_range
-block_range=(0 15)
+block_range=(0 7)
 
 # Toggle color blocks
 #
@@ -424,7 +425,7 @@ disk_display="infobar"
 # Default:	'ascii'
 # Values:	'ascii', 'caca', 'catimg', 'jp2a', 'iterm2', 'off', 'tycat', 'w3m'
 # Flag:		--backend
-image_backend="ascii"
+image_backend="w3m"
 
 # Image Source
 #
@@ -435,9 +436,7 @@ image_backend="ascii"
 # Flag:		--source
 #
 # NOTE: 'auto' will pick the best image source for whatever image backend is used.
-# image_source="/media/data/data/Images/Doggo.jpg"
-# image_source="ascii"
-image_source="$HOME/.config/neofetch/arch.ascii"
+image_source="/media/data/data/Images/Doggo.jpg"
 
 # Image Options
 
@@ -474,14 +473,14 @@ crop_offset="center"
 # Values:  'auto', '00px', '00%', 'none'
 # Flags:   --image_size
 #		   --size
-image_size="350px"
+image_size="37%"
 
 # Ggap between image and text
 #
 # Default: '3'
 # Values:  'num', '-num'
 # Flag:    --gap
-gap=2
+gap=3
 
 # Image offsets
 # Only works with the w3m backend.

@@ -3,11 +3,13 @@
 SCRIPTPATH=$(realpath "$0")
 SCRIPTPATH=${SCRIPTPATH%/*}
 
-IMAGE="$SCRIPTPATH/lock.png"
+IMAGE="/tmp/lock.png"
 
 if [ ! -e "$IMAGE" ]; then
+	echo "Image not found, creating new one"
+
 	# Get copy of wallpaper
-	WALLP=/home/superprower/wallpapers/landscapes/forest.jpg
+	WALLP="$LOCKSCREEN_IMAGE"
 	cp $WALLP $IMAGE
 
 	# Scale it to fit screen
