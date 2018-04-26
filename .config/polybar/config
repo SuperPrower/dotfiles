@@ -40,9 +40,7 @@ font-1 		= FontAwesome:size=10;3
 font-2 		= xos4terminus:size=24:weight=bold;3
 font-3 		= "Material Design Icons:size=13;3"
 
-; modules-left 	= i3 mpd
-; modules-left 	= bspwm
-modules-left	= i3
+modules-left	= i3 mpd
 modules-center 	=
 modules-right 	= keyboard wireless wired xbacklight volume temperature battery date
 
@@ -104,14 +102,60 @@ ws-icon-6 = 7;
 ; ws-icon-3 = 4;
 ; ws-icon-4 = 5;
 
+[module/mpd]
+type = internal/mpd
+
+host = 127.0.0.1
+port = 6600
+password =
+
+interval = 2
+
+label-song-maxlen = 64
+
+format-online = <icon-prev> <toggle> <icon-next> <bar-progress> <label-song>
+format-playing-underline = ${xrdb:color1}
+
+label-offline =  mpd is offline>
+
+label-song = %artist:0:28:...% - %title:0:32:..%
+
+icon-play = 
+icon-pause = 
+
+icon-next = 
+icon-prev = 
+
+; random/repeat and other modifiers doesn't work with mopidy, see #1055
+icon-random = 
+icon-repeat = 
+
+; Used to display the state of random/repeat/repeatone
+; Only applies if <icon-[random|repeat|repeatone]> is used
+toggle-on-foreground = #ff
+toggle-off-foreground = #55
+
+; Only applies if <bar-progress> is used
+bar-progress-width = 15
+bar-progress-indicator = |
+bar-progress-fill = ─
+bar-progress-empty = ─
+
 [module/keyboard]
 type = internal/xkeyboard
-; List of indicators to ignore
-blacklist-0 = num lock
-blacklist-1 = scroll lock
-blacklist-2 = caps lock
+
+format = <label-layout> <label-indicator>
+format-spacing = 0
+
 label-layout = %layout%
 label-layout-font = 3
+
+; List of indicators to ignore
+; blacklist-0 = num lock
+blacklist-1 = scroll lock
+; blacklist-2 = caps lock
+
+label-indicator-underline = ${xrdb:color1}
 
 [module/wireless]
 type 				= internal/network
@@ -191,13 +235,13 @@ format-warn-underline = ${xrdb:color1}
 ;   %temperature% (default, in °C)
 ;   %temperature-c%   (temperature, in °C)
 ;   %temperature-f%   (temperature, in °F)
-label = %temperature%
+label = %temperature-c%
 
 ; Available tokens:
 ;   %temperature% (default, in °C)
 ;   %temperature-c%   (temperature, in °C)
 ;   %temperature-f%   (temperature, in °F)
-label-warn = %temperature%
+label-warn = %temperature-c%
 
 ; Requires the <ramp> tag
 ; The icon selection will range from 0 to `warn-temperature`
