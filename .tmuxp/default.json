@@ -1,72 +1,71 @@
 {
-  "session_name": "default",
-  "windows": [
-    {
-      "options": {
-        "automatic-rename": "off"
+   "session_name":"default",
+   "windows":[
+      {
+         "options":{
+            "automatic-rename":"off"
+         },
+         "window_name":"config",
+         "layout":"5973,213x56,0,0{106x56,0,0[106x22,0,0,1,106x33,0,23,8],106x56,107,0,2}",
+         "panes":[
+            "clear && neofetch",
+            "pane",
+            "pane"
+         ],
+         "start_directory":"/home/superprower",
+         "focus":"true"
       },
-      "window_name": "config",
-      "layout": "5973,213x56,0,0{106x56,0,0[106x22,0,0,1,106x33,0,23,8],106x56,107,0,2}",
-      "panes": [
-        "~/neofetch",
-	"pane",
-        "pane"
-      ],
-      "start_directory": "/home/superprower",
-      "focus": "true"
-    },
-    {
-      "options": {
-        "automatic-rename": "off"
+      {
+         "options":{
+            "automatic-rename":"off"
+         },
+         "window_name":"study",
+         "layout":"c661,213x56,0,0,4",
+         "panes":[
+            "pane"
+         ],
+         "start_directory":"/home/superprower/Study"
       },
-      "window_name": "music",
-      "layout": "c660,213x56,0,0,3",
-      "panes": [
-        {
-          "shell_command": "ncmpcpp",
-          "focus": "true"
-        }
-      ],
-      "start_directory": "/home/superprower"
-    },
-    {
-      "options": {
-        "automatic-rename": "off"
+      {
+         "options":{
+            "automatic-rename":"off"
+         },
+         "window_name":"a mistake",
+         "layout":"c662,213x56,0,0,5",
+         "panes":[
+            "ranger"
+         ],
+         "start_directory":"/media/data/torrent"
       },
-      "window_name": "study",
-      "layout": "c661,213x56,0,0,4",
-      "panes": [
-      	"pane"
-      ],
-      "start_directory": "/home/superprower/Study"
-    },
-    {
-      "options": {
-        "automatic-rename": "off"
+      {
+         "options":{
+            "automatic-rename":"off"
+         },
+         "window_name":"projects",
+         "layout":"1618,213x56,0,0{106x56,0,0,6,106x56,107,0,7}",
+         "panes":[
+            {
+               "shell_command":"pane"
+            },
+            {
+               "shell_command":"pane",
+               "focus":"true"
+            }
+         ],
+         "start_directory":"/media/data/projects/"
       },
-      "window_name": "a mistake",
-      "layout": "c662,213x56,0,0,5",
-      "panes": [
-      	"ranger"
-      ],
-      "start_directory": "/media/data/torrent"
-    },
-    {
-      "options": {
-        "automatic-rename": "off"
-      },
-      "window_name": "software project",
-      "layout": "1618,213x56,0,0{106x56,0,0,6,106x56,107,0,7}",
-      "panes": [
-        {
-          "shell_command": [". venv/bin/activate", "clear"]
-        },
-	{
-          "shell_command": "pane",
-          "focus": "true"
-	}
-      ],
-      "start_directory": "/media/data/projects/python/washapp"
-    }
-  ]
+      {
+         "options": {
+	   "automatic-rename":"off"
+	 },
+         "window_name":"music",
+         "layout":"c665,213x56,0,0,8",
+         "panes":[
+            {
+               "shell_command":"ncmpcpp"
+            }
+         ]
+      }
+
+   ]
 }

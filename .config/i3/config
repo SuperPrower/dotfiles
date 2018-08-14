@@ -200,7 +200,7 @@ smart_borders on
 smart_gaps on
 
 # lockscreen
-bindsym $mod+Control+l exec --no-startup-id /home/superprower/lock/lockscreen.sh
+bindsym $mod+Control+l exec --no-startup-id i3lock
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume	exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -210,6 +210,12 @@ bindsym XF86AudioMute 		exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp 	exec --no-startup-id xbacklight -inc 10
 bindsym XF86MonBrightnessDown 	exec --no-startup-id xbacklight -dec 10
+
+# MPD controls
+bindsym XF86AudioPlay		exec --no-startup-id mpc toggle
+bindsym XF86AudioPrev		exec --no-startup-id mpc prev
+bindsym XF86AudioNext		exec --no-startup-id mpc next
+
 
 bindsym Print 			exec xfce4-screenshooter
 
@@ -229,5 +235,7 @@ exec --no-startup-id /media/data/applications/Telegram/Telegram
 
 # wallpaper
 exec_always --no-startup-id feh --bg-fill $WALLPAPER
+# gen lockscreen image
+exec_always --no-startup-id /home/superprower/lock/make_lock_bg.sh
 
 # vim:filetype=i3

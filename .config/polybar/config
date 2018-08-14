@@ -10,7 +10,7 @@ secondary 	= #e60053
 alert 		= #bd2c40
 
 [bar/panel]
-monitor 	= eDP1
+; monitor 	= eDP1
 dpi 		= 120
 
 ; if used together with tint2
@@ -39,8 +39,11 @@ font-0 		= xos4terminus:size=14;3
 font-1 		= FontAwesome:size=10;3
 font-2 		= xos4terminus:size=24:weight=bold;3
 font-3 		= "Material Design Icons:size=13;3"
+font-4		= "Unifont;4"
+; font-4		= "VL Gothic:size=9;4"
 
 modules-left	= i3 mpd
+; modules-left 	= i3
 modules-center 	=
 modules-right 	= keyboard wireless wired xbacklight volume temperature battery date
 
@@ -53,7 +56,8 @@ tray-maxsize 	= 16
 [module/i3]
 type 		= internal/i3
 
-pin-workspaces 	= true
+; pin-workspaces 	= true
+pin-workspaces 	= false
 index-sort 	= true
 enable-click 	= true
 enable-scroll 	= false
@@ -316,3 +320,5 @@ screenchange-reload = true
 [global/wm]
 margin-top = 0
 margin-bottom = 0
+
+; vim: ft=cfg

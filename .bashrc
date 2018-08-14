@@ -33,7 +33,8 @@ alias orphans='pacman -Qtdq'
 export TERMINAL=xfce4-terminal
 export EDITOR=nvim
 
-export WALLPAPER="$HOME/wallpapers/city.jpg"
+# export WALLPAPER="$HOME/wallpapers/city.jpg"
+export WALLPAPER="$HOME/wallpapers/Toradora.jpg"
 export LOCKSCREEN_IMAGE="$HOME/wallpapers/magenta_park.jpg"
 
 # Man pages color

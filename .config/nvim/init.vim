@@ -59,7 +59,7 @@ augroup END
 call plug#begin("~/.local/share/nvim/plugged")
 
 	" custom submodes
-	Plug 'kana/vim-submode'
+	" Plug 'kana/vim-submode'
 
 	" highlighting trailing whitespaces
 	Plug 'ntpeters/vim-better-whitespace'
@@ -68,8 +68,10 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 
+
 	" GDB integration
-	Plug 'vim-scripts/Conque-GDB'
+	" Plug 'vim-scripts/Conque-GDB'
+	" Plug 'sakhnik/nvim-gdb'
 
 	" colorscheme fast preview
 	" Plug 'xolox/vim-misc'
@@ -78,75 +80,102 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'arcticicestudio/nord-vim'
 	Plug 'chriskempson/base16-vim'
 
-	" file tree
-	Plug 'scrooloose/nerdtree'
-	Plug 'Xuyuanp/nerdtree-git-plugin'
-
-	" ===============
-	" Code completion
-	" ===============
+	" =====================
+	" NeoVim as IDE plugins
+	" =====================
 	" YouCompleteMe doesn't use all features of NeoVim
 	"
 	" Plug 'valloric/youcompleteme'
 	" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 	"
-	" NCM is now deprecated :c I will attempt to move to deoplete.
+	" NCM is being replaced with NCM2
 	"
 	" Plug 'roxma/nvim-completion-manager'
 	" Plug 'roxma/ncm-clang'
+	"
+	Plug 'ncm2/ncm2'
+	Plug 'roxma/nvim-yarp' " required
 
-	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	Plug 'ncm2/ncm2-pyclang'
+	Plug 'ncm2/ncm2-jedi'
+
+	Plug 'ncm2/ncm2-neoinclude'
+	Plug 'ncm2/ncm2-tagprefix'
+	Plug 'ncm2/ncm2-tmux'
+	Plug 'ncm2/ncm2-vim'
+	Plug 'ncm2/ncm2-path'
+	Plug 'ncm2/ncm2-bufword'
 
 	Plug 'Shougo/neoinclude.vim'	" include files
 	Plug 'Shougo/neco-vim'		" vim configuration
 	Plug 'Shougo/neosnippet.vim'	" snippets and function expansion
-	Plug 'zchee/deoplete-clang'	" clang
-	Plug 'wellle/tmux-complete.vim' " Completion from nearby Tmux panes
+
+	Plug 'ludovicchabant/vim-gutentags'	" CTags
+
+	Plug 'w0rp/ale'	" Linting
+
+	" file tree
+	Plug 'scrooloose/nerdtree'
+	Plug 'Xuyuanp/nerdtree-git-plugin'
+
+	" tag tree
+	Plug 'majutsushi/tagbar'
 
 	" syntax highlighting
+	" C++ highlighting
+	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
 	Plug 'tmux-plugins/vim-tmux'
+	Plug 'Shirk/vim-gas', { 'for': 'gas' }
 
 	" LaTeX related plugins
 	" Plug 'lervag/vimtex', { 'for': 'tex' }
 	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 	Plug 'donRaphaco/neotex', { 'for': 'tex' }
 
+	" Graphviz
+	Plug 'wannesm/wmgraphviz.vim'
+
 call plug#end()
 
 " ============
 " Vim Submodes
 " ============
-call submode#enter_with('splits', 'n', '', '<C-w>')
-call submode#leave_with('splits', 'n', '', '<Esc>')
-" navigate splits
-call submode#map('splits', 'n', '', 'h', '<C-w>h')
-call submode#map('splits', 'n', '', 'j', '<C-w>j')
-call submode#map('splits', 'n', '', 'k', '<C-w>k')
-call submode#map('splits', 'n', '', 'l', '<C-w>l')
-" move splits to the edges of the screen
-call submode#map('splits', 'n', '', 'H', '<C-w>H')
-call submode#map('splits', 'n', '', 'J', '<C-w>J')
-call submode#map('splits', 'n', '', 'K', '<C-w>K')
-call submode#map('splits', 'n', '', 'L', '<C-w>L')
-" grow split wider/thinner
-call submode#map('splits', 'n', '', ',', '<C-w><')
-call submode#map('splits', 'n', '', '.', '<C-w>>')
-" grop split up/down
-call submode#map('splits', 'n', '', '=', '<C-w>+')
-call submode#map('splits', 'n', '', '-', '<C-w>-')
-" rotate splits
-call submode#map('splits', 'n', '', 'r', '<C-w>r')
-call submode#map('splits', 'n', '', 'R', '<C-w>R')
-
-let g:submode_timeout = 0
-let g:submode_always_show_submode = 1
+" More natural splits
+" set splitbelow          " Horizontal split below current.
+" set splitright          " Vertical split to right of current.
+"
+" call submode#enter_with('splits', 'n', '', '<C-w>')
+" call submode#leave_with('splits', 'n', '', '<Esc>')
+" " navigate splits
+" call submode#map('splits', 'n', '', 'h', '<C-w>h')
+" call submode#map('splits', 'n', '', 'j', '<C-w>j')
+" call submode#map('splits', 'n', '', 'k', '<C-w>k')
+" call submode#map('splits', 'n', '', 'l', '<C-w>l')
+" " move splits to the edges of the screen
+" call submode#map('splits', 'n', '', 'H', '<C-w>H')
+" call submode#map('splits', 'n', '', 'J', '<C-w>J')
+" call submode#map('splits', 'n', '', 'K', '<C-w>K')
+" call submode#map('splits', 'n', '', 'L', '<C-w>L')
+" " grow split wider/thinner
+" call submode#map('splits', 'n', '', ',', '<C-w><')
+" call submode#map('splits', 'n', '', '.', '<C-w>>')
+" " grop split up/down
+" call submode#map('splits', 'n', '', '=', '<C-w>+')
+" call submode#map('splits', 'n', '', '-', '<C-w>-')
+" " rotate splits
+" call submode#map('splits', 'n', '', 'r', '<C-w>r')
+" call submode#map('splits', 'n', '', 'R', '<C-w>R')
+"
+" let g:submode_timeout = 0
+" let g:submode_always_show_submode = 1
 
 " ============
 " Key Bindings
 " ============
 nnoremap <F7>  :StripWhitespace<CR>
-nnoremap <F10> :NERDTreeToggle<CR>
+nnoremap <F8> :NERDTreeToggle<CR>
+nnoremap <F9> :TagbarToggle<CR>
 
 " ===========
 " Colorscheme
@@ -172,11 +201,6 @@ set background=dark
 set termguicolors
 colorscheme base16-tomorrow-night
 
-" ==================
-" ConqueGDB Settings
-" ==================
-" TODO: https://code.google.com/archive/p/conque/wikis/Usage.wiki
-
 " ====================
 " Vim Airline Settings
 " ====================
@@ -198,14 +222,25 @@ let g:airline_section_z=airline#section#create(['line',':%v'])
 " Get rid of default mode indicator
 set noshowmode
 
+
 " ================================
-" nvim completion manager settings
+" ncm2 settings
 " ================================
 
-" supress competion messages
-" set shortmess+=c
+autocmd BufEnter * call ncm2#enable_for_buffer()
 
-" let g:cm_refresh_length = [[1, 3], [7, 2], [8, 3]]
+" IMPORTANTE: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+" suppress competion messages
+set shortmess+=c
+
+let g:ncm2#complete_length = [[1, 3], [7, 2], [8, 3]]
+
+" enable auto complete for `<backspace>`, `<c-w>` keys.
+" known issue https://github.com/ncm2/ncm2/issues/7
+au TextChangedI * call ncm2#auto_trigger()
+
 
 " leave insert mode on Ctrl-C
 " inoremap <c-c> <ESC>
@@ -215,15 +250,24 @@ set noshowmode
 " =================
 
 " deoplete options
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_smart_case = 1
 
 " deoplete-clang
-let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
-let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
+" let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
+" let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
 
 " tmux-complete
-let g:tmuxcomplete#trigger = ''
+" let g:tmuxcomplete#trigger = ''
+
+" ============
+" ncm2-pyclang
+" ============
+" path to directory where libclang.so can be found
+" let g:ncm2_pyclang#library_path = '/usr/lib/llvm-5.0/lib'
+" or path to the libclang.so file
+let g:ncm2_pyclang#library_path = '/usr/lib64/libclang.so'
+let g:ncm2_pyclang#args_file_path = ['.clang_complete']
 
 " ===================
 " neosnippet settings
