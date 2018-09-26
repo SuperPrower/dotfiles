@@ -9,7 +9,9 @@
 * Terminal Emulator: xfce4-terminal (+tmux)
 * Terminal font: DejaVu Sans Mono (previously Terminus, but it's too small for my display right now, and I don't like bigger versions of it)
 * Panel fonts: Terminus, Font Awesome 4, Material Design Icons
-* Terminal/NeoVim Colors: Nord (previously gruvbox, previously base16-tomorrow-night)
+* Terminal/NeoVim Colors: base16-tomorrow-night (previously Nord, previously gruvbox)
+* GTK theme: Arc Dark
+* Icon theme: Papirus
 
 ### Screenshots:
 
