@@ -10,6 +10,11 @@
 source ~/git-prompt.sh
 PS1="\[$(tput sgr0)\]┌─[\[\033[38;5;4m\]\u@\h\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;5m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]\[$(tput sgr0)\]]\$(__git_ps1 '(%s)')\n└─\\$ "
 
+# ====
+# fuck
+# ====
+eval $(thefuck --alias)
+
 # ==============
 # Useful aliases
 # ==============
@@ -34,7 +39,9 @@ export TERMINAL=xfce4-terminal
 export EDITOR=nvim
 
 # export WALLPAPER="$HOME/wallpapers/city.jpg"
-export WALLPAPER="$HOME/wallpapers/Toradora.jpg"
+# export WALLPAPER="$HOME/wallpapers/Toradora.jpg"
+# export WALLPAPER="$HOME/wallpapers/magick_generated/wallpaper.png"
+export WALLPAPER="$HOME/wallpapers/landscapes/3fMZ2MC.jpg"
 export LOCKSCREEN_IMAGE="$HOME/wallpapers/magenta_park.jpg"
 
 # Man pages color

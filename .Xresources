@@ -1,30 +1,51 @@
+! ===================
+! urxvt configuration
+! ===================
+
+URxvt*scrollBar:	false
+
+
+URxvt*letterSpace: 	0
+
+URxvt*font:		xft:xos4 Terminus:size=12, \
+			xft:xos4 Terminess Powerline:size=12, \
+			xft:Unifont:size=12
+
+URxvt*boldFont:		xtf:xos4 Terminus:size=12:weight=bold, \
+			xft:xos4 Terminess Powerline:size=12:weight=bold
+
+URxvt.iso14755:		false
+URxvt*utf8:		true
+
 ! =================
 ! Xft configuration
 ! =================
 
-Xft.dpi:          	120
 Xft.antialias:     	true
 Xft.rgba:		subpixel
 Xft.hinting:       	false
 Xft.hintstyle:		hintslight
-Xft.lcdfilter:	lcddefault
+Xft.lcdfilter:		lcddefault
 
 ! ============
 ! color scheme
 ! ============
 
 #include ".themes/base16/base16-tomorrow-night.Xresources"
-! #include ".themes/nord"
+#define m_focus_color #406B50
+focus-color: m_focus_color
+
 
 ! =================
 ! rofi color scheme
 ! =================
 
 #define hl_text #1B2B34
-#define m_color base0E
+#define m_color m_focus_color
 
 rofi.color-enabled:	true
 rofi.separator-style: 	solid
+! State:           	'bg',		'fg',	'bgalt',	'hlbg', 'hlfg'
 rofi.color-normal:	argb:00000000, #D8DEE9, argb:00000000, m_color, hl_text
 rofi.color-urgent:	argb:00000000, #F99157, argb:00000000, #F99157, hl_text
 rofi.color-active:	argb:00000000, #6699CC, argb:00000000, #6699CC, hl_text

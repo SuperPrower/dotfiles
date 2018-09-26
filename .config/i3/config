@@ -42,8 +42,8 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in portrait (horizontal) orientation
-bindsym $mod+p split h
+# split in portrait orientation
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -108,8 +108,9 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 
 # Assign things to workspaces
 assign [class="Google-chrome"]  	$ws1
-assign [class="discord"] 		$ws2
 assign [class="Telegram"]		$ws2
+assign [class="discord"] 		$ws2
+assign [class="Claws-mail"] 		$ws2
 assign [class="Steam"]			$ws5
 assign [class="Opera"]			$ws6
 
@@ -173,10 +174,10 @@ mode "resize" {
 # set $inactive			#282828
 # set $indicator		#458588
 
-# magenta borders
-set_from_resource $active color5
-set_from_resource $inactive color4
-set_from_resource $indicator color8
+# main color is set from xresources
+set_from_resource $active focus-color
+set_from_resource $inactive color10
+set_from_resource $indicator color10
 set_from_resource $bg color0
 
 # class			border	  backgr.   	text		indicat 	child_border
@@ -194,7 +195,7 @@ focus_follows_mouse no
 
 # i3gaps config
 for_window [class="^.*"] border pixel 1
-# gaps inner 5
+gaps inner 0
 
 smart_borders on
 smart_gaps on
@@ -231,7 +232,8 @@ exec_always --no-startup-id "killall polybar;polybar -r panel"
 
 exec --no-startup-id google-chrome-stable
 exec --no-startup-id /media/data/applications/Telegram/Telegram
-# exec --no-startup-id discord -- takes too much power
+exec --no-startup-id discord
+exec --no-startup-id claws-mail
 
 # wallpaper
 exec_always --no-startup-id feh --bg-fill $WALLPAPER

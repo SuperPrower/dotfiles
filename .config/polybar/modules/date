@@ -1,0 +1,13 @@
+type = internal/date
+interval = 5
+
+date = %B %d,
+time = %H:%M
+
+format = <label>
+format-padding = ${common.padding}
+format-underline = ${colors.main_color}
+
+label = %date% %time%
+
+; vim: ft=cfg

@@ -1,21 +1,14 @@
 [colors]
 background 	= ${xrdb:background}
-background-alt 	= #1D1F21
 foreground 	= ${xrdb:foreground}
-foreground-alt 	= #548587
-fg-1 		= #ffaf5f
-fg-2 		= #ffd494
-primary 	= #ffb52a
-secondary 	= #e60053
-alert 		= #bd2c40
+main_color 	= ${xrdb:focus-color}
+
+[common]
+padding 	= 1
 
 [bar/panel]
-; monitor 	= eDP1
-dpi 		= 120
-
-; if used together with tint2
-; width 	= 45%
-; offset-x 	= 55%
+monitor 	= eDP1
+dpi 		= 96
 
 height 		= 48
 offset-y 	= 0
@@ -27,25 +20,27 @@ background 	= ${colors.background}
 foreground 	= ${colors.foreground}
 
 line-size 	= 3
-line-color 	= #f00
 
 padding-left 	= 0
 padding-right 	= 0
 
-module-margin 	= 1
+module-margin 	= 0
+separator = " "
 
 ; Font settings
-font-0 		= xos4terminus:size=14;3
-font-1 		= FontAwesome:size=10;3
-font-2 		= xos4terminus:size=24:weight=bold;3
-font-3 		= "Material Design Icons:size=13;3"
-font-4		= "Unifont;4"
-; font-4		= "VL Gothic:size=9;4"
+font-0 		= xos4terminus:size=13;3
+font-1 		= xos4terminus:size=24:weight=bold;3
+font-2		= "Unifont;4"
+font-3 		= "FontAwesome:size=12;3"
+font-4 		= "Material Design Icons:size=16;4"
+
+; font-0		= "M+ 2c medium:size=11;3"
+; font-1		= "M+ 2c bold:size=15;3"
 
 modules-left	= i3 mpd
-; modules-left 	= i3
 modules-center 	=
-modules-right 	= keyboard wireless wired xbacklight volume temperature battery date
+; modules-right 	= keyboard wireless wired xbacklight volume temperature battery date
+ modules-right 	= keyboard wireless wired xbacklight volume battery date
 
 ; Tray settings
 tray-position 	= right
@@ -54,261 +49,36 @@ tray-padding 	= 0
 tray-maxsize 	= 16
 
 [module/i3]
-type 		= internal/i3
-
-; pin-workspaces 	= true
-pin-workspaces 	= false
-index-sort 	= true
-enable-click 	= true
-enable-scroll 	= false
-wrapping-scroll	= false
-reverse-scroll 	= false
-
-fuzzy-match 	= true
-format 		= <label-mode><label-state>
-
-label-mode-padding 	= 2
-; label-mode-underline 	= ${xrdb:color3}
-
-label-focused 			= %icon%
-label-focused-foreground	= #ffffff
-label-focused-underline 	= ${xrdb:color5}
-label-focused-padding 		= 2
-
-label-unfocused 		= %icon%
-label-unfocused-padding 	= 2
-
-label-visible 		= %icon%
-label-visible-underline	= #555555
-label-visible-padding 	= 2
-
-label-urgent 		= %icon%
-label-urgent-underline 	= ${xrdb:color1}
-label-urgent-padding 	= 2
-
-; chrome
-ws-icon-0 = 1;
-; telegram
-ws-icon-1 = 2;
-; terminal
-ws-icon-2 = 3;
-; book
-ws-icon-3 = 4;
-; steam
-ws-icon-4 = 5;
-; opera
-ws-icon-5 = 6;
-; for duplicated screens
-ws-icon-6 = 7;
-
-; old icons - terminal, web, cogs
-; ws-icon-2 = 3;
-; ws-icon-3 = 4;
-; ws-icon-4 = 5;
+include-file = /home/superprower/.config/polybar/modules/i3
 
 [module/mpd]
-type = internal/mpd
-
-host = 127.0.0.1
-port = 6600
-password =
-
-interval = 2
-
-label-song-maxlen = 64
-
-format-online = <icon-prev> <toggle> <icon-next> <bar-progress> <label-song>
-format-playing-underline = ${xrdb:color1}
-
-label-offline =  mpd is offline>
-
-label-song = %artist:0:28:...% - %title:0:32:..%
-
-icon-play = 
-icon-pause = 
-
-icon-next = 
-icon-prev = 
-
-; random/repeat and other modifiers doesn't work with mopidy, see #1055
-icon-random = 
-icon-repeat = 
-
-; Used to display the state of random/repeat/repeatone
-; Only applies if <icon-[random|repeat|repeatone]> is used
-toggle-on-foreground = #ff
-toggle-off-foreground = #55
-
-; Only applies if <bar-progress> is used
-bar-progress-width = 15
-bar-progress-indicator = |
-bar-progress-fill = ─
-bar-progress-empty = ─
+include-file = /home/superprower/.config/polybar/modules/mpd
 
 [module/keyboard]
-type = internal/xkeyboard
-
-format = <label-layout> <label-indicator>
-format-spacing = 0
-
-label-layout = %layout%
-label-layout-font = 3
-
-; List of indicators to ignore
-; blacklist-0 = num lock
-blacklist-1 = scroll lock
-; blacklist-2 = caps lock
-
-label-indicator-underline = ${xrdb:color1}
+include-file = /home/superprower/.config/polybar/modules/keyboard
 
 [module/wireless]
-type 				= internal/network
-interface 	 		= wlp1s0
-format-connected 		= <label-connected>
-format-connected-underline 	= ${xrdb:color4}
-format-disconnected 		= <label-disconnected>
-label-connected 		=  %essid%
-label-disconnected 		= 
+; include-file = /home/superprower/.config/polybar/modules/wireless
+include-file = /home/superprower/.config/polybar/modules/wireless_minimalistic
 
 [module/wired]
-type 				= internal/network
-interface 			= enp2s0
-
-format-connected 		= <label-connected>
-format-connected-underline 	= ${xrdb:color4}
-format-disconnected 		= <label-disconnected>
-
-label-connected 		=  %local_ip%
-label-disconnected 		= 
+; include-file = /home/superprower/.config/polybar/modules/wired
+include-file = /home/superprower/.config/polybar/modules/wired_minimalistic
 
 [module/xbacklight]
-type = internal/xbacklight
-enable-scroll = false
-format = <label>
-
-label =  %percentage%%
-label-underline = ${xrdb:color2}
+include-file = /home/superprower/.config/polybar/modules/xbacklight
 
 [module/volume]
-; type = internal/alsa
-type = internal/pulseaudio
+include-file = /home/superprower/.config/polybar/modules/volume
 
-format-volume = <ramp-volume> <label-volume>
-format-volume-underline = ${xrdb:color2}
-
-format-muted = <label-muted>
-
-label-volume = %percentage%%
-label-muted =  %percentage%%
-
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
-ramp-volume-3 = 
-[module/temperature]
-type = internal/temperature
-
-; Seconds to sleep between updates
-; Default: 1
-interval = 5
-
-; Thermal zone to use
-; To list all the zone types, run
-; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
-; Default: 0
-thermal-zone = 0
-
-; Full path of temperature sysfs path
-; Use `sensors` to find preferred temperature source, then run
-; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
-; to find path to desired file
-; Default reverts to thermal zone setting
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input
-
-; Threshold temperature to display warning label (in degrees celsius)
-; Default: 80
-warn-temperature = 75
-
-format = <ramp> <label>
-format-underline = ${xrdb:color3}
-
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${xrdb:color1}
-
-; Available tokens:
-;   %temperature% (default, in °C)
-;   %temperature-c%   (temperature, in °C)
-;   %temperature-f%   (temperature, in °F)
-label = %temperature-c%
-
-; Available tokens:
-;   %temperature% (default, in °C)
-;   %temperature-c%   (temperature, in °C)
-;   %temperature-f%   (temperature, in °F)
-label-warn = %temperature-c%
-
-; Requires the <ramp> tag
-; The icon selection will range from 0 to `warn-temperature`
-; with the current temperature as index.
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-3 = 
-ramp-4 = 
+; [module/temperature]
+; include-file = /home/superprower/.config/polybar/modules/temperature
 
 [module/battery]
-type = internal/battery
-
-; This is useful in case the battery never reports 100% charge
-full-at = 99
-
-; Use the following command to list batteries and adapters:
-; $ ls -1 /sys/class/power_supply/
-battery = BAT0
-adapter = AC
-
-poll-interval = 15
-
-time-format = %H:%M
-
-format-charging = <animation-charging> <label-charging>
-format-charging-underline = ${xrdb:color5}
-label-charging = %percentage%%
-
-format-discharging = <ramp-capacity> <label-discharging>
-format-discharging-underline = ${xrdb:color3}
-label-discharging = %percentage%%, %time%
-
-format-full = <label-full>
-format-full-underline = ${xrdb:color5}
-label-full =  %percentage%%
-
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
-
-; Only applies if <animation-charging> is used
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
-
-; Framerate in milliseconds
-animation-charging-framerate = 500
+include-file = /home/superprower/.config/polybar/modules/battery
 
 [module/date]
-type = internal/date
-interval = 5
-
-date = %B %d,
-time = %H:%M
-
-label = %date% %time%
-
-label-underline = ${xrdb:color5}
+include-file = /home/superprower/.config/polybar/modules/date
 
 [settings]
 screenchange-reload = true

@@ -1,0 +1,11 @@
+type = internal/xbacklight
+
+enable-scroll = false
+
+format = <label>
+format-padding = 1
+format-underline = ${xrdb:color2}
+
+label =  %percentage%%
+
+; vim: ft=cfg

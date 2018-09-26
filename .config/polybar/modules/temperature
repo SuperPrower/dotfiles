@@ -1,0 +1,53 @@
+type = internal/temperature
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 5
+
+; Thermal zone to use
+; To list all the zone types, run
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+thermal-zone = 0
+
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input
+
+; Threshold temperature to display warning label (in degrees celsius)
+; Default: 80
+warn-temperature = 75
+
+format = <ramp> <label>
+format-padding = ${common.padding}
+format-underline = ${xrdb:color3}
+
+format-warn = <ramp> <label-warn>
+format-warn-padding = ${common.padding}
+format-warn-underline = ${xrdb:color1}
+
+; Available tokens:
+;   %temperature% (default, in °C)
+;   %temperature-c%   (temperature, in °C)
+;   %temperature-f%   (temperature, in °F)
+label = %temperature-c%
+
+; Available tokens:
+;   %temperature% (default, in °C)
+;   %temperature-c%   (temperature, in °C)
+;   %temperature-f%   (temperature, in °F)
+label-warn = %temperature-c%
+
+; Requires the <ramp> tag
+; The icon selection will range from 0 to `warn-temperature`
+; with the current temperature as index.
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+
+; vim: ft=cfg

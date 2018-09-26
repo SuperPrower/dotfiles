@@ -6,10 +6,10 @@
             "automatic-rename":"off"
          },
          "window_name":"config",
-         "layout":"5973,213x56,0,0{106x56,0,0[106x22,0,0,1,106x33,0,23,8],106x56,107,0,2}",
+	 "layout": "0905,213x56,0,0{84x56,0,0[84x22,0,0,1,84x33,0,23,2],128x56,85,0,3}",
          "panes":[
             "clear && neofetch",
-            "pane",
+            "clear ; fortune linux archlinux | ponysay -b unicode -W n -f derpysit +c 33",
             "pane"
          ],
          "start_directory":"/home/superprower",

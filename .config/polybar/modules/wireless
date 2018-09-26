@@ -1,0 +1,15 @@
+type = internal/network
+
+interface  = wlp1s0
+
+format-connected = <label-connected>
+format-connected-padding = ${common.padding}
+format-connected-underline = ${xrdb:color4}
+
+format-disconnected = <label-disconnected>
+format-disconnected-padding = ${common.padding}
+
+label-connected =  %essid%
+label-disconnected = 
+
+; vim: ft=cfg

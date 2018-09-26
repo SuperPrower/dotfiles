@@ -1,0 +1,17 @@
+type = internal/xkeyboard
+
+format = <label-layout> <label-indicator>
+format-padding = 1
+format-spacing = 0
+
+label-layout = %layout%
+label-layout-font = 2
+
+; List of indicators to ignore
+; blacklist-0 = num lock
+blacklist-1 = scroll lock
+; blacklist-2 = caps lock
+
+label-indicator-underline = ${xrdb:color1}
+
+; vim: ft=cfg

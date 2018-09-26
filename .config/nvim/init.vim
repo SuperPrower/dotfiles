@@ -24,9 +24,6 @@ noremap <Down> 	:echo "hjkl"<CR>
 noremap <Left> 	:echo "hjkl"<CR>
 noremap <Right>	:echo "hjkl"<CR>
 
-" use tab to select pop-up menu - ncm/deoplete
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Formatting
 " set autoindent
@@ -68,7 +65,6 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 
-
 	" GDB integration
 	" Plug 'vim-scripts/Conque-GDB'
 	" Plug 'sakhnik/nvim-gdb'
@@ -83,16 +79,6 @@ call plug#begin("~/.local/share/nvim/plugged")
 	" =====================
 	" NeoVim as IDE plugins
 	" =====================
-	" YouCompleteMe doesn't use all features of NeoVim
-	"
-	" Plug 'valloric/youcompleteme'
-	" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-	"
-	" NCM is being replaced with NCM2
-	"
-	" Plug 'roxma/nvim-completion-manager'
-	" Plug 'roxma/ncm-clang'
-	"
 	Plug 'ncm2/ncm2'
 	Plug 'roxma/nvim-yarp' " required
 
@@ -105,10 +91,12 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'ncm2/ncm2-vim'
 	Plug 'ncm2/ncm2-path'
 	Plug 'ncm2/ncm2-bufword'
+	Plug 'ncm2/ncm2-ultisnips'
 
 	Plug 'Shougo/neoinclude.vim'	" include files
 	Plug 'Shougo/neco-vim'		" vim configuration
-	Plug 'Shougo/neosnippet.vim'	" snippets and function expansion
+	Plug 'SirVer/ultisnips'		" snippets
+	Plug 'honza/vim-snippets'
 
 	Plug 'ludovicchabant/vim-gutentags'	" CTags
 
@@ -122,9 +110,9 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'majutsushi/tagbar'
 
 	" syntax highlighting
-	" C++ highlighting
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
+	Plug 'smancill/conky-syntax.vim'
 	Plug 'tmux-plugins/vim-tmux'
 	Plug 'Shirk/vim-gas', { 'for': 'gas' }
 
@@ -137,45 +125,6 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'wannesm/wmgraphviz.vim'
 
 call plug#end()
-
-" ============
-" Vim Submodes
-" ============
-" More natural splits
-" set splitbelow          " Horizontal split below current.
-" set splitright          " Vertical split to right of current.
-"
-" call submode#enter_with('splits', 'n', '', '<C-w>')
-" call submode#leave_with('splits', 'n', '', '<Esc>')
-" " navigate splits
-" call submode#map('splits', 'n', '', 'h', '<C-w>h')
-" call submode#map('splits', 'n', '', 'j', '<C-w>j')
-" call submode#map('splits', 'n', '', 'k', '<C-w>k')
-" call submode#map('splits', 'n', '', 'l', '<C-w>l')
-" " move splits to the edges of the screen
-" call submode#map('splits', 'n', '', 'H', '<C-w>H')
-" call submode#map('splits', 'n', '', 'J', '<C-w>J')
-" call submode#map('splits', 'n', '', 'K', '<C-w>K')
-" call submode#map('splits', 'n', '', 'L', '<C-w>L')
-" " grow split wider/thinner
-" call submode#map('splits', 'n', '', ',', '<C-w><')
-" call submode#map('splits', 'n', '', '.', '<C-w>>')
-" " grop split up/down
-" call submode#map('splits', 'n', '', '=', '<C-w>+')
-" call submode#map('splits', 'n', '', '-', '<C-w>-')
-" " rotate splits
-" call submode#map('splits', 'n', '', 'r', '<C-w>r')
-" call submode#map('splits', 'n', '', 'R', '<C-w>R')
-"
-" let g:submode_timeout = 0
-" let g:submode_always_show_submode = 1
-
-" ============
-" Key Bindings
-" ============
-nnoremap <F7>  :StripWhitespace<CR>
-nnoremap <F8> :NERDTreeToggle<CR>
-nnoremap <F9> :TagbarToggle<CR>
 
 " ===========
 " Colorscheme
@@ -222,6 +171,16 @@ let g:airline_section_z=airline#section#create(['line',':%v'])
 " Get rid of default mode indicator
 set noshowmode
 
+" ============
+" Key Bindings
+" ============
+nnoremap <F7> :StripWhitespace<CR>
+nnoremap <F8> :NERDTreeToggle<CR>
+nnoremap <F9> :TagbarToggle<CR>
+
+" use tab to select pop-up menu - ncm/deoplete
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " ================================
 " ncm2 settings
@@ -229,7 +188,7 @@ set noshowmode
 
 autocmd BufEnter * call ncm2#enable_for_buffer()
 
-" IMPORTANTE: :help Ncm2PopupOpen for more information
+" IMPORTANT: :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
 
 " suppress competion messages
@@ -241,10 +200,40 @@ let g:ncm2#complete_length = [[1, 3], [7, 2], [8, 3]]
 " known issue https://github.com/ncm2/ncm2/issues/7
 au TextChangedI * call ncm2#auto_trigger()
 
-
 " leave insert mode on Ctrl-C
 " inoremap <c-c> <ESC>
 
+" ============
+" ncm2-pyclang
+" ============
+" path to directory where libclang.so can be found
+" let g:ncm2_pyclang#library_path = '/usr/lib/llvm-5.0/lib'
+" or path to the libclang.so file
+let g:ncm2_pyclang#library_path = '/usr/lib64/libclang.so'
+let g:ncm2_pyclang#args_file_path = ['.clang_complete']
+
+" =========
+" UltiSnips
+" =========
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+
+let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+" c-j c-k for moving in snippet
+let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+" let g:UltiSnipsRemoveSelectModeMappings = 0
+
+
+" ================================================
+" LaTeX specific settings
+" check ./after/ftplugin/tex.vim for more settings
+" ================================================
+let g:neotex_enabled = 1
+
+" ============
+" old settings
+" ============
+"
 " =================
 " deoplete settings
 " =================
@@ -259,35 +248,51 @@ au TextChangedI * call ncm2#auto_trigger()
 
 " tmux-complete
 " let g:tmuxcomplete#trigger = ''
-
-" ============
-" ncm2-pyclang
-" ============
-" path to directory where libclang.so can be found
-" let g:ncm2_pyclang#library_path = '/usr/lib/llvm-5.0/lib'
-" or path to the libclang.so file
-let g:ncm2_pyclang#library_path = '/usr/lib64/libclang.so'
-let g:ncm2_pyclang#args_file_path = ['.clang_complete']
-
 " ===================
 " neosnippet settings
 " ===================
-
-let g:neosnippet#enable_completed_snippet = 1
-let g:neosnippet#disable_runtime_snippets = {
-\   '_' : 1,
-\ }
-
-let g:neosnippet#snippets_directory = "~/.config/nvim/snippets/"
-
-" If snippet is expandable, expand it on Enter, else insert new line
-imap <expr><CR>  (pumvisible() && neosnippet#expandable()) ? "\<Plug>(neosnippet_expand)" : "\<CR>"
-
-imap <expr><C-j> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-j>"
-smap <expr><C-j> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-j>"
-
-" ================================================
-" LaTeX specific settings
-" check ./after/ftplugin/tex.vim for more settings
-" ================================================
-let g:neotex_enabled = 1
+"
+"let g:neosnippet#enable_completed_snippet = 1
+"let g:neosnippet#disable_runtime_snippets = {
+"\   '_' : 1,
+"\ }
+"
+"let g:neosnippet#snippets_directory = "~/.config/nvim/snippets/"
+"
+"" If snippet is expandable, expand it on Enter, else insert new line
+"imap <expr><CR>  (pumvisible() && neosnippet#expandable()) ? "\<Plug>(neosnippet_expand)" : "\<CR>"
+"
+"imap <expr><C-j> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-j>"
+"smap <expr><C-j> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-j>"
+"
+" ============
+" Vim Submodes
+" ============
+" More natural splits
+" set splitbelow          " Horizontal split below current.
+" set splitright          " Vertical split to right of current.
+"
+" call submode#enter_with('splits', 'n', '', '<C-w>')
+" call submode#leave_with('splits', 'n', '', '<Esc>')
+" " navigate splits
+" call submode#map('splits', 'n', '', 'h', '<C-w>h')
+" call submode#map('splits', 'n', '', 'j', '<C-w>j')
+" call submode#map('splits', 'n', '', 'k', '<C-w>k')
+" call submode#map('splits', 'n', '', 'l', '<C-w>l')
+" " move splits to the edges of the screen
+" call submode#map('splits', 'n', '', 'H', '<C-w>H')
+" call submode#map('splits', 'n', '', 'J', '<C-w>J')
+" call submode#map('splits', 'n', '', 'K', '<C-w>K')
+" call submode#map('splits', 'n', '', 'L', '<C-w>L')
+" " grow split wider/thinner
+" call submode#map('splits', 'n', '', ',', '<C-w><')
+" call submode#map('splits', 'n', '', '.', '<C-w>>')
+" " grop split up/down
+" call submode#map('splits', 'n', '', '=', '<C-w>+')
+" call submode#map('splits', 'n', '', '-', '<C-w>-')
+" " rotate splits
+" call submode#map('splits', 'n', '', 'r', '<C-w>r')
+" call submode#map('splits', 'n', '', 'R', '<C-w>R')
+"
+" let g:submode_timeout = 0
+" let g:submode_always_show_submode = 1

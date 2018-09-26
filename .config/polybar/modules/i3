@@ -1,0 +1,54 @@
+type = internal/i3
+
+pin-workspaces = false
+index-sort = true
+enable-click = true
+enable-scroll = false
+wrapping-scroll = false
+reverse-scroll = false
+
+fuzzy-match = true
+format = <label-mode><label-state>
+
+padding = 2
+
+label-mode-padding = ${common.padding}
+; label-mode-underline = ${xrdb:color3}
+
+label-focused = %icon%
+label-focused-foreground= #ffffff
+label-focused-underline = ${colors.main_color}
+label-focused-padding = ${self.padding}
+
+label-unfocused = %icon%
+label-unfocused-padding = ${self.padding}
+
+label-visible = %icon%
+label-visible-underline= #555555
+label-visible-padding = ${self.padding}
+
+label-urgent = %icon%
+label-urgent-underline = ${xrdb:color1}
+label-urgent-padding = ${self.padding}
+
+; chrome
+ws-icon-0 = 1;
+; telegram
+ws-icon-1 = 2;
+; terminal
+ws-icon-2 = 3;
+; book
+ws-icon-3 = 4;
+; steam
+ws-icon-4 = 5;
+; opera
+ws-icon-5 = 6;
+; for duplicated screens
+ws-icon-6 = 7;
+
+; old icons - terminal, web, cogs
+; ws-icon-2 = 3;
+; ws-icon-3 = 4;
+; ws-icon-4 = 5;
+
+; vim: ft=cfg

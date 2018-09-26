@@ -1,0 +1,15 @@
+type = internal/fs
+
+mount-0 = /media/data
+interval = 10
+
+fixed-values = true
+
+format-mounted = <label-mounted>
+format-mounted-underline = ${xrdb:color2}
+label-mounted =  %free% free
+
+format-unmounted = <label-unmounted>
+label-unmounted = %mountpoint%: not mounted
+
+; vim: ft=cfg

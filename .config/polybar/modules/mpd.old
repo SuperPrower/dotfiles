@@ -1,0 +1,42 @@
+type = internal/mpd
+
+host = 127.0.0.1
+port = 6600
+password =
+
+interval = 2
+
+format-online = <icon-prev> <toggle> <icon-next> <bar-progress> <label-song>
+format-online-padding = 2
+format-playing-underline = ${xrdb:color1}
+
+label-offline = mpd is offline
+
+label-song = %artist:0:25:...% - %title:0:35:..%
+
+icon-play = 
+icon-pause = 
+icon-next = 
+icon-prev = 
+icon-play-font = 4
+icon-pause-font = 4
+icon-next-font = 4
+icon-prev-font = 4
+
+
+; random/repeat and other modifiers doesn't work with mopidy, see #1055
+icon-random = 
+icon-repeat = 
+
+; Used to display the state of random/repeat/repeatone
+; Only applies if <icon-[random|repeat|repeatone]> is used
+toggle-on-foreground = #ff
+toggle-off-foreground = #55
+
+; Only applies if <bar-progress> is used
+bar-progress-width = 10
+bar-progress-indicator = |
+bar-progress-fill = ─
+bar-progress-empty = ─
+
+; vim: ft=cfg
