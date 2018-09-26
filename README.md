@@ -7,7 +7,7 @@
 * Launcher: Rofi with slightly modified blor.theme (check rofi website)
 * Lockscreen: i3lock-color
 * Terminal Emulator: xfce4-terminal (+tmux)
-* Terminal font: DejaVu Sans Mono (previously Terminus, but it's too small for my display right now, and I don't like bigger versions of it)
+* Terminal font: Terminus
 * Panel fonts: Terminus, Font Awesome 4, Material Design Icons
 * Terminal/NeoVim Colors: base16-tomorrow-night (previously Nord, previously gruvbox)
 * GTK theme: Arc Dark
