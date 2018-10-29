@@ -227,13 +227,16 @@ exec --no-startup-id xfce4-clipman
 
 exec --no-startup-id libinput-gestures-setup start
 
+exec --no-startup-id compton
+
 # this will restart polybar on i3 restart
 exec_always --no-startup-id "killall polybar;polybar -r panel"
+
+exec --no-startup-id conky
 
 exec --no-startup-id google-chrome-stable
 exec --no-startup-id /media/data/applications/Telegram/Telegram
 exec --no-startup-id discord
-exec --no-startup-id claws-mail
 
 # wallpaper
 exec_always --no-startup-id feh --bg-fill $WALLPAPER

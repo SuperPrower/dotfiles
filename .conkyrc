@@ -48,7 +48,7 @@ conky.config = {
 	-- font = 'DejaVu Sans Mono:size=12',
 	font = 'xos4 Terminus:size=12:style=bold',
 	minimum_height = 1080,
-	minimum_width = 300,
+	minimum_width = 375,
 	net_avg_samples = 2,
 	no_buffers = true,
 	out_to_console = false,
@@ -110,13 +110,13 @@ ${color1}HDD${color}
 $hr
 # Networking
 ${if_up wlp1s0}\
-${font FontAwesome} ${font}${scroll 32 $wireless_essid}\
-	${goto 150}↓ ${downspeed wlp1s0}\
-	${goto 225}↑ ${upspeed wlp1s0}\
+${font FontAwesome} ${font}${scroll 24 $wireless_essid}\
+	${goto 200}↓ ${downspeed wlp1s0}\
+	${goto 300}↑ ${upspeed wlp1s0}\
 $endif
-${font FontAwesome} ${font}${scroll 32 ${addr enp2s0}}\
-	${goto 150}↓ ${downspeed enp2s0}\
-	${goto 225}↑ ${upspeed enp2s0}
+${font FontAwesome} ${font}${scroll 24 ${addr enp2s0}}\
+	${goto 200}↓ ${downspeed enp2s0}\
+	${goto 300}↑ ${upspeed enp2s0}
 $hr
 # MPD
 ${if_mpd_playing}
@@ -126,10 +126,9 @@ $alignc${scroll 32 $mpd_title}
 $alignc${scroll 32 $mpd_artist}
 $alignc${scroll 32 $mpd_album}
 $alignc${mpd_bar 8,150}
-${alignc}${mpd_elapsed} / ${mpd_length}
 $endif
 $hr
-${execpi 3600 ~/scripts/wttr.sh T0n 2}
+${execpi 3600 ~/scripts/wttr.sh T0n 1}
 ]]
 
 -- ${color1}└ ${color}${diskiograph}

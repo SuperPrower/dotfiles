@@ -1,13 +1,9 @@
 " Behaviour
-" make vim iMproved
-set nocompatible
-" use + clipboard by default
-set clipboard=unnamedplus
+set nocompatible 			" make vim iMproved
+set clipboard=unnamedplus		" use + clipboard by default
 
-" allow mouse in all modes
-set mouse=a
-" allow backspace to do everything
-set backspace=indent,eol,start
+set mouse=a 				" allow mouse in all modes
+set backspace=indent,eol,start 		" allow backspace to do everything
 
 set wildmenu
 set wildmode=longest,list
@@ -28,8 +24,6 @@ noremap <Down> 	:echo "hjkl"<CR>
 noremap <Left> 	:echo "hjkl"<CR>
 noremap <Right>	:echo "hjkl"<CR>
 
-" Hide buffers instead of closing them
-set hidden
 
 " Formatting
 " set autoindent
@@ -47,16 +41,22 @@ set laststatus=2
 set colorcolumn=100
 set number
 
+set nofoldenable
+
 " Force vim to recognize .h files as C headers
 augroup project
 	autocmd!
 	autocmd BufRead,BufNewFile *.h,*.c set filetype=c
 augroup END
 
-set foldmethod=marker
 
-" plugins {{{
+" =======
+" Plugins
+" =======
 call plug#begin("~/.local/share/nvim/plugged")
+
+	" custom submodes
+	" Plug 'kana/vim-submode'
 
 	" highlighting trailing whitespaces
 	Plug 'ntpeters/vim-better-whitespace'
@@ -66,7 +66,12 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'vim-airline/vim-airline-themes'
 
 	" GDB integration
+	" Plug 'vim-scripts/Conque-GDB'
 	Plug 'sakhnik/nvim-gdb'
+
+	" colorscheme fast preview
+	" Plug 'xolox/vim-misc'
+	" Plug 'xolox/vim-colorscheme-switcher'
 
 	Plug 'arcticicestudio/nord-vim'
 	Plug 'chriskempson/base16-vim'
@@ -77,6 +82,10 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'ncm2/ncm2'
 	Plug 'roxma/nvim-yarp' " required
 
+	Plug 'ncm2/ncm2-pyclang'
+	Plug 'ncm2/ncm2-jedi'
+
+	Plug 'ncm2/ncm2-neoinclude'
 	Plug 'ncm2/ncm2-tagprefix'
 	Plug 'ncm2/ncm2-tmux'
 	Plug 'ncm2/ncm2-vim'
@@ -84,23 +93,16 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'ncm2/ncm2-bufword'
 	Plug 'ncm2/ncm2-ultisnips'
 
+	Plug 'Shougo/neoinclude.vim'	" include files
+	Plug 'Shougo/neco-vim'		" vim configuration
 	Plug 'SirVer/ultisnips'		" snippets
 	Plug 'honza/vim-snippets'
 
-	Plug 'Shougo/neco-vim'		" vim configuration
+	Plug 'ludovicchabant/vim-gutentags'	" CTags
+
+	Plug 'w0rp/ale'	" Linting
 
 	Plug 'Yggdroot/indentLine' " Indent lines
-
-	" LSP Client
-	Plug 'autozimu/LanguageClient-neovim', {
-		\ 'branch': 'next',
-		\ 'do': 'bash install.sh',
-	\ }
-
-	" (Optional) Multi-entry selection UI.
-	Plug 'junegunn/fzf'
-	" Show parameter doc.
-	Plug 'Shougo/echodoc.vim'
 
 	" file tree
 	Plug 'scrooloose/nerdtree'
@@ -125,16 +127,34 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'wannesm/wmgraphviz.vim'
 
 call plug#end()
-" }}}
 
-" colorscheme{{{
+" ===========
+" Colorscheme
+" ===========
 " Setting dark mode
 set background=dark
-set termguicolors
-colorscheme base16-tomorrow-night"
-" }}}
 
-" Vim Airline Settings {{{
+" let g:gruvbox_contrast_dark='hard'
+" colorscheme gruvbox_edited
+
+" Nord theme
+" let g:nord_italic = 1
+" let g:nord_italic_comments = 1
+"
+" set termguicolors
+" let g:nord_comment_brightness = 15
+"
+" let g:nord_uniform_diff_background = 1
+"
+" colorscheme nord
+
+" Base16 Theme
+set termguicolors
+colorscheme base16-tomorrow-night
+
+" ====================
+" Vim Airline Settings
+" ====================
 let g:airline_powerline_fonts=1
 let g:airline_theme="base16_twilight"
 
@@ -152,7 +172,6 @@ let g:airline_section_z=airline#section#create(['line',':%v'])
 
 " Get rid of default mode indicator
 set noshowmode
-" }}}
 
 " ============
 " Key Bindings
@@ -168,6 +187,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " ================================
 " ncm2 settings
 " ================================
+
 autocmd BufEnter * call ncm2#enable_for_buffer()
 
 " IMPORTANT: :help Ncm2PopupOpen for more information
@@ -185,38 +205,14 @@ au TextChangedI * call ncm2#auto_trigger()
 " leave insert mode on Ctrl-C
 " inoremap <c-c> <ESC>
 
-" =====================
-" LanguageClient-neovim
-" =====================
-let g:LanguageClient_serverCommands = {}
-
-if executable('pyls')
-	let g:LanguageClient_serverCommands.python = ['pyls']
-endif
-
-if executable('bash-language-server')
-	let g:LanguageClient_serverCommands.sh = ['bash-language-server', 'start']
-endif
-
-if executable('cquery')
-	let g:LanguageClient_serverCommands.cpp = [
-		\ 'cquery',
-		\ '--log-file=/tmp/cq.log',
-		\ '--init={"cacheDirectory":"/var/cache/cquery/"}'
-	\]
-	let g:LanguageClient_serverCommands.c = [
-		\ 'cquery',
-		\ '--log-file=/tmp/cq.log',
-		\ '--init={"cacheDirectory":"/var/cache/cquery/"}'
-	\]
-endif
-
-nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
+" ============
+" ncm2-pyclang
+" ============
+" path to directory where libclang.so can be found
+" let g:ncm2_pyclang#library_path = '/usr/lib/llvm-5.0/lib'
+" or path to the libclang.so file
+let g:ncm2_pyclang#library_path = '/usr/lib64/libclang.so'
+let g:ncm2_pyclang#args_file_path = ['.clang_complete']
 
 " =========
 " UltiSnips
@@ -227,10 +223,78 @@ let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
 " c-j c-k for moving in snippet
 let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
+" let g:UltiSnipsRemoveSelectModeMappings = 0
+
 
 " ================================================
 " LaTeX specific settings
 " check ./after/ftplugin/tex.vim for more settings
 " ================================================
 let g:neotex_enabled = 1
+
+" ============
+" old settings
+" ============
+"
+" =================
+" deoplete settings
+" =================
+
+" deoplete options
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_smart_case = 1
+
+" deoplete-clang
+" let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
+" let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
+
+" tmux-complete
+" let g:tmuxcomplete#trigger = ''
+" ===================
+" neosnippet settings
+" ===================
+"
+"let g:neosnippet#enable_completed_snippet = 1
+"let g:neosnippet#disable_runtime_snippets = {
+"\   '_' : 1,
+"\ }
+"
+"let g:neosnippet#snippets_directory = "~/.config/nvim/snippets/"
+"
+"" If snippet is expandable, expand it on Enter, else insert new line
+"imap <expr><CR>  (pumvisible() && neosnippet#expandable()) ? "\<Plug>(neosnippet_expand)" : "\<CR>"
+"
+"imap <expr><C-j> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-j>"
+"smap <expr><C-j> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-j>"
+"
+" ============
+" Vim Submodes
+" ============
+" More natural splits
+" set splitbelow          " Horizontal split below current.
+" set splitright          " Vertical split to right of current.
+"
+" call submode#enter_with('splits', 'n', '', '<C-w>')
+" call submode#leave_with('splits', 'n', '', '<Esc>')
+" " navigate splits
+" call submode#map('splits', 'n', '', 'h', '<C-w>h')
+" call submode#map('splits', 'n', '', 'j', '<C-w>j')
+" call submode#map('splits', 'n', '', 'k', '<C-w>k')
+" call submode#map('splits', 'n', '', 'l', '<C-w>l')
+" " move splits to the edges of the screen
+" call submode#map('splits', 'n', '', 'H', '<C-w>H')
+" call submode#map('splits', 'n', '', 'J', '<C-w>J')
+" call submode#map('splits', 'n', '', 'K', '<C-w>K')
+" call submode#map('splits', 'n', '', 'L', '<C-w>L')
+" " grow split wider/thinner
+" call submode#map('splits', 'n', '', ',', '<C-w><')
+" call submode#map('splits', 'n', '', '.', '<C-w>>')
+" " grop split up/down
+" call submode#map('splits', 'n', '', '=', '<C-w>+')
+" call submode#map('splits', 'n', '', '-', '<C-w>-')
+" " rotate splits
+" call submode#map('splits', 'n', '', 'r', '<C-w>r')
+" call submode#map('splits', 'n', '', 'R', '<C-w>R')
+"
+" let g:submode_timeout = 0
+" let g:submode_always_show_submode = 1

@@ -14,7 +14,7 @@ time-format = %H:%M
 
 format-charging = <animation-charging> <label-charging>
 format-charging-padding = ${common.padding}
-format-charging-underline = ${xrdb:color5}
+format-charging-underline = ${colors.main_color}
 label-charging = %percentage%%
 
 format-discharging = <ramp-capacity> <label-discharging>
@@ -24,7 +24,7 @@ label-discharging = %percentage%%, %time%
 
 format-full = <label-full>
 format-full-padding = 1
-format-full-underline = ${xrdb:color5}
+format-full-underline = ${colors.main_color}
 label-full =  %percentage%%
 
 ramp-capacity-0 = 
