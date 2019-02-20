@@ -1,0 +1,385 @@
+#+TITLE: Emacs Configuration
+#+AUTHOR: SuperPrower
+#+EMAIL: superprower@latitude
+#+LANGUAGE: en
+#+CREATOR: Emacs 26.1 (Org mode 9.1.9)
+
+* Settings
+** Basic Behaviour
+*** Chord Echo Delay
+#+BEGIN_SRC emacs-lisp
+  (setq echo-keystrokes 0.01)
+#+END_SRC
+
+*** Disable ring bell
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore)
+#+END_SRC
+
+*** utf-8 encoding
+#+BEGIN_SRC emacs-lisp
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+#+END_SRC
+*** Terminal
+Use bash as default shell for ansi-term:
+#+BEGIN_SRC emacs-lisp
+  (defvar my-term-shell "/bin/bash")
+  (defadvice ansi-term (before force-bash)
+    (interactive (list my-term-shell)))
+  (ad-activate 'ansi-term)
+#+END_SRC
+
+*** y-or-n
+Be able to type y or n instead of long yes or no
+#+BEGIN_SRC emacs-lisp
+  (defalias  'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+*** Edge of the screen scrolling
+#+BEGIN_SRC emacs-lisp
+  (setq scroll-conservatively 100)
+#+END_SRC
+
+*** Autosaves, Backups, History, etc.
+#+BEGIN_SRC emacs-lisp
+  ;; disable autosaves
+  (setq auto-save-default nil)
+#+END_SRC
+
+*** Subword mode
+Be able to navigate subwords likeThisWordByWord
+#+BEGIN_SRC emacs-lisp
+  (global-subword-mode 1)
+#+END_SRC
+*** Org-Mode
+**** Wrap lines by default
+#+BEGIN_SRC emacs-lisp
+  (setq org-startup-truncated nil)
+#+END_SRC
+**** Change Ellipsis Symbol
+#+BEGIN_SRC emacs-lisp
+  (setq org-ellipsis "⤵")
+#+END_SRC
+*** COMMENT Electric
+**** Electric Pairs
+Print matching parenthesis
+#+BEGIN_SRC emacs-lisp
+  (setq electric-pair-pairs '(
+			      (?\( . ?\))
+			      (?\[ . ?\])
+			      ))
+  (electric-pair-mode t)
+#+END_SRC
+** Convinient functions
+*** Reload the configuration
+#+BEGIN_SRC emacs-lisp
+(defun config-reload ()
+  "Reloads ~/.emacs.d/config.org at runtime"
+  (interactive)
+  (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+
+(global-set-key (kbd "C-c r") 'config-reload)
+#+END_SRC
+** Appearance
+*** Highlight cursor line
+#+BEGIN_SRC emacs-lisp
+(global-hl-line-mode t)
+;; alternatively only highlight it when using window system and when in prog-mod
+;; (when window-system (add-hook 'prog-mode-hook 'hl-line-mode))
+#+END_SRC
+
+*** GUI elements
+#+BEGIN_SRC emacs-lisp
+  ;; hide toolbar
+  (tool-bar-mode -1)
+  ;; hide menu bar
+  (menu-bar-mode -1)
+  ;; hide scroll bar
+  (scroll-bar-mode -1)
+#+END_SRC
+
+*** Parenthesis mode
+#+BEGIN_SRC emacs-lisp
+  (setq show-paren-delay 0)
+  (show-paren-mode 1)
+#+END_SRC
+*** Line numbers
+#+BEGIN_SRC emacs-lisp
+  ;; (global-display-line-numbers-mode t)
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+#+END_SRC
+*** Status Line
+**** Line and Column number
+#+BEGIN_SRC emacs-lisp
+(line-number-mode 1)
+(column-number-mode 1)
+#+END_SRC
+*** Trailing Whitespace
+#+BEGIN_SRC emacs-lisp
+  (defun my-toggle-show-trailing-whitespace ()
+    "Toggle `show-trailing-whitespace' between t and nil."
+    (interactive)
+    (setq show-trailing-whitespace (not show-trailing-whitespace)))
+
+  (global-set-key (kbd "C-c t") 'my-toggle-show-trailing-whitespace)
+#+END_SRC
+*** Indentation
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode t)
+  (setq tab-width 8)
+  (defvaralias 'c-basic-offset 'tab-width)
+#+END_SRC
+* Plugins
+** Evil Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :defer .1 ;; don't block emacs when starting, load after startup
+    :init
+
+    ;; following two commands needed for evil-collection
+    (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+    (setq evil-want-keybinding nil)
+
+    :config
+    (evil-mode 1))
+
+  ;; Evil Collection: collection of Evil bindings for the parts of Emacs
+  ;; that Evil does not cover properly by default
+  (use-package evil-collection
+    :after evil
+    :config
+      ;; Prevent evil-collection from messing with my company settings
+      (setq evil-collection-company-use-tng nil)
+      (evil-collection-init))
+
+
+  ;; Integration for Org mode
+  (use-package evil-org
+    :after (org evil evil-collection)
+    :diminish evil-org-mode
+    :config
+      (add-hook 'org-mode-hook 'evil-org-mode)
+      (add-hook 'evil-org-mode-hook (lambda () (evil-org-set-key-theme)))
+      (require 'evil-org-agenda)
+      (evil-org-agenda-set-keys))
+
+  ;; Visual hints when editing with evil
+  (use-package evil-goggles
+    :after evil
+    :diminish evil-goggles-mode
+    :config
+    (evil-goggles-mode)
+    (evil-goggles-use-diff-faces)
+    (setq evil-goggles-duration 0.050))
+
+  ;; port of surround.vim for evil
+  (use-package evil-surround
+    :after evil
+    :config
+    (global-evil-surround-mode 1))
+#+END_SRC
+** Code Writing Plugins
+*** Projectile
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :diminish projectile-mode
+  :init
+    (projectile-mode 1))
+#+END_SRC
+*** Flycheck
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :hook (prog-mode . flycheck-mode))
+
+#+END_SRC
+*** company-mode
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :diminish company-mode
+    :config
+      ;; disable tab so we can use it to expand snippets
+      ;; goddamit why is it so hard
+      (define-key company-active-map [tab] nil)
+      (define-key company-active-map (kbd "<tab>") nil)
+      (define-key company-active-map (kbd "TAB") nil)
+      ;; instead scroll with ctrl-n and ctrl-p
+      (define-key company-active-map (kbd "C-n") 'company-select-next)
+      (define-key company-active-map (kbd "C-p") 'company-select-previous))
+      ;; enable company-mode everywhere
+      (global-company-mode)
+      ;; minor configuration
+      (setq company-idle-delay 0.2)
+      (setq company-minimum-prefix-length 1)
+      (setq company-selection-wrap-around t)
+#+END_SRC
+**** company-quickhelp
+#+BEGIN_SRC emacs-lisp
+  (use-package company-quickhelp
+    :after company
+    :config
+    (company-quickhelp-mode))
+#+END_SRC
+*** yasnippet
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :diminish yas-minor-mode
+    :config
+      (use-package yasnippet-snippets)
+      (yas-reload-all))
+
+(add-hook 'prog-mode-hook 'yas-minor-mode)
+(add-hook 'latex-mode-hook 'yas-minor-mode)
+(add-hook 'markdown-mode-hook 'yas-minor-mode)
+
+#+END_SRC
+*** magit
+magit is a git integration plugin for emacs
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :config
+    (setq magit-push-always-verify nil)
+    (setq git-commit-summary-max-length 50)
+    :bind
+    ("M-g" . magit-status))
+
+#+END_SRC
+*** Language Server Protocol
+**** lsp-mode
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-mode
+    :hook (prog-mode . lsp)
+    :init
+      ;; (setq lsp-auto-configure nil)
+    :config
+      (setq lsp-auto-guess-root t)
+      (setq lsp-prefer-flymake nil))
+
+#+END_SRC
+**** lsp-ui
+ #+BEGIN_SRC emacs-lisp
+   (use-package lsp-ui
+     :hook (lsp-mode . lsp-ui-mode)
+     :commands lsp-ui-mode
+     :config (setq lsp-ui-flycheck-enable t))
+ #+END_SRC
+**** company-lsp
+ Company, meet LSP. LSP, meet Company.
+ #+BEGIN_SRC emacs-lisp
+   (use-package company-lsp
+     :after (company lsp-mode)
+     :commands company-lsp
+     :custom
+       (company-lsp-cache-candidates nil)
+       (company-lsp-async t)
+       (company-lsp-enable-snippet t))
+ #+END_SRC
+
+**** emacs-cquery
+ cquery language server support for emacs and lsp-mode
+ #+BEGIN_SRC emacs-lisp
+   (use-package cquery
+     :after lsp-mode
+     :init
+     (setq cquery-executable "/usr/bin/cquery")
+     (setq cquery-extra-args '("--log-file=/tmp/cq.log")))
+     ;; (setq cquery-extra-init-params '(:cacheDirectory "/var/cache/cquery")))
+ #+END_SRC
+#+END_SRC
+** LaTeX Environment Plugins
+#+BEGIN_SRC emacs-lisp
+  (use-package pdf-tools
+    :config
+    (pdf-tools-install))
+
+  (use-package tex
+    :ensure auctex
+    :mode ("\\.tex\\'" . LaTeX-mode)
+    ;; :commands (latex-mode LaTeX-mode plain-tex-mode)
+    :init
+      ;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+      (setq TeX-auto-save t
+	    TeX-parse-self t
+	    TeX-PDF-mode t
+	    TeX-view-program-selection '((output-pdf "PDF Tools"))))
+	    ;; TeX-view-program-selection 'xreader))
+
+  (use-package company-auctex
+    :after (tex company)
+    :config
+      (company-auctex-init))
+#+END_SRC
+** Other Plugins
+*** page-break-lines
+required for dashboard
+#+BEGIN_SRC emacs-lisp
+  (use-package page-break-lines)
+#+END_SRC
+*** dashboard
+#+BEGIN_SRC emacs-lisp
+(use-package dashboard
+  :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-startup-banner 'logo)
+    (setq dashboard-items '((recents  . 5)
+                            (projects . 5)))
+    (setq dashboard-banner-logo-title ""))
+#+END_SRC
+*** which-key
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :diminish which-key-mode
+  :init (which-key-mode))
+#+END_SRC
+
+*** neotree
+#+BEGIN_SRC emacs-lisp
+  (use-package neotree
+    :bind (("<f8>" . neotree-toggle))
+    :init (setq neo-theme 'nerd))
+#+END_SRC
+
+*** powerline
+#+BEGIN_SRC emacs-lisp
+  (use-package powerline
+    :init (powerline-vim-theme))
+
+  (use-package powerline-evil
+    :after powerline
+    :init
+    (powerline-evil-vim-theme)
+    (setq powerline-evil-tag-style 'verbose))
+#+END_SRC
+
+*** Ivy, Swiper, Counsel
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy
+  ;;   :demand
+  ;;   :init (ivy-mode 1)
+  ;;   :config (setq ivy-count-format "%d/%d")
+    )
+
+  ;; (use-package counsel
+  ;;   :init (counsel-mode 1))
+
+  ;; (use-package swiper)
+
+#+END_SRC
+*** Diminish
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish
+    :config
+    (diminish 'undo-tree-mode)
+    (diminish 'subword-mode)
+    (diminish 'abbrev-mode))
+#+END_SRC
+** Shits and giggles
+*** Discord Rich Presence
+/I stared into the abyss./
+  /And the abyss stared back./
+#+BEGIN_SRC emacs-lisp
+  (use-package elcord)
+#+END_SRC

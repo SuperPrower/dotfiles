@@ -51,6 +51,10 @@ tray-maxsize 	= 16
 [module/i3]
 include-file = /home/superprower/.config/polybar/modules/i3
 
+[module/title]
+type = internal/xwindow
+format-underline = ${colors.main_color}
+
 [module/mpd]
 include-file = /home/superprower/.config/polybar/modules/mpd
 
