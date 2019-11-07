@@ -10,24 +10,17 @@
 source ~/git-prompt.sh
 PS1="\[$(tput sgr0)\]┌─[\[\033[38;5;4m\]\u@\h\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;5m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]\[$(tput sgr0)\]]\$(__git_ps1 '(%s)')\n└─\\$ "
 
-# ====
-# fuck
-# ====
-eval $(thefuck --alias)
-
-# ==============
-# Useful aliases
-# ==============
+# =======
+# aliases
+# =======
 
 alias startx="exec startx && exit"
 
-alias ls='ls -lhg --color=auto'
+alias ls='ls -g --color=auto'
+alias lsv='command ls -lhA --color=auto'
 
 # Dotfiles Repository
 alias dotfiles='/usr/bin/git --git-dir=/media/data/dotfiles --work-tree=/home/superprower'
-
-# JetBrains toolbox fix
-alias toolbox='jetbrains-toolbox --disable-seccomp-filter-sandbox'
 
 alias orphans='pacman -Qtdq'
 
@@ -53,4 +46,14 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
+# Go Workspace
+export GOPATH=/media/data/projects/golang
+
+# FZF
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export NRF_SDK_ROOT="/media/data/projects/BLE/nRF5_SDK_15"
+
+# Sailfish SDK
+# export PLATFORM_SDK_ROOT="/media/data/projects/OS/mer"
+# alias sfossdk=$PLATFORM_SDK_ROOT/sdks/sfossdk/mer-sdk-chroot

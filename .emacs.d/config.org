@@ -5,7 +5,7 @@
 #+CREATOR: Emacs 26.1 (Org mode 9.1.9)
 
 * Settings
-** Basic Behaviour
+** Basic Behavior
 *** Chord Echo Delay
 #+BEGIN_SRC emacs-lisp
   (setq echo-keystrokes 0.01)
@@ -48,21 +48,20 @@ Be able to type y or n instead of long yes or no
 #+BEGIN_SRC emacs-lisp
   ;; disable autosaves
   (setq auto-save-default nil)
+  ;; store backup files somewhere else
+  (setq backup-directory-alist `(("." . "~/.emacs.d/backups/")))
+
 #+END_SRC
 
-*** Subword mode
-Be able to navigate subwords likeThisWordByWord
+*** COMMENT TAB behaviour
 #+BEGIN_SRC emacs-lisp
-  (global-subword-mode 1)
+  (global-set-key (kbd "TAB") 'tab-to-tab-stop) ;
+  (global-set-key (kbd "<tab>") 'tab-to-tab-stop)
+  (global-set-key [tab] 'tab-to-tab-stop)
 #+END_SRC
-*** Org-Mode
-**** Wrap lines by default
+*** GC on Focus Out
 #+BEGIN_SRC emacs-lisp
-  (setq org-startup-truncated nil)
-#+END_SRC
-**** Change Ellipsis Symbol
-#+BEGIN_SRC emacs-lisp
-  (setq org-ellipsis "⤵")
+  (add-hook 'focus-out-hook #'garbage-collect)
 #+END_SRC
 *** COMMENT Electric
 **** Electric Pairs
@@ -132,21 +131,80 @@ Print matching parenthesis
   (setq-default indent-tabs-mode t)
   (setq tab-width 8)
   (defvaralias 'c-basic-offset 'tab-width)
+  ;; delete entire tab
+  (setq backward-delete-char-untabify-method 'nil)
+#+END_SRC
+** Modes Settings
+*** CC modes
+#+BEGIN_SRC emacs-lisp
+  (require 'cc-mode)
+
+  ;; (defconst my-cc-style
+  ;;   '("linux"
+  ;;     (c-offsets-alist . ((innamespace . [0])))))
+
+  ;; (c-add-style "my-cc-mode" my-cc-style)
+
+  (setq-default c-default-style "linux"
+		c-basic-offset 8
+		c-tab-always-indent 'complete
+		indent-tabs-mode t)
+
+  (c-set-offset 'inlambda 0)
+
+  ;; I don't need Tab key to do indentation thing, just insert tab or expand
+  (define-key c-mode-base-map (kbd "<tab>") 'tab-to-tab-stop)
+#+END_SRC
+*** Org-Mode
+**** Wrap lines by default
+ #+BEGIN_SRC emacs-lisp
+   (setq org-startup-truncated nil)
+ #+END_SRC
+**** Change Ellipsis Symbol
+ #+BEGIN_SRC emacs-lisp
+   (setq org-ellipsis "⤵")
+ #+END_SRC
+*** Org-Mode Agendas
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files (list "~/org/agenda.org"))
+#+END_SRC
+** Spellchecking
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  (add-hook 'org-mode-hook 'flyspell-mode)
+  (add-hook 'latex-mode-hook 'flyspell-mode)
+  (add-hook 'markdown-mode-hook 'flyspell-mode)
 #+END_SRC
 * Plugins
 ** Evil Mode
+*** Evil Mode
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :defer .1 ;; don't block emacs when starting, load after startup
-    :init
 
-    ;; following two commands needed for evil-collection
-    (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
-    (setq evil-want-keybinding nil)
+    :init
+      ;; following two commands needed for evil-collection
+      (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+      (setq evil-want-keybinding nil)
+      (setq evil-want-C-u-scroll t)
+      (setq evil-search-module 'evil-search)
+      (setq evil-want-C-w-in-emacs-state t)
 
     :config
-    (evil-mode 1))
+      ;; treat underscores as part of the word
+      (defalias #'forward-evil-word #'forward-evil-symbol)
+      (setq evil-want-fine-undo 'fine)
+      (evil-mode 1))
+#+END_SRC
 
+*** Mode Hooks
+#+BEGIN_SRC emacs-lisp
+  ;; CC mode hook
+  (add-hook 'c-mode-common-hook (function (lambda () (setq evil-shift-width c-basic-offset))))
+
+#+END_SRC
+*** Evil Plugins
+#+BEGIN_SRC emacs-lisp
   ;; Evil Collection: collection of Evil bindings for the parts of Emacs
   ;; that Evil does not cover properly by default
   (use-package evil-collection
@@ -155,7 +213,6 @@ Print matching parenthesis
       ;; Prevent evil-collection from messing with my company settings
       (setq evil-collection-company-use-tng nil)
       (evil-collection-init))
-
 
   ;; Integration for Org mode
   (use-package evil-org
@@ -192,9 +249,12 @@ Print matching parenthesis
 #+END_SRC
 *** Flycheck
 #+BEGIN_SRC emacs-lisp
-(use-package flycheck
-  :hook (prog-mode . flycheck-mode))
+  (use-package flycheck
+    :hook (prog-mode . flycheck-mode))
 
+  (use-package flycheck-pos-tip
+    :after flycheck
+    :hook (flycheck-mode . flycheck-pos-tip-mode))
 #+END_SRC
 *** company-mode
 #+BEGIN_SRC emacs-lisp
@@ -209,8 +269,14 @@ Print matching parenthesis
       ;; instead scroll with ctrl-n and ctrl-p
       (define-key company-active-map (kbd "C-n") 'company-select-next)
       (define-key company-active-map (kbd "C-p") 'company-select-previous))
+      ;; disable return and instead accept suggestion with Ctrl-Space
+      (define-key company-active-map (kbd "<return>") nil)
+      (define-key company-active-map (kbd "RET") nil)
+      (define-key company-active-map (kbd "C-SPC") #'company-complete-selection)
+      
       ;; enable company-mode everywhere
       (global-company-mode)
+      
       ;; minor configuration
       (setq company-idle-delay 0.2)
       (setq company-minimum-prefix-length 1)
@@ -226,6 +292,7 @@ Print matching parenthesis
 *** yasnippet
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
+    :commands yas-minor-mode
     :diminish yas-minor-mode
     :config
       (use-package yasnippet-snippets)
@@ -234,12 +301,14 @@ Print matching parenthesis
 (add-hook 'prog-mode-hook 'yas-minor-mode)
 (add-hook 'latex-mode-hook 'yas-minor-mode)
 (add-hook 'markdown-mode-hook 'yas-minor-mode)
+(add-hook 'org-mode-hook 'yas-minor-mode)
 
 #+END_SRC
 *** magit
 magit is a git integration plugin for emacs
 #+BEGIN_SRC emacs-lisp
   (use-package magit
+    :defer t
     :config
     (setq magit-push-always-verify nil)
     (setq git-commit-summary-max-length 50)
@@ -262,9 +331,16 @@ magit is a git integration plugin for emacs
 **** lsp-ui
  #+BEGIN_SRC emacs-lisp
    (use-package lsp-ui
+     :after (lsp flycheck)
      :hook (lsp-mode . lsp-ui-mode)
      :commands lsp-ui-mode
-     :config (setq lsp-ui-flycheck-enable t))
+     :init
+       (setq lsp-ui-flycheck-enable t)
+       (setq lsp-ui-flycheck-list-position 'bottom)
+       (setq lsp-ui-peek-enable nil)
+       (setq lsp-ui-doc-use-childframe nil)
+       (setq lsp-ui-doc-use-webkit t)
+       (setq lsp-ui-sideline-enable nil))
  #+END_SRC
 **** company-lsp
  Company, meet LSP. LSP, meet Company.
@@ -282,12 +358,22 @@ magit is a git integration plugin for emacs
  cquery language server support for emacs and lsp-mode
  #+BEGIN_SRC emacs-lisp
    (use-package cquery
+     :defer t
      :after lsp-mode
      :init
      (setq cquery-executable "/usr/bin/cquery")
      (setq cquery-extra-args '("--log-file=/tmp/cq.log")))
      ;; (setq cquery-extra-init-params '(:cacheDirectory "/var/cache/cquery")))
  #+END_SRC
+#+END_SRC
+*** COMMENT DAP mode
+#+BEGIN_SRC emacs-lisp
+  (use-package dap-mode
+    :after lsp-mode
+    :config
+     (require 'dap-lldb)
+     (dap-mode t)
+     (dap-ui-mode t))
 #+END_SRC
 ** LaTeX Environment Plugins
 #+BEGIN_SRC emacs-lisp
@@ -303,14 +389,42 @@ magit is a git integration plugin for emacs
       ;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
       (setq TeX-auto-save t
 	    TeX-parse-self t
+	    TeX-save-query nil
 	    TeX-PDF-mode t
+
 	    TeX-view-program-selection '((output-pdf "PDF Tools"))))
 	    ;; TeX-view-program-selection 'xreader))
 
-  (use-package company-auctex
-    :after (tex company)
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+  
+  (use-package auctex-latexmk
+    :after (tex)
     :config
-      (company-auctex-init))
+      (auctex-latexmk-setup)
+      (setq auctex-latexmk-inherit-TeX-PDF-mode t))
+
+#+END_SRC
+** Major Modes
+*** Go Mode
+#+BEGIN_SRC emacs-lisp  
+  (use-package go-mode)
+
+  (defun my-go-mode-hook ()
+    (interactive)
+    (setq tab-width 4)
+    (setq indent-tabs-mode t))
+
+  (add-hook 'go-mode-hook 'my-go-mode-hook)
+#+END_SRC
+*** CMake Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package cmake-mode)
+#+END_SRC
+*** QT Pro Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package qt-pro-mode
+    :ensure t
+    :mode ("\\.pro\\'" "\\.pri\\'"))
 #+END_SRC
 ** Other Plugins
 *** page-break-lines
@@ -325,7 +439,8 @@ required for dashboard
     (dashboard-setup-startup-hook)
     (setq dashboard-startup-banner 'logo)
     (setq dashboard-items '((recents  . 5)
-                            (projects . 5)))
+                            (projects . 5)
+                            (bookmarks . 5)))
     (setq dashboard-banner-logo-title ""))
 #+END_SRC
 *** which-key
@@ -335,32 +450,49 @@ required for dashboard
   :init (which-key-mode))
 #+END_SRC
 
+*** all-the-icons
+#+BEGIN_SRC emacs-lisp
+  (use-package all-the-icons)
+#+END_SRC
 *** neotree
 #+BEGIN_SRC emacs-lisp
   (use-package neotree
+    :after (all-the-icons)
     :bind (("<f8>" . neotree-toggle))
-    :init (setq neo-theme 'nerd))
+    :init (setq neo-theme 'icons))
 #+END_SRC
 
 *** powerline
 #+BEGIN_SRC emacs-lisp
   (use-package powerline
     :init (powerline-vim-theme))
+    
+  (use-package airline-themes
+  :init
+    (require 'airline-themes)
+    (load-theme 'airline-doom-one))
 
-  (use-package powerline-evil
-    :after powerline
-    :init
-    (powerline-evil-vim-theme)
-    (setq powerline-evil-tag-style 'verbose))
 #+END_SRC
 
+*** indent highlights
+#+BEGIN_SRC emacs-lisp
+  (use-package highlight-indent-guides
+    :hook (prog-mode-hook . highlight-indent-guides-mode)
+    :init
+      (setq highlight-indent-guides-method 'character))
+#+END_SRC
 *** Ivy, Swiper, Counsel
 #+BEGIN_SRC emacs-lisp
   (use-package ivy
-  ;;   :demand
-  ;;   :init (ivy-mode 1)
-  ;;   :config (setq ivy-count-format "%d/%d")
-    )
+    :diminish ivy-mode
+    :demand t
+    :bind (("C-x b" . ivy-switch-buffer)
+	   ("C-x B" . ivy-switch-buffer-other-window))
+	   ;; ("M-H"   . ivy-resume))
+
+    :config 
+      (ivy-mode 1)
+      (setq ivy-count-format "%d/%d"))
 
   ;; (use-package counsel
   ;;   :init (counsel-mode 1))

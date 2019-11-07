@@ -38,9 +38,8 @@ font-4 		= "Material Design Icons:size=16;4"
 ; font-1		= "M+ 2c bold:size=15;3"
 
 modules-left	= i3 mpd
-modules-center 	=
-; modules-right 	= keyboard wireless wired xbacklight volume temperature battery date
- modules-right 	= keyboard wireless wired xbacklight volume battery date
+modules-center 	= date
+modules-right 	= keyboard wireless wired xbacklight volume temperature battery
 
 ; Tray settings
 tray-position 	= right
@@ -62,8 +61,8 @@ include-file = /home/superprower/.config/polybar/modules/mpd
 include-file = /home/superprower/.config/polybar/modules/keyboard
 
 [module/wireless]
-; include-file = /home/superprower/.config/polybar/modules/wireless
-include-file = /home/superprower/.config/polybar/modules/wireless_minimalistic
+include-file = /home/superprower/.config/polybar/modules/wireless
+; include-file = /home/superprower/.config/polybar/modules/wireless_minimalistic
 
 [module/wired]
 ; include-file = /home/superprower/.config/polybar/modules/wired
@@ -75,8 +74,8 @@ include-file = /home/superprower/.config/polybar/modules/xbacklight
 [module/volume]
 include-file = /home/superprower/.config/polybar/modules/volume
 
-; [module/temperature]
-; include-file = /home/superprower/.config/polybar/modules/temperature
+[module/temperature]
+include-file = /home/superprower/.config/polybar/modules/temperature
 
 [module/battery]
 include-file = /home/superprower/.config/polybar/modules/battery

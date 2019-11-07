@@ -63,6 +63,11 @@ conky.config = {
 	own_window_argb_visual = true,
 	own_window_argb_value = 96,
 
+	-- output to the terminal
+	out_to_x = false,
+	out_to_console = true,
+	total_run_times = 1, -- external script will do refreshing, not conky
+
 	-- For KDE
 	-- own_window_type = 'normal',
 	-- own_window_hints = 'undecorated, below, sticky, skip_pager, skip_taskbar',
@@ -79,11 +84,10 @@ conky.config = {
 	--[[ run and stop cover art script in background
 	     this script extracts album art from current song
 	     and converts it to text art made out of braille font
-	--]]
 	lua_load = '~/scripts/conky_cover_art.lua',
 	lua_startup_hook = 'start_art_script',
 	lua_shutdown_hook = 'stop_art_script',
-
+	--]]
 
 	-- colors
 	color1 = "lightgray",
@@ -109,26 +113,27 @@ ${color1}HDD${color}
 	${color1}└ I/O: ${color}${diskio}
 $hr
 # Networking
-${if_up wlp1s0}\
-${font FontAwesome} ${font}${scroll 24 $wireless_essid}\
-	${goto 200}↓ ${downspeed wlp1s0}\
-	${goto 300}↑ ${upspeed wlp1s0}\
-$endif
-${font FontAwesome} ${font}${scroll 24 ${addr enp2s0}}\
-	${goto 200}↓ ${downspeed enp2s0}\
-	${goto 300}↑ ${upspeed enp2s0}
-$hr
+# ${if_up wlp1s0}\
+# ${font FontAwesome} ${font}${scroll 24 $wireless_essid}\
+# 	${goto 200}↓ ${downspeed wlp1s0}\
+# 	${goto 300}↑ ${upspeed wlp1s0}\
+# $endif
+# ${font FontAwesome} ${font}${scroll 24 ${addr enp2s0}}\
+# 	${goto 200}↓ ${downspeed enp2s0}\
+# 	${goto 300}↑ ${upspeed enp2s0}
+# $hr
 # MPD
-${if_mpd_playing}
+# ${if_mpd_playing}
 # Show album art
-${execp cat /tmp/cover.braille}$color
-$alignc${scroll 32 $mpd_title}
-$alignc${scroll 32 $mpd_artist}
-$alignc${scroll 32 $mpd_album}
-$alignc${mpd_bar 8,150}
-$endif
-$hr
-${execpi 3600 ~/scripts/wttr.sh T0n 1}
+# ${execp cat /tmp/cover.braille}$color
+# $alignc${scroll 32 $mpd_title}
+# $alignc${scroll 32 $mpd_artist}
+# $alignc${scroll 32 $mpd_album}
+# $alignc${mpd_bar 8,150}
+# $endif
+# $hr
+# Weather
+# ${execpi 3600 ~/scripts/wttr.sh T0n 1}
 ]]
 
 -- ${color1}└ ${color}${diskiograph}

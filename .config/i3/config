@@ -2,7 +2,8 @@
 
 set $mod Mod4
 
-font pango:monospace 8
+# font pango:monospace 8
+font -xos4-terminesspowerline-medium-*-*-*-12-*-*-*-*-*-*-*
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -70,6 +71,9 @@ bindsym $mod+a focus parent
 # focus the child container
 bindsym $mod+d focus child
 
+# Set default workspace layout to tabbed
+workspace_layout tabbed
+
 # Workspaces
 set $ws1 "1"
 set $ws2 "2"
@@ -119,10 +123,7 @@ for_window [class="Arandr" instance="arandr"] 	floating enable
 for_window [class="Pavucontrol"] 		floating enable
 for_window [class="qemu-system-i386"] 		floating enable
 
-for_window [class="EFTNC"]			floating enable
-for_window [class="GGJ_2018"]			floating enable
-
-for_window [class="Godot" instance="Godot_Engine"]	floating enable
+# for_window [class="Godot" instance="Godot_Engine"]	floating enable
 # for_window [title="PlayOnLinux"] 		floating enable
 # for_window [class="thunar"] 			floating enable
 # for_window [class="Steam"] 			floating enable
@@ -184,13 +185,12 @@ set_from_resource $bg color0
 # ------------------------------------------------------------------------------------------
 client.focused          $active   $bg   	#ffffff 	$indicator 	$active
 client.focused_inactive $inactive $bg 		#ffffff 	$inactive  	$inactive
-client.unfocused        $inactive $bg		#888888 	#incactive 	$inactive
+client.unfocused        $inactive $bg		#888888 	$inactive 	$inactive
 client.urgent           $active   $active    	#ffffff 	#900000 	$active
 client.placeholder      $inactive $inactive	#ffffff 	#000000 	$inactive
 
 client.background       #ffffff
 
-# do not follow
 focus_follows_mouse no
 
 # i3gaps config
@@ -203,40 +203,25 @@ smart_gaps on
 # lockscreen
 bindsym $mod+Control+l exec --no-startup-id i3lock
 
-# Pulse Audio controls
-bindsym XF86AudioRaiseVolume	exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume 	exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute 		exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp 	exec --no-startup-id xbacklight -inc 10
-bindsym XF86MonBrightnessDown 	exec --no-startup-id xbacklight -dec 10
-
-# MPD controls
-bindsym XF86AudioPlay		exec --no-startup-id mpc toggle
-bindsym XF86AudioPrev		exec --no-startup-id mpc prev
-bindsym XF86AudioNext		exec --no-startup-id mpc next
-
-
-bindsym Print 			exec xfce4-screenshooter
+# other keys handled by sxhkd
 
 # autostart
 exec --no-startup-id nm-applet
 exec --no-startup-id thunar -daemon
 exec --no-startup-id xfce4-clipman
+exec --no-startup-id lxsession
+exec --no-startup-id sxhkd
 
 exec --no-startup-id libinput-gestures-setup start
-
 exec --no-startup-id compton
+# exec --no-startup-id conky
 
-# this will restart polybar on i3 restart
+# restart polybar on i3 restart
 exec_always --no-startup-id "killall polybar;polybar -r panel"
-
-exec --no-startup-id conky
 
 exec --no-startup-id google-chrome-stable
 exec --no-startup-id /media/data/applications/Telegram/Telegram
-exec --no-startup-id discord
+# exec --no-startup-id discord
 
 # wallpaper
 exec_always --no-startup-id feh --bg-fill $WALLPAPER

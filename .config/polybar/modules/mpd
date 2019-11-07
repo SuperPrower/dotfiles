@@ -7,13 +7,13 @@ password =
 interval = 1
 
 ; format-online = <icon-prev> <toggle> <icon-next> <bar-progress> <label-song>
-format-online = %{A1:mpc toggle:} <label-song> <label-time> %{A}
+format-online = %{A1:mpc toggle:}<label-song> <label-time>%{A}
 format-online-padding = ${common.padding}
 format-playing-underline = ${xrdb:color1}
 
 label-offline = mpd is offline
 
-label-song = %artist:0:30:...% - %title:0:40:..%
+label-song = %artist:0:20:...% - %title:0:30:..%
 label-time = [%elapsed% / %total%]
 
 ; vim: ft=cfg

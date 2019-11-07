@@ -1,4 +1,4 @@
-" == Behaviour Settings == {{{
+" Behaviour Settings {{{
 " make vim iMproved
 set nocompatible
 " use + clipboard by default
@@ -12,7 +12,9 @@ set backspace=indent,eol,start
 set wildmenu
 set wildmode=longest,list
 
-filetype plugin indent on
+set timeoutlen=500
+
+set hidden
 
 " Set persistent history and undo history/swap/backup files locations
 set undofile
@@ -28,9 +30,6 @@ noremap <Down> 	:echo "hjkl"<CR>
 noremap <Left> 	:echo "hjkl"<CR>
 noremap <Right>	:echo "hjkl"<CR>
 
-" Hide buffers instead of closing them
-set hidden
-
 " Formatting
 " set autoindent
 set noexpandtab
@@ -42,27 +41,21 @@ set showbreak=..
 
 " Interface
 set laststatus=2
-" set ttimeoutlen=10
-" set t_Co=16
-set colorcolumn=100
+set colorcolumn=81
 set number
-
-" Force vim to recognize .h files as C headers
-augroup project
-	autocmd!
-	autocmd BufRead,BufNewFile *.h,*.c set filetype=c
-augroup END
 
 set foldenable
 set foldmethod=marker
+
+" split on another side
+set splitright
+set splitbelow
 " }}}
 
-" == Plugins == {{{
+" Plugins {{{
 call plug#begin("~/.local/share/nvim/plugged")
 
-	" ==========
-	" Appearence
-	" ==========
+	" Appearence {{{
 
 	" cooler statusbar
 	Plug 'vim-airline/vim-airline'
@@ -71,12 +64,7 @@ call plug#begin("~/.local/share/nvim/plugged")
 	" colorschemes
 	Plug 'arcticicestudio/nord-vim'
 	Plug 'chriskempson/base16-vim'
-
-	" GDB integration
-	Plug 'sakhnik/nvim-gdb'
-
-	" vim surround
-	Plug 'tpope/vim-surround'
+	Plug 'dracula/vim'
 
 	" highlighting trailing whitespaces
 	Plug 'ntpeters/vim-better-whitespace'
@@ -84,19 +72,29 @@ call plug#begin("~/.local/share/nvim/plugged")
 	" key help
 	Plug 'liuchengxu/vim-which-key'
 
-	" personal wiki
-	Plug 'vimwiki/vimwiki'
-
-	" calendar
-	Plug 'mattn/calendar-vim'
-
 	" customizable quickmenu
 	" Plug 'skywind3000/quickmenu.vim'
 	Plug 'CharlesGueunet/quickmenu.vim'
 
-	" =====================
-	" NeoVim as IDE plugins
-	" =====================
+	Plug 'junegunn/goyo.vim'
+
+	" }}}
+
+	" Vim Organizer {{{
+
+	" personal wiki
+	Plug 'vimwiki/vimwiki'
+
+	" calendar
+	" Plug 'mattn/calendar-vim'
+	Plug 'itchyny/calendar.vim'
+
+	" taskwarrior integration
+	Plug 'tbabej/taskwiki'
+
+	" Vim Organizer }}}
+
+	" NeoVim as IDE plugins {{{
 	Plug 'ncm2/ncm2'
 	Plug 'roxma/nvim-yarp' " required
 
@@ -114,6 +112,9 @@ call plug#begin("~/.local/share/nvim/plugged")
 	" Snippets for vim configuration
 	Plug 'Shougo/neco-vim'
 
+	" EditorConfig
+	Plug 'editorconfig/editorconfig-vim'
+
 	" LSP Client
 	Plug 'autozimu/LanguageClient-neovim', {
 		\ 'branch': 'next',
@@ -126,6 +127,12 @@ call plug#begin("~/.local/share/nvim/plugged")
 	" Show parameter doc.
 	Plug 'Shougo/echodoc.vim'
 
+	" GDB integration
+	Plug 'sakhnik/nvim-gdb'
+
+	" vim surround
+	Plug 'tpope/vim-surround'
+
 	" local project vimrc
 	Plug 'embear/vim-localvimrc'
 
@@ -136,49 +143,115 @@ call plug#begin("~/.local/share/nvim/plugged")
 	" tag tree
 	Plug 'majutsushi/tagbar'
 
+	" Better folding
+	Plug 'Konfekt/FastFold'
+
+	" comment functions
+	Plug 'scrooloose/nerdcommenter'
+
+	" NeoVim as IDE plugins }}}
+
+	" File Types Support {{{
+
 	" syntax highlighting
 	Plug 'octol/vim-cpp-enhanced-highlight'
+	Plug 'cespare/vim-toml', { 'for': 'toml' }
+	Plug 'Shirk/vim-gas', { 'for': 'gas' }
+	Plug 'calviken/vim-gdscript3', {'for': 'gdscript3'}
+
 	Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
 	Plug 'smancill/conky-syntax.vim'
 	Plug 'tmux-plugins/vim-tmux'
-	Plug 'Shirk/vim-gas', { 'for': 'gas' }
-
-	" Better folding
-	Plug 'Konfekt/FastFold'
 
 	" LaTeX related plugins
 	" Plug 'donRaphaco/neotex', { 'for': 'tex' }
 	Plug 'lervag/vimtex', { 'for': 'tex' }
+	Plug 'PietroPate/vim-tex-conceal', { 'for': 'tex' }
 
 	" Markdown preview with grip
 	Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
+
 	" table mode
 	Plug 'dhruvasagar/vim-table-mode'
 
 	" Graphviz
 	Plug 'wannesm/wmgraphviz.vim'
 
+	" File Types Support }}}
+
+	" Misc Behaviour {{{
+	Plug 'lambdalisue/session.vim'
+	Plug 'christoomey/vim-tmux-navigator'
+
+	" Plug 'jiangmiao/auto-pairs'
+	" Misc Behaviour }}}
+
 call plug#end()
+" Plugins }}}
+
+" More Behaviour Settings {{{
+filetype plugin indent on
+syntax enable
+
+set cursorline
+
+" Force vim to recognize .h files as C headers
+augroup project
+	autocmd!
+	autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+augroup END
+
+au BufNewFile,BufRead *.nut setf squirrel
+
+set wildignore+=*.pyc,*.o,*.obj,*.svn,*.hg,*.DS_Store
+
+" LaTeX
+set wildignore+=*.aux,*.lof,*.lot,*.fls,*.out,*.toc,*.fmt,*.fot,*.cb,*.cb2,.*.lb,*-converted-to.*,*.bbl,*.bcf,*.blg,*-blx.aux,*-blx.bib,*.run.xml,*.fdb_latexmk
+
 " }}}
 
-" Colorscheme{{{
+" Key Bindings and Commands {{{
+
+nnoremap <F7> :StripWhitespace<CR>
+nnoremap <F8> :NERDTreeToggle<CR>
+nnoremap <F9> :TagbarToggle<CR>
+
+let mapleader = ";"
+
+" kill buffer without closing the window
+nnoremap <silent><leader>bd :bn\|bd#<CR>
+
+" Switch buffers
+nnoremap <silent><leader>bn :bn<cr>
+nnoremap <silent><leader>bp :bp<cr>
+
+" type russian
+set keymap=russian-jcukenwin
+set iminsert=0
+set imsearch=0
+inoremap <C-l> <C-^>
+" }}}
+
+" Colorscheme {{{
 " Setting dark mode
 set background=dark
 set termguicolors
-colorscheme base16-tomorrow-night
+
+" colorscheme base16-tomorrow-night
+colorscheme dracula
 
 " tmux doesn't support undercurl, let's replace it
-hi SpellBad gui=underline guisp=gui08
-hi SpellLocal gui=underline guisp=gui0C
-hi SpellCap gui=underline guisp=gui0D
-hi SpellRare gui=underline guisp=gui0E
+" hi SpellBad gui=underline guisp=gui08
+" hi SpellLocal gui=underline guisp=gui0C
+" hi SpellCap gui=underline guisp=gui0D
+" hi SpellRare gui=underline guisp=gui0E
 " }}}
 
-" Vim Airline Settings {{{
-let g:airline_powerline_fonts=1
-let g:airline_theme="base16_twilight"
+" vim-airline {{{
+set noshowmode
 
-" Custom Symbols
+let g:airline_powerline_fonts=0
+
 if !exists('g:airline_symbols')
 	let g:airline_symbols={}
 endif
@@ -186,35 +259,21 @@ endif
 let g:airline_symbols.linenr=''
 let g:airline_symbols.maxlinenr=''
 let g:airline_symbols.whitespace=''
+
 " Custom right-most part
 call airline#parts#define_raw('line', (g:airline_symbols.linenr).' %#__accent_bold#%l/%L%#__restore__#')
 let g:airline_section_z=airline#section#create(['line',':%v'])
 
-" Get rid of default mode indicator
-set noshowmode
+let g:airline#extensions#keymap#enabled = 0
+let g:airline_detect_iminsert=1
 
 let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
+let g:airline_theme="minimalist"
+" vim-airline }}}
 
-" }}}
-
-" == Key Bindings and Commands == {{{
-nnoremap <F7> :StripWhitespace<CR>
-nnoremap <F8> :NERDTreeToggle<CR>
-nnoremap <F9> :TagbarToggle<CR>
-
-" use tab to select pop-up menu - ncm/deoplete
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" kill buffer without closing the window
-nnoremap <silent><leader>d :bn\|bd#<CR>
-
-" }}}
-
-" ncm2 settings {{{
+" == ncm2 settings == {{{
 
 autocmd BufEnter * call ncm2#enable_for_buffer()
 
@@ -233,14 +292,45 @@ au TextChangedI * call ncm2#auto_trigger()
 " leave insert mode on Ctrl-C
 " inoremap <c-c> <ESC>
 
+" register Vimtex
+au BufEnter * call ncm2#enable_for_buffer()
+au User Ncm2Plugin call ncm2#register_source({
+	\ 'name' : 'vimtex',
+	\ 'priority': 1,
+	\ 'subscope_enable': 1,
+	\ 'complete_length': 1,
+	\ 'scope': ['tex'],
+	\ 'matcher': {'name': 'combine',
+	\           'matchers': [
+	\               {'name': 'abbrfuzzy', 'key': 'menu'},
+	\               {'name': 'prefix', 'key': 'word'},
+	\           ]},
+	\ 'mark': 'tex',
+	\ 'word_pattern': '\w+',
+	\ 'complete_pattern': g:vimtex#re#ncm,
+	\ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+\ })
+
+" gdscript3
+au User Ncm2Plugin call ncm2#register_source({
+	\ 'name' : 'gdscript3',
+	\ 'priority': 1, 'complete_length': 1,
+	\ 'subscope_enable': 1,
+	\ 'scope': ['gdscript3'],
+	\ 'mark': 'gdscript3',
+	\ 'word_pattern': '[\w\-]+',
+	\ 'complete_pattern': ':\s*',
+	\ 'on_complete': ['ncm2#on_complete#omni', 'GDScriptComplete'],
+\ })
+
 " }}}
 
-" LanguageClient-neovim {{{
+" == LanguageClient-neovim == {{{
 
 let g:LanguageClient_serverCommands = {}
 
 if executable('pyls')
-	let g:LanguageClient_serverCommands.python = ['pyls']
+	let g:LanguageClient_serverCommands.python = ['pyls', '-v']
 endif
 
 
@@ -252,18 +342,31 @@ if executable('bash-language-server')
 	let g:LanguageClient_serverCommands.sh = ['bash-language-server', 'start']
 endif
 
-if executable('cquery')
+if executable('go-langserver')
+	let g:LanguageClient_serverCommands.go = ['go-langserver']
+endif
+
+if executable('clangd')
 	let g:LanguageClient_serverCommands.cpp = [
-		\ 'cquery',
-		\ '--log-file=/tmp/cq.log',
-		\ '--init={"cacheDirectory":"/var/cache/cquery/"}'
+		\ 'clangd',
 	\]
 	let g:LanguageClient_serverCommands.c = [
-		\ 'cquery',
-		\ '--log-file=/tmp/cq.log',
-		\ '--init={"cacheDirectory":"/var/cache/cquery/"}'
+		\ 'clangd',
 	\]
 endif
+
+" if executable('cquery')
+" 	let g:LanguageClient_serverCommands.cpp = [
+" 		\ 'cquery',
+" 		\ '--log-file=/tmp/cq.log',
+" 		\ '--init={"cacheDirectory":"/var/cache/cquery/"}'
+" 	\]
+" 	let g:LanguageClient_serverCommands.c = [
+" 		\ 'cquery',
+" 		\ '--log-file=/tmp/cq.log',
+" 		\ '--init={"cacheDirectory":"/var/cache/cquery/"}'
+" 	\]
+" endif
 
 nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
 " Or map each action separately
@@ -274,7 +377,11 @@ nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
 
 " }}}
 
-" NerdTree Git Plugin {{{
+" NerdTree {{{
+let NERDTreeRespectWildIgnore=1
+" Nerdtree }}}
+
+" == NerdTree Git Plugin == {{{
 let g:NERDTreeIndicatorMapCustom = {
 	\ "Modified"  : "M",
 	\ "Staged"    : "+",
@@ -290,7 +397,7 @@ let g:NERDTreeIndicatorMapCustom = {
 
 " }}}
 
-" FastFold Settings {{{
+" == FastFold Settings == {{{
 
 let g:fastfold_savehook = 1
 let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
@@ -301,7 +408,7 @@ let g:markdown_folding = 1
 
 " }}}
 
-" UltiSnips {{{
+" == UltiSnips == {{{
 
 inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
@@ -311,9 +418,14 @@ let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 
+
+" imap <silent><C-j> <Plug>(neosnippet_jump_or_expand)
+" smap <silent><C-j> <Plug>(neosnippet_jump_or_expand)
+" xmap <silent><C-j> <Plug>(neosnippet_expand_target)
+
 " }}}
 
-" LaTeX specific settings {{{
+" == LaTeX specific settings == {{{
 " ================================================
 " check ./after/ftplugin/tex.vim for more settings
 " ================================================
@@ -341,7 +453,13 @@ autocmd Filetype tex call ncm2#register_source({
 " let g:neotex_enabled = 1
 " }}}
 
-" Markdown specific settings {{{
+" Vim Surround {{{
+" Allow wrapping in commands such as \textit
+autocmd Filetype tex let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
+autocmd Filetype tex let g:tex_conceal="abdgms"
+" Vim Surround }}}
+"
+" == Markdown specific settings == {{{
 " =====================================================
 " check ./after/ftplugin/markdown.vim for more settings
 " =====================================================
@@ -349,11 +467,7 @@ let vim_markdown_preview_github = 1
 let vim_markdown_preview_use_xdg_open = 1
 " }}}
 
-" indentLine settings
-let g:indentLine_fileTypeExclude = ['json']
-let g:indentLine_bufTypeExclude = ['help', 'terminal']
-
-" == vimwiki config == {{{
+" vimwiki {{{
 " Prevent vimwiki from using Tab in insert mode
 let g:vimwiki_table_mappins = 0
 let g:vimwiki_global_ext = 0
@@ -366,9 +480,41 @@ let g:vimwiki_list = [my_wiki]
 
 " }}}
 
-" whick key settings
-nnoremap <silent> <leader> :WhichKey '\'<CR>
+" == whick key settings == {{{
 set timeoutlen=500
+
+nnoremap <silent><leader> :<c-u>WhichKey ';'<CR>
+vnoremap <silent><leader> :<c-u>WhichKeyVisual ';'<CR>
+
+" disables gg
+" nnoremap <silent> g :<c-u>WhichKey 'g'<CR>
+
+" TODO: i need to map more leader things, and probably rebind leader to space
+" let g:which_key_map =  {}
+" let g:which_key_map['W'] = {
+"       \ 'name' : '+windows' ,
+"       \ 'w' : ['<C-W>w'     , 'other-window']          ,
+"       \ 'd' : ['<C-W>c'     , 'delete-window']         ,
+"       \ '-' : ['<C-W>s'     , 'split-window-below']    ,
+"       \ '|' : ['<C-W>v'     , 'split-window-right']    ,
+"       \ '2' : ['<C-W>v'     , 'layout-double-columns'] ,
+"       \ 'h' : ['<C-W>h'     , 'window-left']           ,
+"       \ 'j' : ['<C-W>j'     , 'window-below']          ,
+"       \ 'l' : ['<C-W>l'     , 'window-right']          ,
+"       \ 'k' : ['<C-W>k'     , 'window-up']             ,
+"       \ 'H' : ['<C-W>5<'    , 'expand-window-left']    ,
+"       \ 'J' : ['resize +5'  , 'expand-window-below']   ,
+"       \ 'L' : ['<C-W>5>'    , 'expand-window-right']   ,
+"       \ 'K' : ['resize -5'  , 'expand-window-up']      ,
+"       \ '=' : ['<C-W>='     , 'balance-window']        ,
+"       \ 's' : ['<C-W>s'     , 'split-window-below']    ,
+"       \ 'v' : ['<C-W>v'     , 'split-window-below']    ,
+"       \ '?' : ['Windows'    , 'fzf-window']            ,
+"       \ }
+"
+" call which_key#register('\', "g:which_key_map")
+
+" }}}
 
 " == quickmenu settings == {{{
 
@@ -407,6 +553,11 @@ call g:quickmenu#append('# Vimwiki Misc', '', '', 'vimwiki')
 call g:quickmenu#append('Create new table', 'VimwikiTable', '', 'vimwiki')
 call g:quickmenu#append('Open a Calendar', 'Calendar', '', 'vimwiki')
 
-" }}}
+" QuickMenu for Vimwiki }}}
 
 " }}}
+
+" Auto Pairs {{{
+let g:AutoPairsFlyMode = 0
+let g:AutoPairsShortcutBackInsert = '<M-b>'
+" Auto Pairs }}}
