@@ -24,18 +24,8 @@ alias dotfiles='/usr/bin/git --git-dir=/media/data/dotfiles --work-tree=/home/su
 
 alias orphans='pacman -Qtdq'
 
-# ================
 # Useful variables
-# ================
-
-export TERMINAL=xfce4-terminal
-export EDITOR=nvim
-
-# export WALLPAPER="$HOME/wallpapers/city.jpg"
-# export WALLPAPER="$HOME/wallpapers/Toradora.jpg"
-# export WALLPAPER="$HOME/wallpapers/magick_generated/wallpaper.png"
-export WALLPAPER="$HOME/wallpapers/landscapes/3fMZ2MC.jpg"
-export LOCKSCREEN_IMAGE="$HOME/wallpapers/magenta_park.jpg"
+# Mostly moved to .profile
 
 # Man pages color
 export LESS_TERMCAP_mb=$'\e[1;32m'
@@ -46,14 +36,5 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-# Go Workspace
-export GOPATH=/media/data/projects/golang
-
 # FZF
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-export NRF_SDK_ROOT="/media/data/projects/BLE/nRF5_SDK_15"
-
-# Sailfish SDK
-# export PLATFORM_SDK_ROOT="/media/data/projects/OS/mer"
-# alias sfossdk=$PLATFORM_SDK_ROOT/sdks/sfossdk/mer-sdk-chroot

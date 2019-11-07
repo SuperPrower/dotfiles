@@ -7,7 +7,7 @@ main_color 	= ${xrdb:focus-color}
 padding 	= 1
 
 [bar/panel]
-monitor 	= eDP1
+monitor 	= eDP-1
 dpi 		= 96
 
 height 		= 48

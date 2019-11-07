@@ -84,13 +84,13 @@ set $ws6 "6"
 set $ws7 "7"
 
 # Assign workspaces to screens
-workspace $ws1 output eDP1
-workspace $ws2 output eDP1
-workspace $ws3 output eDP1
-workspace $ws4 output eDP1
-workspace $ws5 output eDP1
-workspace $ws6 output eDP1
-workspace $ws7 output HDMI1 eDP1
+workspace $ws1 output eDP-1
+workspace $ws2 output eDP-1
+workspace $ws3 output eDP-1
+workspace $ws4 output eDP-1
+workspace $ws5 output eDP-1
+workspace $ws6 output eDP-1
+workspace $ws7 output HDMI1 eDP-1
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
