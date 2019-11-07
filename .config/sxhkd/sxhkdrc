@@ -1,0 +1,19 @@
+# Volume controls
+XF86Audio{Raise,Lower}Volume
+	pactl set-sink-volume @DEFAULT_SINK@ {+,-}5%
+XF86AudioMute
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# MPD controls
+XF86Audio{Prev,Next}
+	mpc -q {prev,next}
+
+XF86AudioPlay
+	mpc -q toggle
+
+# Sreen brightness controls
+XF86MonBrightness{Up,Down}
+	xbacklight {-inc,-dec} 10
+
+Print
+	xfce4-screenshooter

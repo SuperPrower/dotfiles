@@ -1,0 +1,3 @@
+set selection-clipboard clipboard
+# set font "xos4Terminus 12"
+set font "Go Mono for Powerline 12"
