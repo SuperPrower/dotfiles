@@ -6,5 +6,3 @@ setlocal shiftwidth=4
 setlocal colorcolumn=110
 
 setlocal conceallevel=2
-
-nnoremap <F6> :VQLNInsertNote<CR>

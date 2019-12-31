@@ -1,3 +1,5 @@
+" init.vim is a configuration file for NeoVim.
+
 " Behaviour Settings {{{
 " make vim iMproved
 set nocompatible
@@ -10,7 +12,10 @@ set mouse=a
 set backspace=indent,eol,start
 
 set wildmenu
-set wildmode=longest,list
+set wildmode=longest,full
+set wildoptions=pum
+
+set pumheight=30
 
 set timeoutlen=500
 
@@ -23,6 +28,9 @@ set directory=~/.local/share/nvim/swap
 set backupdir=~/.local/share/nvim/backup
 
 set encoding=utf8
+
+filetype plugin indent on
+syntax enable
 
 " Disable arrow keys lol
 noremap <Up> 	:echo "hjkl"<CR>
@@ -44,12 +52,53 @@ set laststatus=2
 set colorcolumn=81
 set number
 
+set cursorline
+
 set foldenable
 set foldmethod=marker
+
+" dark mode
+set background=dark
+
+set termguicolors
 
 " split on another side
 set splitright
 set splitbelow
+
+" Force vim to recognize .h files as C headers
+augroup project
+	autocmd!
+	autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+augroup END
+
+" wildignore {{{
+" NerdTree is configured to respect this and ignore the patterns
+" Python
+set wildignore+=*.pyc,*.o,*.obj,*.svn,*.hg,*.DS_Store
+
+" LaTeX
+set wildignore+=*.aux,*.lof,*.lot,*.fls,*.out,*.toc,*.fmt,*.fot,*.cb,*.cb2,.*.lb,*-converted-to.*,*.bbl,*.bcf,*.blg,*-blx.aux,*-blx.bib,*.run.xml,*.fdb_latexmk
+" wildignore }}}
+
+" }}}
+
+" Key Bindings {{{
+let mapleader = ";"
+
+" kill buffer without closing the window
+nnoremap <silent><leader>bd :bn\|bd#<CR>
+
+" Switch buffers
+nnoremap <silent><leader>bn :bn<cr>
+nnoremap <silent><leader>bp :bp<cr>
+
+" type russian
+set keymap=russian-jcukenwin
+set iminsert=0
+set imsearch=0
+inoremap <C-l> <C-^>
+
 " }}}
 
 " Plugins {{{
@@ -62,8 +111,8 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'vim-airline/vim-airline-themes'
 
 	" colorschemes
-	Plug 'arcticicestudio/nord-vim'
-	Plug 'chriskempson/base16-vim'
+	" Plug 'arcticicestudio/nord-vim'
+	" Plug 'chriskempson/base16-vim'
 	Plug 'dracula/vim'
 
 	" highlighting trailing whitespaces
@@ -76,23 +125,11 @@ call plug#begin("~/.local/share/nvim/plugged")
 	" Plug 'skywind3000/quickmenu.vim'
 	Plug 'CharlesGueunet/quickmenu.vim'
 
-	Plug 'junegunn/goyo.vim'
-
 	" }}}
 
-	" Vim Organizer {{{
-
-	" personal wiki
+	" Personal Wiki {{{
 	Plug 'vimwiki/vimwiki'
-
-	" calendar
-	" Plug 'mattn/calendar-vim'
-	Plug 'itchyny/calendar.vim'
-
-	" taskwarrior integration
-	Plug 'tbabej/taskwiki'
-
-	" Vim Organizer }}}
+	" Personal Wiki }}}
 
 	" NeoVim as IDE plugins {{{
 	Plug 'ncm2/ncm2'
@@ -124,30 +161,25 @@ call plug#begin("~/.local/share/nvim/plugged")
 	" (Optional) Multi-entry selection UI.
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
+
 	" Show parameter doc.
 	Plug 'Shougo/echodoc.vim'
 
 	" GDB integration
-	Plug 'sakhnik/nvim-gdb'
+	Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 
 	" vim surround
 	Plug 'tpope/vim-surround'
 
-	" local project vimrc
-	Plug 'embear/vim-localvimrc'
-
 	" file tree
-	Plug 'scrooloose/nerdtree'
-	Plug 'Xuyuanp/nerdtree-git-plugin'
+	Plug 'https://github.com/scrooloose/nerdtree'
+	Plug 'https://github.com/Xuyuanp/nerdtree-git-plugin'
 
 	" tag tree
 	Plug 'majutsushi/tagbar'
 
 	" Better folding
 	Plug 'Konfekt/FastFold'
-
-	" comment functions
-	Plug 'scrooloose/nerdcommenter'
 
 	" NeoVim as IDE plugins }}}
 
@@ -157,14 +189,12 @@ call plug#begin("~/.local/share/nvim/plugged")
 	Plug 'octol/vim-cpp-enhanced-highlight'
 	Plug 'cespare/vim-toml', { 'for': 'toml' }
 	Plug 'Shirk/vim-gas', { 'for': 'gas' }
-	Plug 'calviken/vim-gdscript3', {'for': 'gdscript3'}
 
 	Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
 	Plug 'smancill/conky-syntax.vim'
 	Plug 'tmux-plugins/vim-tmux'
 
 	" LaTeX related plugins
-	" Plug 'donRaphaco/neotex', { 'for': 'tex' }
 	Plug 'lervag/vimtex', { 'for': 'tex' }
 	Plug 'PietroPate/vim-tex-conceal', { 'for': 'tex' }
 
@@ -189,53 +219,13 @@ call plug#begin("~/.local/share/nvim/plugged")
 call plug#end()
 " Plugins }}}
 
-" More Behaviour Settings {{{
-filetype plugin indent on
-syntax enable
-
-set cursorline
-
-" Force vim to recognize .h files as C headers
-augroup project
-	autocmd!
-	autocmd BufRead,BufNewFile *.h,*.c set filetype=c
-augroup END
-
-au BufNewFile,BufRead *.nut setf squirrel
-
-set wildignore+=*.pyc,*.o,*.obj,*.svn,*.hg,*.DS_Store
-
-" LaTeX
-set wildignore+=*.aux,*.lof,*.lot,*.fls,*.out,*.toc,*.fmt,*.fot,*.cb,*.cb2,.*.lb,*-converted-to.*,*.bbl,*.bcf,*.blg,*-blx.aux,*-blx.bib,*.run.xml,*.fdb_latexmk
-
-" }}}
-
-" Key Bindings and Commands {{{
-
+" Plugin Key Bindings and Commands {{{
 nnoremap <F7> :StripWhitespace<CR>
 nnoremap <F8> :NERDTreeToggle<CR>
 nnoremap <F9> :TagbarToggle<CR>
-
-let mapleader = ";"
-
-" kill buffer without closing the window
-nnoremap <silent><leader>bd :bn\|bd#<CR>
-
-" Switch buffers
-nnoremap <silent><leader>bn :bn<cr>
-nnoremap <silent><leader>bp :bp<cr>
-
-" type russian
-set keymap=russian-jcukenwin
-set iminsert=0
-set imsearch=0
-inoremap <C-l> <C-^>
 " }}}
 
 " Colorscheme {{{
-" Setting dark mode
-set background=dark
-set termguicolors
 
 " colorscheme base16-tomorrow-night
 colorscheme dracula
@@ -273,7 +263,7 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_theme="minimalist"
 " vim-airline }}}
 
-" == ncm2 settings == {{{
+" ncm2 settings {{{
 
 autocmd BufEnter * call ncm2#enable_for_buffer()
 
@@ -311,21 +301,22 @@ au User Ncm2Plugin call ncm2#register_source({
 	\ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
 \ })
 
-" gdscript3
-au User Ncm2Plugin call ncm2#register_source({
-	\ 'name' : 'gdscript3',
-	\ 'priority': 1, 'complete_length': 1,
-	\ 'subscope_enable': 1,
-	\ 'scope': ['gdscript3'],
-	\ 'mark': 'gdscript3',
-	\ 'word_pattern': '[\w\-]+',
-	\ 'complete_pattern': ':\s*',
-	\ 'on_complete': ['ncm2#on_complete#omni', 'GDScriptComplete'],
-\ })
+" gdscript3 {{{
+" au User Ncm2Plugin call ncm2#register_source({
+" 	\ 'name' : 'gdscript3',
+" 	\ 'priority': 1, 'complete_length': 1,
+" 	\ 'subscope_enable': 1,
+" 	\ 'scope': ['gdscript3'],
+" 	\ 'mark': 'gdscript3',
+" 	\ 'word_pattern': '[\w\-]+',
+" 	\ 'complete_pattern': ':\s*',
+" 	\ 'on_complete': ['ncm2#on_complete#omni', 'GDScriptComplete'],
+" \ })
+" }}}
 
 " }}}
 
-" == LanguageClient-neovim == {{{
+" LanguageClient-neovim {{{
 
 let g:LanguageClient_serverCommands = {}
 
@@ -377,11 +368,28 @@ nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
 
 " }}}
 
+" nvim-gdb {{{
+
+function! NvimGdbNoTKeymaps()
+	tnoremap <silent> <buffer> <esc> <c-\><c-n>
+endfunction
+
+let g:nvimgdb_config_override = {
+	\ 'key_next': 'n',
+	\ 'key_step': 's',
+	\ 'key_finish': 'f',
+	\ 'key_continue': 'c',
+	\ 'key_until': 'u',
+	\ 'key_breakpoint': 'b',
+	\ 'set_tkeymaps': "NvimGdbNoTKeymaps",
+	\ }
+" }}}
+
 " NerdTree {{{
 let NERDTreeRespectWildIgnore=1
-" Nerdtree }}}
+" NerdTree }}}
 
-" == NerdTree Git Plugin == {{{
+" NerdTree Git Plugin {{{
 let g:NERDTreeIndicatorMapCustom = {
 	\ "Modified"  : "M",
 	\ "Staged"    : "+",
@@ -397,7 +405,7 @@ let g:NERDTreeIndicatorMapCustom = {
 
 " }}}
 
-" == FastFold Settings == {{{
+" FastFold Settings {{{
 
 let g:fastfold_savehook = 1
 let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
@@ -408,7 +416,7 @@ let g:markdown_folding = 1
 
 " }}}
 
-" == UltiSnips == {{{
+" UltiSnips {{{
 
 inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
@@ -418,17 +426,16 @@ let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 
-
 " imap <silent><C-j> <Plug>(neosnippet_jump_or_expand)
 " smap <silent><C-j> <Plug>(neosnippet_jump_or_expand)
 " xmap <silent><C-j> <Plug>(neosnippet_expand_target)
 
 " }}}
 
-" == LaTeX specific settings == {{{
-" ================================================
-" check ./after/ftplugin/tex.vim for more settings
-" ================================================
+" VimTex and LaTeX-specific settings {{{
+" ====
+" check ./after/ftplugin/tex.vim for more filetype-specific settings
+" ====
 
 let g:tex_flavor = "latex"
 let g:tex_conceal = ''
@@ -438,7 +445,7 @@ let g:vimtex_fold_enabled = 1
 let g:vimtex_latexmk_continuous = 1
 let g:vimtex_compiler_progname = 'nvr'
 
-" ncm2 vimtex source
+" ncm2 VimTex source
 autocmd Filetype tex call ncm2#register_source({
 	\ 'name': 'vimtex',
 	\ 'priority': 8,
@@ -449,25 +456,24 @@ autocmd Filetype tex call ncm2#register_source({
 	\ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
 	\ })
 
-" old neotex settings
-" let g:neotex_enabled = 1
-" }}}
+" VimTex and LaTeX-specific settings }}}
 
 " Vim Surround {{{
 " Allow wrapping in commands such as \textit
 autocmd Filetype tex let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 autocmd Filetype tex let g:tex_conceal="abdgms"
 " Vim Surround }}}
-"
-" == Markdown specific settings == {{{
-" =====================================================
-" check ./after/ftplugin/markdown.vim for more settings
-" =====================================================
+
+" Markdown Preview settings {{{
+" ====
+" check ./after/ftplugin/markdown.vim for filetype-specific settings
+" ====
 let vim_markdown_preview_github = 1
 let vim_markdown_preview_use_xdg_open = 1
-" }}}
+" Markdown Preview settings }}}
 
-" vimwiki {{{
+" VimWiki {{{
+
 " Prevent vimwiki from using Tab in insert mode
 let g:vimwiki_table_mappins = 0
 let g:vimwiki_global_ext = 0
@@ -478,9 +484,9 @@ let my_wiki.auto_export = 1
 
 let g:vimwiki_list = [my_wiki]
 
-" }}}
+" VimWiki }}}
 
-" == whick key settings == {{{
+" WhichKey Settings {{{
 set timeoutlen=500
 
 nnoremap <silent><leader> :<c-u>WhichKey ';'<CR>
@@ -514,9 +520,9 @@ vnoremap <silent><leader> :<c-u>WhichKeyVisual ';'<CR>
 "
 " call which_key#register('\', "g:which_key_map")
 
-" }}}
+" WhichKey Settings }}}
 
-" == quickmenu settings == {{{
+" quickmenu settings {{{
 
 " enable cursorline (L) and cmdline help (H)
 let g:quickmenu_options = "LH"
@@ -555,9 +561,4 @@ call g:quickmenu#append('Open a Calendar', 'Calendar', '', 'vimwiki')
 
 " QuickMenu for Vimwiki }}}
 
-" }}}
-
-" Auto Pairs {{{
-let g:AutoPairsFlyMode = 0
-let g:AutoPairsShortcutBackInsert = '<M-b>'
-" Auto Pairs }}}
+" quickmenu settings }}}
