@@ -11,6 +11,36 @@ source ~/git-prompt.sh
 PS1="\[$(tput sgr0)\]┌─[\[\033[38;5;4m\]\u@\h\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;5m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]\[$(tput sgr0)\]]\$(__git_ps1 '(%s)')\n└─\\$ "
 
 # =======
+# environmental variables
+# ======
+
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+
+export TERMINAL=xfce4-terminal
+export EDITOR=nvim
+
+export WALLPAPER="/media/data/pictures/wallpapers/landscapes/foggy_forest.jpg"
+export LOCKSCREEN_IMAGE="/media/data/pictures/wallpapers/magenta_park.jpg"
+
+# XSecureLock
+
+export XSECURELOCK_PASSWORD_PROMPT=asterisks
+export XSECURELOCK_SAVER=saver_xscreensaver
+
+## Workspaces, SDK locations, etc.
+
+# Go Workspace
+export GOPATH=/media/data/projects/golang
+
+export NRF_SDK_ROOT="/media/data/projects/BLE/nRF5_SDK_15"
+
+export PHANTOM_HOME="/media/data/phantomuserland"
+
+# Sailfish SDK
+# export PLATFORM_SDK_ROOT="/media/data/projects/OS/mer"
+# alias sfossdk=$PLATFORM_SDK_ROOT/sdks/sfossdk/mer-sdk-chroot
+
+# =======
 # aliases
 # =======
 
