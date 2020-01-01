@@ -1,0 +1,9 @@
+configuration {
+	font: ""DejaVu Sans Mono" Book 14";
+
+	modi: "run,drun,window,ssh";
+}
+
+@theme "tea"
+
+/* vim:ft=css

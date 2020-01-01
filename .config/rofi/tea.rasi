@@ -1,0 +1,145 @@
+/**
+ * User: SuperPrower
+ */
+
+configuration {
+	display-drun:	"Run";
+	display-run:	"Execute";
+	display-window:	"Window";
+	display-ssh:	"SSH";
+
+	show-icons:	true;
+/*	sidebar-mode:	true; */
+}
+
+* {
+	background-color:	#080808;
+	background-alt:		#151515;
+	text-color:		#d3d7cf;
+	text-hl-color:		#1B2B34;
+	focus-color:		#406B50;
+	urgent-fg:		#F99157;
+
+	normal-foreground:           @text-color;
+	normal-background:           @background-color;
+	selected-normal-foreground:  @text-hl-color;
+	selected-normal-background:  @focus-color;
+	normal-foreground-alt:       @text-color;
+	normal-background-alt:       @background-alt;
+
+	urgent-foreground:           @urgent-fg;
+	urgent-background:           @background-color;
+	selected-urgent-foreground:  @background-color;
+	selected-urgent-background:  @urgent-fg;
+	urgent-foreground-alt:       @urgent-fg;
+	urgent-background-alt:       @background-color-alt;
+
+	active-foreground:           @urgent-fg;
+	active-background:           @background-color;
+	selected-active-foreground:  @background-color;
+	selected-active-background:  @urgent-fg;
+	active-foreground-alt:       @urgent-fg;
+	active-background-alt:       @background-color-alt;
+
+	line-margin:                 0;
+	line-padding:                0;
+	separator-style: "solid";
+	hide-scrollbar:              "true";
+	margin:                      0;
+	padding:                     0;
+}
+
+window {
+/*	location:	 west; */
+/*	anchor:		 west; */
+	height:	45%;
+	width:	45%;
+	orientation: 	horizontal;
+	children:	[mainbox];
+
+	border: 2px;
+	border-color:	@focus-color;
+}
+
+mainbox {
+	spacing:  2px;
+	children: [ entry,listview,mode-switcher ];
+}
+
+button { padding: 0px 2px; }
+
+button selected {
+	background-color: @focus-color;
+	text-color:       @background-color;
+}
+
+inputbar {
+	padding: 1px;
+	spacing: 1px;
+}
+
+listview {
+	spacing: 1px;
+	dynamic: false;
+	cycle:   true;
+}
+
+element { padding: 2px; }
+
+entry {
+	expand:         false;
+	text-color:     @normal-foreground;
+	vertical-align: 1;
+	padding:        5px;
+	border: 0px 0px 2px 0px;
+	border-color:	@focus-color;
+}
+
+element normal.normal {
+	background-color: @normal-background;
+	text-color:       @normal-foreground;
+}
+
+element normal.urgent {
+	background-color: @urgent-background;
+	text-color:       @urgent-foreground;
+}
+
+element normal.active {
+	background-color: @active-background;
+	text-color:       @active-foreground;
+}
+
+element selected.normal {
+	background-color: @selected-normal-background;
+	text-color:       @selected-normal-foreground;
+	border:           0 5px solid 0 0;
+	border-color:	  @active-background;
+}
+
+element selected.urgent {
+	background-color: @selected-urgent-background;
+	text-color:       @selected-urgent-foreground;
+}
+
+element selected.active {
+	background-color: @selected-active-background;
+	text-color:       @selected-active-foreground;
+}
+
+element alternate.normal {
+	background-color: @normal-background-alt;
+	text-color:       @normal-foreground-alt;
+}
+
+element alternate.urgent {
+	background-color: @urgent-background-alt;
+	text-color:       @urgent-foreground-alt;
+}
+
+element alternate.active {
+	background-color: @active-background-alt;
+	text-color:       @active-foreground-alt;
+}
+
+/* vim:ft=css
