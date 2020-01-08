@@ -129,6 +129,8 @@ call plug#begin("~/.local/share/nvim/plugged")
 
 	" Personal Wiki {{{
 	Plug 'vimwiki/vimwiki'
+	" taskwarrior integration
+	Plug 'https://github.com/tbabej/taskwiki'
 	" Personal Wiki }}}
 
 	" NeoVim as IDE plugins {{{

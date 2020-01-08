@@ -122,6 +122,7 @@ assign [class="Opera"]			$ws6
 for_window [class="Arandr" instance="arandr"] 	floating enable
 for_window [class="Pavucontrol"] 		floating enable
 for_window [class="qemu-system-i386"] 		floating enable
+for_window [class="calibre" instance="calibre-ebook-viewer"] 	floating enable
 
 # for_window [class="Godot" instance="Godot_Engine"]	floating enable
 # for_window [title="PlayOnLinux"] 		floating enable

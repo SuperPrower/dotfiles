@@ -58,3 +58,4 @@ Xft.lcdfilter:		lcddefault
 *color15:      base07
 
 #define m_focus_color #406B50
+focus-color: m_focus_color
